@@ -1,0 +1,1 @@
+spike -l --priv=m --isa=rv64im --log-commits --log=log.txt -m128 obj/add
