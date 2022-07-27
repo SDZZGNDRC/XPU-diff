@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -112,7 +112,7 @@ Disassembly of section .text.init:
     80000178:	004005ef          	jal	a1,8000017c <test_2+0x14>
     8000017c:	40b50533          	sub	a0,a0,a1
     80000180:	000023b7          	lui	t2,0x2
-    80000184:	7103839b          	addiw	t2,t2,1808 # 2710 <_start-0x7fffd8f0>
+    80000184:	7103839b          	addiw	t2,t2,1808
     80000188:	02751463          	bne	a0,t2,800001b0 <fail>
 
 000000008000018c <test_3>:
@@ -122,7 +122,7 @@ Disassembly of section .text.init:
     80000198:	004005ef          	jal	a1,8000019c <test_3+0x10>
     8000019c:	40b50533          	sub	a0,a0,a1
     800001a0:	ffffe3b7          	lui	t2,0xffffe
-    800001a4:	8f03839b          	addiw	t2,t2,-1808 # ffffffffffffd8f0 <_end+0xffffffff7fffb8f0>
+    800001a4:	8f03839b          	addiw	t2,t2,-1808
     800001a8:	00751463          	bne	a0,t2,800001b0 <fail>
     800001ac:	02301063          	bne	zero,gp,800001cc <pass>
 
@@ -142,13 +142,13 @@ Disassembly of section .text.init:
     800001d8:	00000513          	li	a0,0
     800001dc:	00000073          	ecall
     800001e0:	c0001073          	unimp
-    800001e4:	0000                	.2byte	0x0
-    800001e6:	0000                	.2byte	0x0
-    800001e8:	0000                	.2byte	0x0
-    800001ea:	0000                	.2byte	0x0
-    800001ec:	0000                	.2byte	0x0
-    800001ee:	0000                	.2byte	0x0
-    800001f0:	0000                	.2byte	0x0
-    800001f2:	0000                	.2byte	0x0
-    800001f4:	0000                	.2byte	0x0
-    800001f6:	0000                	.2byte	0x0
+    800001e4:	0000                	unimp
+    800001e6:	0000                	unimp
+    800001e8:	0000                	unimp
+    800001ea:	0000                	unimp
+    800001ec:	0000                	unimp
+    800001ee:	0000                	unimp
+    800001f0:	0000                	unimp
+    800001f2:	0000                	unimp
+    800001f4:	0000                	unimp
+    800001f6:	0000                	unimp

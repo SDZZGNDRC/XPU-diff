@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -137,7 +137,7 @@ Disassembly of section .text.init:
     800001cc:	00002097          	auipc	ra,0x2
     800001d0:	e3408093          	addi	ra,ra,-460 # 80002000 <begin_signature>
     800001d4:	fffff137          	lui	sp,0xfffff
-    800001d8:	fa01011b          	addiw	sp,sp,-96 # ffffffffffffefa0 <_end+0xffffffff7fffcf90>
+    800001d8:	fa01011b          	addiw	sp,sp,-96
     800001dc:	00000797          	auipc	a5,0x0
     800001e0:	01478793          	addi	a5,a5,20 # 800001f0 <test_4+0x28>
     800001e4:	00208123          	sb	sp,2(ra)
@@ -145,7 +145,7 @@ Disassembly of section .text.init:
     800001ec:	0080006f          	j	800001f4 <test_4+0x2c>
     800001f0:	00010713          	mv	a4,sp
     800001f4:	fffff3b7          	lui	t2,0xfffff
-    800001f8:	fa03839b          	addiw	t2,t2,-96 # ffffffffffffefa0 <_end+0xffffffff7fffcf90>
+    800001f8:	fa03839b          	addiw	t2,t2,-96
     800001fc:	3e771063          	bne	a4,t2,800005dc <fail>
 
 0000000080000200 <test_5>:
@@ -223,7 +223,7 @@ Disassembly of section .text.init:
     800002f4:	00002097          	auipc	ra,0x2
     800002f8:	d1408093          	addi	ra,ra,-748 # 80002008 <tdat9>
     800002fc:	12345137          	lui	sp,0x12345
-    80000300:	6781011b          	addiw	sp,sp,1656 # 12345678 <_start-0x6dcba988>
+    80000300:	6781011b          	addiw	sp,sp,1656
     80000304:	fe008213          	addi	tp,ra,-32
     80000308:	02220023          	sb	sp,32(tp) # 20 <_start-0x7fffffe0>
     8000030c:	00008283          	lb	t0,0(ra)
@@ -235,7 +235,7 @@ Disassembly of section .text.init:
     8000031c:	00002097          	auipc	ra,0x2
     80000320:	cec08093          	addi	ra,ra,-788 # 80002008 <tdat9>
     80000324:	00003137          	lui	sp,0x3
-    80000328:	0981011b          	addiw	sp,sp,152 # 3098 <_start-0x7fffcf68>
+    80000328:	0981011b          	addiw	sp,sp,152
     8000032c:	ffa08093          	addi	ra,ra,-6
     80000330:	002083a3          	sb	sp,7(ra)
     80000334:	00002217          	auipc	tp,0x2
@@ -449,28 +449,28 @@ Disassembly of section .text.init:
     80000604:	00000513          	li	a0,0
     80000608:	00000073          	ecall
     8000060c:	c0001073          	unimp
-    80000610:	0000                	.2byte	0x0
-    80000612:	0000                	.2byte	0x0
-    80000614:	0000                	.2byte	0x0
-    80000616:	0000                	.2byte	0x0
-    80000618:	0000                	.2byte	0x0
-    8000061a:	0000                	.2byte	0x0
-    8000061c:	0000                	.2byte	0x0
-    8000061e:	0000                	.2byte	0x0
-    80000620:	0000                	.2byte	0x0
-    80000622:	0000                	.2byte	0x0
-    80000624:	0000                	.2byte	0x0
-    80000626:	0000                	.2byte	0x0
-    80000628:	0000                	.2byte	0x0
-    8000062a:	0000                	.2byte	0x0
-    8000062c:	0000                	.2byte	0x0
-    8000062e:	0000                	.2byte	0x0
-    80000630:	0000                	.2byte	0x0
-    80000632:	0000                	.2byte	0x0
-    80000634:	0000                	.2byte	0x0
-    80000636:	0000                	.2byte	0x0
-    80000638:	0000                	.2byte	0x0
-    8000063a:	0000                	.2byte	0x0
+    80000610:	0000                	unimp
+    80000612:	0000                	unimp
+    80000614:	0000                	unimp
+    80000616:	0000                	unimp
+    80000618:	0000                	unimp
+    8000061a:	0000                	unimp
+    8000061c:	0000                	unimp
+    8000061e:	0000                	unimp
+    80000620:	0000                	unimp
+    80000622:	0000                	unimp
+    80000624:	0000                	unimp
+    80000626:	0000                	unimp
+    80000628:	0000                	unimp
+    8000062a:	0000                	unimp
+    8000062c:	0000                	unimp
+    8000062e:	0000                	unimp
+    80000630:	0000                	unimp
+    80000632:	0000                	unimp
+    80000634:	0000                	unimp
+    80000636:	0000                	unimp
+    80000638:	0000                	unimp
+    8000063a:	0000                	unimp
 
 Disassembly of section .data:
 
@@ -503,6 +503,6 @@ Disassembly of section .data:
 
 0000000080002009 <tdat10>:
     80002009:	000000ef          	jal	ra,80002009 <tdat10>
-    8000200d:	0000                	.2byte	0x0
+    8000200d:	0000                	unimp
     8000200f:	00              	Address 0x000000008000200f is out of bounds.
 

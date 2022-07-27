@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -125,23 +125,23 @@ Disassembly of section .text.init:
 00000000800001a0 <test_4>:
     800001a0:	00400193          	li	gp,4
     800001a4:	000017b7          	lui	a5,0x1
-    800001a8:	ff07879b          	addiw	a5,a5,-16 # ff0 <_start-0x7ffff010>
+    800001a8:	ff07879b          	addiw	a5,a5,-16
     800001ac:	00002097          	auipc	ra,0x2
     800001b0:	e5408093          	addi	ra,ra,-428 # 80002000 <begin_signature>
     800001b4:	00409703          	lh	a4,4(ra)
     800001b8:	000013b7          	lui	t2,0x1
-    800001bc:	ff03839b          	addiw	t2,t2,-16 # ff0 <_start-0x7ffff010>
+    800001bc:	ff03839b          	addiw	t2,t2,-16
     800001c0:	24771263          	bne	a4,t2,80000404 <fail>
 
 00000000800001c4 <test_5>:
     800001c4:	00500193          	li	gp,5
     800001c8:	fffff7b7          	lui	a5,0xfffff
-    800001cc:	00f7879b          	addiw	a5,a5,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    800001cc:	00f7879b          	addiw	a5,a5,15
     800001d0:	00002097          	auipc	ra,0x2
     800001d4:	e3008093          	addi	ra,ra,-464 # 80002000 <begin_signature>
     800001d8:	00609703          	lh	a4,6(ra)
     800001dc:	fffff3b7          	lui	t2,0xfffff
-    800001e0:	00f3839b          	addiw	t2,t2,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    800001e0:	00f3839b          	addiw	t2,t2,15
     800001e4:	22771063          	bne	a4,t2,80000404 <fail>
 
 00000000800001e8 <test_6>:
@@ -165,23 +165,23 @@ Disassembly of section .text.init:
 0000000080000220 <test_8>:
     80000220:	00800193          	li	gp,8
     80000224:	000017b7          	lui	a5,0x1
-    80000228:	ff07879b          	addiw	a5,a5,-16 # ff0 <_start-0x7ffff010>
+    80000228:	ff07879b          	addiw	a5,a5,-16
     8000022c:	00002097          	auipc	ra,0x2
     80000230:	dda08093          	addi	ra,ra,-550 # 80002006 <tdat4>
     80000234:	ffe09703          	lh	a4,-2(ra)
     80000238:	000013b7          	lui	t2,0x1
-    8000023c:	ff03839b          	addiw	t2,t2,-16 # ff0 <_start-0x7ffff010>
+    8000023c:	ff03839b          	addiw	t2,t2,-16
     80000240:	1c771263          	bne	a4,t2,80000404 <fail>
 
 0000000080000244 <test_9>:
     80000244:	00900193          	li	gp,9
     80000248:	fffff7b7          	lui	a5,0xfffff
-    8000024c:	00f7879b          	addiw	a5,a5,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    8000024c:	00f7879b          	addiw	a5,a5,15
     80000250:	00002097          	auipc	ra,0x2
     80000254:	db608093          	addi	ra,ra,-586 # 80002006 <tdat4>
     80000258:	00009703          	lh	a4,0(ra)
     8000025c:	fffff3b7          	lui	t2,0xfffff
-    80000260:	00f3839b          	addiw	t2,t2,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    80000260:	00f3839b          	addiw	t2,t2,15
     80000264:	1a771063          	bne	a4,t2,80000404 <fail>
 
 0000000080000268 <test_10>:
@@ -210,7 +210,7 @@ Disassembly of section .text.init:
     800002b0:	00209703          	lh	a4,2(ra)
     800002b4:	00070313          	mv	t1,a4
     800002b8:	000013b7          	lui	t2,0x1
-    800002bc:	ff03839b          	addiw	t2,t2,-16 # ff0 <_start-0x7ffff010>
+    800002bc:	ff03839b          	addiw	t2,t2,-16
     800002c0:	14731263          	bne	t1,t2,80000404 <fail>
     800002c4:	00120213          	addi	tp,tp,1 # 1 <_start-0x7fffffff>
     800002c8:	00200293          	li	t0,2
@@ -225,7 +225,7 @@ Disassembly of section .text.init:
     800002e4:	00000013          	nop
     800002e8:	00070313          	mv	t1,a4
     800002ec:	fffff3b7          	lui	t2,0xfffff
-    800002f0:	00f3839b          	addiw	t2,t2,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    800002f0:	00f3839b          	addiw	t2,t2,15
     800002f4:	10731863          	bne	t1,t2,80000404 <fail>
     800002f8:	00120213          	addi	tp,tp,1 # 1 <_start-0x7fffffff>
     800002fc:	00200293          	li	t0,2
@@ -253,7 +253,7 @@ Disassembly of section .text.init:
     80000344:	cc208093          	addi	ra,ra,-830 # 80002002 <tdat2>
     80000348:	00209703          	lh	a4,2(ra)
     8000034c:	000013b7          	lui	t2,0x1
-    80000350:	ff03839b          	addiw	t2,t2,-16 # ff0 <_start-0x7ffff010>
+    80000350:	ff03839b          	addiw	t2,t2,-16
     80000354:	0a771863          	bne	a4,t2,80000404 <fail>
     80000358:	00120213          	addi	tp,tp,1 # 1 <_start-0x7fffffff>
     8000035c:	00200293          	li	t0,2
@@ -267,7 +267,7 @@ Disassembly of section .text.init:
     80000374:	00000013          	nop
     80000378:	00209703          	lh	a4,2(ra)
     8000037c:	fffff3b7          	lui	t2,0xfffff
-    80000380:	00f3839b          	addiw	t2,t2,15 # fffffffffffff00f <_end+0xffffffff7fffcfff>
+    80000380:	00f3839b          	addiw	t2,t2,15
     80000384:	08771063          	bne	a4,t2,80000404 <fail>
     80000388:	00120213          	addi	tp,tp,1 # 1 <_start-0x7fffffff>
     8000038c:	00200293          	li	t0,2
@@ -323,22 +323,22 @@ Disassembly of section .text.init:
     8000042c:	00000513          	li	a0,0
     80000430:	00000073          	ecall
     80000434:	c0001073          	unimp
-    80000438:	0000                	.2byte	0x0
-    8000043a:	0000                	.2byte	0x0
+    80000438:	0000                	unimp
+    8000043a:	0000                	unimp
 
 Disassembly of section .data:
 
 0000000080002000 <begin_signature>:
-    80002000:	00ff                	.2byte	0xff
+    80002000:	00ff                	0xff
 
 0000000080002002 <tdat2>:
-    80002002:	ff00                	.2byte	0xff00
+    80002002:	ff00                	sd	s0,56(a4)
 
 0000000080002004 <tdat3>:
-    80002004:	0ff0                	.2byte	0xff0
+    80002004:	0ff0                	addi	a2,sp,988
 
 0000000080002006 <tdat4>:
-    80002006:	0000f00f          	.4byte	0xf00f
-    8000200a:	0000                	.2byte	0x0
-    8000200c:	0000                	.2byte	0x0
-    8000200e:	0000                	.2byte	0x0
+    80002006:	0000f00f          	0xf00f
+    8000200a:	0000                	unimp
+    8000200c:	0000                	unimp
+    8000200e:	0000                	unimp

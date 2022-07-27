@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -164,7 +164,7 @@ Disassembly of section .text.init:
     80000210:	00900193          	li	gp,9
     80000214:	00000093          	li	ra,0
     80000218:	00008137          	lui	sp,0x8
-    8000021c:	fff1011b          	addiw	sp,sp,-1 # 7fff <_start-0x7fff8001>
+    8000021c:	fff1011b          	addiw	sp,sp,-1
     80000220:	0020a733          	slt	a4,ra,sp
     80000224:	00100393          	li	t2,1
     80000228:	40771463          	bne	a4,t2,80000630 <fail>
@@ -172,7 +172,7 @@ Disassembly of section .text.init:
 000000008000022c <test_10>:
     8000022c:	00a00193          	li	gp,10
     80000230:	800000b7          	lui	ra,0x80000
-    80000234:	fff0809b          	addiw	ra,ra,-1 # 7fffffff <_start-0x1>
+    80000234:	fff0809b          	addiw	ra,ra,-1
     80000238:	00000113          	li	sp,0
     8000023c:	0020a733          	slt	a4,ra,sp
     80000240:	00000393          	li	t2,0
@@ -181,9 +181,9 @@ Disassembly of section .text.init:
 0000000080000248 <test_11>:
     80000248:	00b00193          	li	gp,11
     8000024c:	800000b7          	lui	ra,0x80000
-    80000250:	fff0809b          	addiw	ra,ra,-1 # 7fffffff <_start-0x1>
+    80000250:	fff0809b          	addiw	ra,ra,-1
     80000254:	00008137          	lui	sp,0x8
-    80000258:	fff1011b          	addiw	sp,sp,-1 # 7fff <_start-0x7fff8001>
+    80000258:	fff1011b          	addiw	sp,sp,-1
     8000025c:	0020a733          	slt	a4,ra,sp
     80000260:	00000393          	li	t2,0
     80000264:	3c771663          	bne	a4,t2,80000630 <fail>
@@ -192,7 +192,7 @@ Disassembly of section .text.init:
     80000268:	00c00193          	li	gp,12
     8000026c:	800000b7          	lui	ra,0x80000
     80000270:	00008137          	lui	sp,0x8
-    80000274:	fff1011b          	addiw	sp,sp,-1 # 7fff <_start-0x7fff8001>
+    80000274:	fff1011b          	addiw	sp,sp,-1
     80000278:	0020a733          	slt	a4,ra,sp
     8000027c:	00100393          	li	t2,1
     80000280:	3a771863          	bne	a4,t2,80000630 <fail>
@@ -200,7 +200,7 @@ Disassembly of section .text.init:
 0000000080000284 <test_13>:
     80000284:	00d00193          	li	gp,13
     80000288:	800000b7          	lui	ra,0x80000
-    8000028c:	fff0809b          	addiw	ra,ra,-1 # 7fffffff <_start-0x1>
+    8000028c:	fff0809b          	addiw	ra,ra,-1
     80000290:	ffff8137          	lui	sp,0xffff8
     80000294:	0020a733          	slt	a4,ra,sp
     80000298:	00000393          	li	t2,0
@@ -500,15 +500,15 @@ Disassembly of section .text.init:
     80000658:	00000513          	li	a0,0
     8000065c:	00000073          	ecall
     80000660:	c0001073          	unimp
-    80000664:	0000                	.2byte	0x0
-    80000666:	0000                	.2byte	0x0
-    80000668:	0000                	.2byte	0x0
-    8000066a:	0000                	.2byte	0x0
-    8000066c:	0000                	.2byte	0x0
-    8000066e:	0000                	.2byte	0x0
-    80000670:	0000                	.2byte	0x0
-    80000672:	0000                	.2byte	0x0
-    80000674:	0000                	.2byte	0x0
-    80000676:	0000                	.2byte	0x0
-    80000678:	0000                	.2byte	0x0
-    8000067a:	0000                	.2byte	0x0
+    80000664:	0000                	unimp
+    80000666:	0000                	unimp
+    80000668:	0000                	unimp
+    8000066a:	0000                	unimp
+    8000066c:	0000                	unimp
+    8000066e:	0000                	unimp
+    80000670:	0000                	unimp
+    80000672:	0000                	unimp
+    80000674:	0000                	unimp
+    80000676:	0000                	unimp
+    80000678:	0000                	unimp
+    8000067a:	0000                	unimp

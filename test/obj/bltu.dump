@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -178,7 +178,7 @@ Disassembly of section .text.init:
     80000250:	0010009b          	addiw	ra,zero,1
     80000254:	01f09093          	slli	ra,ra,0x1f
     80000258:	80000137          	lui	sp,0x80000
-    8000025c:	fff1011b          	addiw	sp,sp,-1 # 7fffffff <_start-0x1>
+    8000025c:	fff1011b          	addiw	sp,sp,-1
     80000260:	0020e463          	bltu	ra,sp,80000268 <test_8+0x1c>
     80000264:	00301463          	bne	zero,gp,8000026c <test_8+0x20>
     80000268:	28301463          	bne	zero,gp,800004f0 <fail>
@@ -191,7 +191,7 @@ Disassembly of section .text.init:
     8000027c:	01c09093          	slli	ra,ra,0x1c
     80000280:	00f0011b          	addiw	sp,zero,15
     80000284:	01c11113          	slli	sp,sp,0x1c
-    80000288:	fff10113          	addi	sp,sp,-1
+    80000288:	fff10113          	addi	sp,sp,-1 # ffffffff7fffffff <_end+0xfffffffeffffdfff>
     8000028c:	2620e263          	bltu	ra,sp,800004f0 <fail>
     80000290:	00120213          	addi	tp,tp,1 # 1 <_start-0x7fffffff>
     80000294:	00200293          	li	t0,2
@@ -386,15 +386,15 @@ Disassembly of section .text.init:
     80000518:	00000513          	li	a0,0
     8000051c:	00000073          	ecall
     80000520:	c0001073          	unimp
-    80000524:	0000                	.2byte	0x0
-    80000526:	0000                	.2byte	0x0
-    80000528:	0000                	.2byte	0x0
-    8000052a:	0000                	.2byte	0x0
-    8000052c:	0000                	.2byte	0x0
-    8000052e:	0000                	.2byte	0x0
-    80000530:	0000                	.2byte	0x0
-    80000532:	0000                	.2byte	0x0
-    80000534:	0000                	.2byte	0x0
-    80000536:	0000                	.2byte	0x0
-    80000538:	0000                	.2byte	0x0
-    8000053a:	0000                	.2byte	0x0
+    80000524:	0000                	unimp
+    80000526:	0000                	unimp
+    80000528:	0000                	unimp
+    8000052a:	0000                	unimp
+    8000052c:	0000                	unimp
+    8000052e:	0000                	unimp
+    80000530:	0000                	unimp
+    80000532:	0000                	unimp
+    80000534:	0000                	unimp
+    80000536:	0000                	unimp
+    80000538:	0000                	unimp
+    8000053a:	0000                	unimp

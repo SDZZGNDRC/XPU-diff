@@ -96,7 +96,7 @@ Disassembly of section .text.init:
     80000140:	00028863          	beqz	t0,80000150 <reset_vector+0x108>
     80000144:	10529073          	csrw	stvec,t0
     80000148:	0000b2b7          	lui	t0,0xb
-    8000014c:	1092829b          	addiw	t0,t0,265 # b109 <_start-0x7fff4ef7>
+    8000014c:	1092829b          	addiw	t0,t0,265
     80000150:	30005073          	csrwi	mstatus,0
     80000154:	00000297          	auipc	t0,0x0
     80000158:	01428293          	addi	t0,t0,20 # 80000168 <test_2>
@@ -210,7 +210,7 @@ Disassembly of section .text.init:
 00000000800002bc <test_11>:
     800002bc:	00b00193          	li	gp,11
     800002c0:	800000b7          	lui	ra,0x80000
-    800002c4:	fff0809b          	addiw	ra,ra,-1 # 7fffffff <_start-0x1>
+    800002c4:	fff0809b          	addiw	ra,ra,-1
     800002c8:	0010011b          	addiw	sp,zero,1
     800002cc:	01f11113          	slli	sp,sp,0x1f
     800002d0:	0020f463          	bgeu	ra,sp,800002d8 <test_11+0x1c>
@@ -223,7 +223,7 @@ Disassembly of section .text.init:
     800002e4:	00000213          	li	tp,0
     800002e8:	00f0009b          	addiw	ra,zero,15
     800002ec:	01c09093          	slli	ra,ra,0x1c
-    800002f0:	fff08093          	addi	ra,ra,-1
+    800002f0:	fff08093          	addi	ra,ra,-1 # ffffffff7fffffff <_end+0xfffffffeffffdfff>
     800002f4:	00f0011b          	addiw	sp,zero,15
     800002f8:	01c11113          	slli	sp,sp,0x1c
     800002fc:	2620f263          	bgeu	ra,sp,80000560 <fail>
@@ -420,23 +420,23 @@ Disassembly of section .text.init:
     80000588:	00000513          	li	a0,0
     8000058c:	00000073          	ecall
     80000590:	c0001073          	unimp
-    80000594:	0000                	.2byte	0x0
-    80000596:	0000                	.2byte	0x0
-    80000598:	0000                	.2byte	0x0
-    8000059a:	0000                	.2byte	0x0
-    8000059c:	0000                	.2byte	0x0
-    8000059e:	0000                	.2byte	0x0
-    800005a0:	0000                	.2byte	0x0
-    800005a2:	0000                	.2byte	0x0
-    800005a4:	0000                	.2byte	0x0
-    800005a6:	0000                	.2byte	0x0
-    800005a8:	0000                	.2byte	0x0
-    800005aa:	0000                	.2byte	0x0
-    800005ac:	0000                	.2byte	0x0
-    800005ae:	0000                	.2byte	0x0
-    800005b0:	0000                	.2byte	0x0
-    800005b2:	0000                	.2byte	0x0
-    800005b4:	0000                	.2byte	0x0
-    800005b6:	0000                	.2byte	0x0
-    800005b8:	0000                	.2byte	0x0
-    800005ba:	0000                	.2byte	0x0
+    80000594:	0000                	unimp
+    80000596:	0000                	unimp
+    80000598:	0000                	unimp
+    8000059a:	0000                	unimp
+    8000059c:	0000                	unimp
+    8000059e:	0000                	unimp
+    800005a0:	0000                	unimp
+    800005a2:	0000                	unimp
+    800005a4:	0000                	unimp
+    800005a6:	0000                	unimp
+    800005a8:	0000                	unimp
+    800005aa:	0000                	unimp
+    800005ac:	0000                	unimp
+    800005ae:	0000                	unimp
+    800005b0:	0000                	unimp
+    800005b2:	0000                	unimp
+    800005b4:	0000                	unimp
+    800005b6:	0000                	unimp
+    800005b8:	0000                	unimp
+    800005ba:	0000                	unimp

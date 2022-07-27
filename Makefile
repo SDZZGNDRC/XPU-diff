@@ -6,6 +6,8 @@ VERILATOR = verilator
 VERILATOR_CFLAGS += -MMD --build -cc  \
 				-O3 --x-assign fast --x-initial fast --noassert
 
+SPIKE = spike
+SPIKE_FLAGS = -l --priv=m --isa=rv64im --log-commits --log=log.txt -m128 
 PYTHON = python3
 
 BUILD_DIR = ./build
@@ -36,8 +38,10 @@ $(BIN): $(VSRCS) $(CSRCS)
 all: default
 
 run: $(BIN)
+	$(SPIKE) $(SPIKE_FLAGS) $(ELF)
 	$(PYTHON) genbin.py $(ELF) $(BUILD_DIR)/$(notdir $(ELF)).temp
 	@$^ $(BUILD_DIR)/$(notdir $(ELF)).temp
+	@rm log.txt
 
 clean:
 	rm -rf $(BUILD_DIR)
