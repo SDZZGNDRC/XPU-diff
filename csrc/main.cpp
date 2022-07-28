@@ -45,7 +45,6 @@ static int elfloader(mif* _mif, char *filepath)
 
 int main(int argc, char** argv, char** env)
 {
-    //char *elf = (char *)malloc(sizeof(char)*strlen(argv[1]));
     mif *_mif = new mif;
     elfloader(_mif, argv[1]);
 	Verilated::mkdir("logs");
