@@ -41,7 +41,7 @@ run: $(BIN)
 	$(SPIKE) $(SPIKE_FLAGS) $(ELF)
 	$(PYTHON) genbin.py $(ELF) $(BUILD_DIR)/$(notdir $(ELF)).temp
 	@$^ $(BUILD_DIR)/$(notdir $(ELF)).temp
-	@rm log.txt
+#	@rm log.txt
 
 clean:
 	rm -rf $(BUILD_DIR)
