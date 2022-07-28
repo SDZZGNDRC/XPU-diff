@@ -29,7 +29,7 @@ module regfile
 /*     input       ren_i; */
     input [`RegAddrBus] raddr_i,
     output  wire [`RegBus]  rdata_o,
-    output  wire [`RegBus]  diff_reg_o[`RegNum]
+    output  wire [`RegBus]  diff_reg_o[0:`RegNum-1]
 
 /* 	//Read port 1
 	input wire re1_i,
