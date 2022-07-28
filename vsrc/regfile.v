@@ -15,7 +15,7 @@
 //      rdata2_o 读端口2数据
 `include "defines.v"
 (* DONT_TOUCH= "true" *)
-module regfile
+module REGFILE
 (
 	input wire clk,
 	input wire rst,
@@ -107,7 +107,6 @@ module regfile
     wire wen_x29;
     wire wen_x30;
     wire wen_x31;
-    wire wen_x1;
 
     Reg #(64, 64'b0) x1 (clk, rst, wdata_i, out_x1, wen_x1);
     Reg #(64, 64'b0) x2 (clk, rst, wdata_i, out_x2, wen_x2);

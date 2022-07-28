@@ -19,22 +19,27 @@ module top(
 	input rst,
 
 
-	input [`AddrBus] 			icache_addr,
-	input [`AddrBus] 			dcache_addr,
-	input			 			icache_addr_valid,	
-	input			 			dcache_addr_valid,
-	output wire [`DataBus]		icache_data,
-	output wire	[`DataBus]		dcache_data,
-	output wire					icache_data_valid,
-	output wire 				dcache_data_valid,
-	
+
+	input			 			icache_data_valid_i,	
+	input			 			dcache_data_valid_i,
+	input wire [`DataBus]		icache_data_i,
+	input wire	[`DataBus]		dcache_data_i,
+	output [`AddrBus] 			icache_addr_o,
+	output [`AddrBus] 			dcache_addr_o,
+	output wire					icache_req_valid_o,
+	output wire 				dcache_req_valid_o,
+	output wire					icache_data_wen_o,
+	output wire 				dcache_data_wen_o,
+	output wire	[`DataBus]		icache_data_o,
+	output wire	[`DataBus]		dcache_data_o,
+
 	output wire [`RegBus]		diff_regs [0:`RegNum-1]
 
 );
-assign f = a ^ b;
+	assign f = a ^ b;
 
-initial begin
-	$dumpfile("logs/vlt_dump.vcd");
-	$dumpvars();
-end
+	initial begin
+		$dumpfile("logs/vlt_dump.vcd");
+		$dumpvars();
+	end
 endmodule
