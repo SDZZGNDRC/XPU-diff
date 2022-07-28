@@ -38,7 +38,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     __Vtemp1[3U] = 0x6f67732fU;
     __Vtemp1[4U] = 0x6cU;
     vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(5, __Vtemp1));
-    VL_PRINTF_MT("-Info: /root/project/XPU-diff/vsrc/top.v:10: $dumpvar ignored, as Verilated without --trace\n");
+    vlSymsp->_traceDumpOpen();
 }
 
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {

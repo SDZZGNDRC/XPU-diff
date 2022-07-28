@@ -48,7 +48,7 @@ int main(int argc, char** argv, char** env)
     //char *elf = (char *)malloc(sizeof(char)*strlen(argv[1]));
     mif *_mif = new mif;
     elfloader(_mif, argv[1]);
-	Verilated::mkdir("../logs");
+	Verilated::mkdir("logs");
 	VerilatedContext* contextp = new VerilatedContext;
 	contextp->traceEverOn(true);
 	contextp->commandArgs(argc, argv);

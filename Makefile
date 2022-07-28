@@ -3,7 +3,7 @@ TOPNAME = top
 INC_PATH ?= $(HOME_DIR)/include
 
 VERILATOR = verilator
-VERILATOR_CFLAGS += -MMD --build -cc  \
+VERILATOR_CFLAGS += -Wall --trace -MMD --build -cc  \
 				-O3 --x-assign fast --x-initial fast --noassert
 
 SPIKE = spike
