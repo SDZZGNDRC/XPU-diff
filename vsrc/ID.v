@@ -56,11 +56,11 @@ module ID
 	output wire[`RegAddrBus] rd_addr_o,             //目标寄存器 rd 的地址
 	output wire wreg_o,                             //标志位: 是否使用目标寄存器 rd
 	output wire[`ImmBus] imm_o,                     //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
-	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20
-	output wire[`ShamtBus] shamt_o,
+/* 	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
+/* 	output wire[`ShamtBus] shamt_o,
 	output wire[`Offset12Bus] offset12_o,
 	output wire[`Offset20Bus] offset20_o,
-	output wire offset_sel_o,
+	output wire offset_sel_o, */
 	output wire[`AddrBus] pc_o
 
 );
@@ -72,8 +72,33 @@ module ID
 	assign funct7_o = inst_i[31:25];
 
 /* rs1_data_o */
+	assign rs1_data_o = (rs1_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
+						(rs1_addr_o == ex_back_rd_addr_i && ex_back_wreg_i == `WriteEnable) ? ex_back_wdata_i : 
+						(rs1_addr_o == mem_back_rd_addr_i && mem_back_wreg_i == `WriteEnable) ? mem_back_wdata_i : 
+						(rs1_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
+						(rs1_data_i);
 
-	reg[6:0] opcode;  //操作码
+/* rs2_data_o */
+	assign rs2_data_o = (rs2_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
+						(rs2_addr_o == ex_back_rd_addr_i && ex_back_wreg_i == `WriteEnable) ? ex_back_wdata_i : 
+						(rs2_addr_o == mem_back_rd_addr_i && mem_back_wreg_i == `WriteEnable) ? mem_back_wdata_i : 
+						(rs2_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
+						(rs2_data_i);
+
+/* rd_addr_o */
+	assign rd_addr_o = inst_i[11:7];
+
+/* imm_o */
+	MuxKeyWithDefault #(3, 7, 20) mux1 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
+		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
+		`Opcode_U_type_auipc, inst_i[31:12],
+		`Opcode_U_type_lui, inst_i[31:12]
+	});
+
+/* pc_o */
+	assign pc_o = pc_i;
+
+/* 	reg[6:0] opcode;  //操作码
 	reg[2:0] funct3;  //3位宽操作码附加段
 	reg[6:0] funct7;  //7位宽操作码附加段
 
@@ -84,9 +109,9 @@ module ID
 		funct3 <= inst_i[14:12];
 		funct7 <= inst_i[31:25];
 		pc_o <= pc_i;
-	end
+	end */
 
-	always @(*) begin
+/* 	always @(*) begin
 		if(rst == `RstEnable) begin  //复位, 初始化各个寄存器数据
 			opcode_o <= `Opcode_InValid; 
 			funct3_o <= `funct3_InValid;
@@ -1092,6 +1117,6 @@ module ID
 				rs2_data_o <= `Doubel_Zero_Word;
 			end
 		end
-	end
+	end */
 
 endmodule
