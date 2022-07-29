@@ -1,28 +1,6 @@
-//本模块定义了基于RV64IM的 译码模块
-//功能: 对输入的指令进行译码, 确定 指令类型/操作数/目标寄存器/立即数, 然后送到执行模块 EX
-//
-//输入: rst 复位信号
-//      inst_i 指令
-//      rsx_data_i 来自regfile模块中源寄存器x的数据输入
-//      pc_i 程序寄存器值
-//      
-//输出: rsx_read_o 标志位: 是否使用源寄存器rsx的数据
-//      opcode_o 操作码
-//      functx_o x位宽操作码附加段
-//      rsx_data_o 源寄存器x的数据输出
-//      rsx_addr_o 源寄存器x的地址输出
-//      rd_addr_o 目标寄存器 rd 的地址
-//      wreg_o 标志位: 是否使用目标寄存器 rd
-//      imm_o 立即数
-//      imm_sel_o 立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20
-//      offset12_o
-//      offset20_o
-//      offset_sel_o 位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20
-//      pc_o 程序寄存器的值
-//
-
 `include "defines.v"
-(* DONT_TOUCH= "true" *)
+`include "MuxKey.v"
+/* (* DONT_TOUCH= "true" *) */
 module ID
 (
 	input wire rst,  //复位信号
