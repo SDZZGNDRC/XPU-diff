@@ -25,24 +25,13 @@ module REGFILE
 	input wire [`RegAddrBus] waddr_i,
 	input wire [`RegBus] wdata_i,
 	
-    //Read port
-/*     input       ren_i; */
-    input [`RegAddrBus] raddr_i,
-    output  wire [`RegBus]  rdata_o,
+    //Read ports
+    input [`RegAddrBus] raddr1_i,
+    output  wire [`RegBus]  rdata1_o,
+    input [`RegAddrBus] raddr2_i,
+    output  wire [`RegBus]  rdata2_o,
+
     output  wire [`RegBus]  diff_reg_o[0:`RegNum-1]
-
-/* 	//Read port 1
-	input wire re1_i,
-	input wire[`RegAddrBus] raddr1_i,
-	output reg[`RegBus] rdata1_o,
-	
-	//Read port 2
-	input wire re2_i,
-	input wire[`RegAddrBus] raddr2_i,
-	output reg[`RegBus] rdata2_o, */
-
-	//DEBUG port
-	//output reg [`DEBUG_led_bus] debug_led_o
 );
     wire [`RegBus] out_x1;
     wire [`RegBus] out_x2;
@@ -172,10 +161,47 @@ module REGFILE
     assign wen_x30 = we_i & (waddr_i == 5'b11110);
     assign wen_x31 = we_i & (waddr_i == 5'b11111);
 
-    wire [`RegBus] rdata_t;
-    assign rdata_o = ({64{((wen_i == 1'b1) && (waddr_i == raddr_i))}} & wdata_i)
-                    | rdata_t;
-    MuxKeyWithDefault #(31, 5, 64) mux1 (rdata_t, raddr_i, 64'b0, {
+    wire [`RegBus] rdata1_t;
+    assign rdata1_o = ({64{((wen_i == 1'b1) && (waddr_i == raddr1_i))}} & wdata_i)
+                    | (~{64{((wen_i == 1'b1) && (waddr_i == raddr1_i))}} & rdata1_t);
+    MuxKeyWithDefault #(31, 5, 64) mux1 (rdata1_t, raddr1_i, 64'b0, {
+        5'b00001, out_x1,
+        5'b00010, out_x2,
+        5'b00011, out_x3,
+        5'b00100, out_x4,
+        5'b00101, out_x5,
+        5'b00110, out_x6,
+        5'b00111, out_x7,
+        5'b01000, out_x8,
+        5'b01001, out_x9,
+        5'b01010, out_x10,
+        5'b01011, out_x11,
+        5'b01100, out_x12,
+        5'b01101, out_x13,
+        5'b01110, out_x14,
+        5'b01111, out_x15,
+        5'b10000, out_x16,
+        5'b10001, out_x17,
+        5'b10010, out_x18,
+        5'b10011, out_x19,
+        5'b10100, out_x20,
+        5'b10101, out_x21,
+        5'b10110, out_x22,
+        5'b10111, out_x23,
+        5'b11000, out_x24,
+        5'b11001, out_x25,
+        5'b11010, out_x26,
+        5'b11011, out_x27,
+        5'b11100, out_x28,
+        5'b11101, out_x29,
+        5'b11110, out_x30,
+        5'b11111, out_x31
+    });
+
+    wire [`RegBus] rdata2_t;
+    assign rdata2_o = ({64{((wen_i == 1'b1) && (waddr_i == raddr2_i))}} & wdata_i)
+                    | (~{64{((wen_i == 1'b1) && (waddr_i == raddr2_i))}} & rdata2_t);
+    MuxKeyWithDefault #(31, 5, 64) mux2 (rdata2_t, raddr2_i, 64'b0, {
         5'b00001, out_x1,
         5'b00010, out_x2,
         5'b00011, out_x3,
@@ -241,48 +267,5 @@ module REGFILE
     assign diff_reg_o[29] = out_x29;
     assign diff_reg_o[30] = out_x30;
     assign diff_reg_o[31] = out_x31;
-
-/* 	reg[`RegBus] regs[0:`RegNum-1];//小端设计 */
-
-/* 	//Write Action
-	always @(posedge clk) begin
-		if(rst == `RstDisable) begin
-			if((we_i == `WriteEnable) && (waddr_i != `RegNumLog2'h0)) begin
-				regs[waddr_i] <= wdata_i;
-			end else begin
-				//regs[waddr_i] <= `Doubel_Zero_Word;
-			end
-		end
-	end */
-	
-/* 	//Read Action 1
-	always @(*) begin
-		if(rst == `RstEnable) begin
-			rdata1_o <= `Doubel_Zero_Word;
-		end else if(raddr1_i == `RegNumLog2'h0) begin
-			rdata1_o <= `Doubel_Zero_Word;
-		end else if((re1_i == `ReadEnable) && (we_i == `WriteEnable) && (raddr1_i == waddr_i)) begin
-			rdata1_o <= wdata_i;
-		end else if(re1_i == `ReadEnable) begin
-			rdata1_o <= regs[raddr1_i];
-		end else begin
-			rdata1_o <= `Doubel_Zero_Word;
-		end
-	end
-	
-	//Read Action 2
-	always @(*) begin
-		if(rst == `RstEnable) begin
-			rdata2_o <= `Doubel_Zero_Word;
-		end else if(raddr2_i == `RegNumLog2'h0) begin
-			rdata2_o <= `Doubel_Zero_Word;
-		end else if((re2_i == `ReadEnable) && (we_i == `WriteEnable) && (raddr2_i == waddr_i)) begin
-			rdata2_o <= wdata_i;
-		end else if(re2_i == `ReadEnable) begin
-			rdata2_o <= regs[raddr2_i];
-		end else begin
-			rdata2_o <= `Doubel_Zero_Word;
-		end
-	end */
 
 endmodule

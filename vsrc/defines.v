@@ -32,8 +32,8 @@
 `define EX_stall_state2 2'b01
 `define EX_stall_state3 2'b10
 
-`define Opcode_InValid 7'b000_0000
 `define Opcode_B_type 7'b110_0011
+`define Opcode_InValid 7'b000_0000
 `define Opcode_I_type_load 7'b000_0011
 `define Opcode_I_type_imm 7'b001_0011
 `define Opcode_I_type_privileged 7'b111_0011
