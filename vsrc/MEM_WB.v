@@ -1,6 +1,6 @@
 `include "defines.v"
 /* (* DONT_TOUCH= "true" *) */
-module mem_wb
+module MEM_WB
 (
 	input wire clk,
 	input wire rst,
