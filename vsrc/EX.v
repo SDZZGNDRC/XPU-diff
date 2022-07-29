@@ -61,9 +61,9 @@ module EX(
 	output wire[`RegAddrBus] rd_addr_o,          //目标寄存器 rd 的地址
 	output wire wreg_o,                          //标志位: 是否使用目标寄存器 rd
 	output wire[`RegBus] wdata_o,                // ALU运算结果/写入rd的数据
-	output wire[`OpcodeBus] opcode_o,            //操作码, 传输到访存阶段, 确定加载/存储指令类型
-	output wire[`FunctBus3] funct3_o,            //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
-	output wire[`FunctBus7] funct7_o,            //7位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
+/* 	output wire[`OpcodeBus] opcode_o,  */           //操作码, 传输到访存阶段, 确定加载/存储指令类型
+/* 	output wire[`FunctBus3] funct3_o,            //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
+	output wire[`FunctBus7] funct7_o,            //7位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型 */
 	output wire[`RegAddrBus] ex_back_rd_addr_o,
 	output wire ex_back_wreg_o,
 	output wire[`RegBus] ex_back_wdata_o,
@@ -127,9 +127,9 @@ module EX(
 /* rd_addr_o wreg_o opcode_o funct3_o funct7_o ex_back_rd_addr_o ex_back_wreg_o ex_back_wdata_o */
 	assign rd_addr_o = rd_addr_i;
 	assign wreg_o = wreg_i;
-	assign opcode_o = opcode_i;
-	assign funct3_o = funct3_i;
-	assign funct7_o = funct7_i;
+/* 	assign opcode_o = opcode_i; */
+/* 	assign funct3_o = funct3_i;
+	assign funct7_o = funct7_i; */
 	assign ex_back_rd_addr_o = rd_addr_i;
 	assign ex_back_wreg_o = wreg_i;
 	assign ex_back_wdata_o = wdata_t;
