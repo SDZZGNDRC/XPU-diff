@@ -1,5 +1,5 @@
 `include "defines.v"
-(* DONT_TOUCH= "true" *)
+/* (* DONT_TOUCH= "true" *) */
 module CTRL (
     input wire                  clk,
     input wire                  rst,
@@ -11,13 +11,11 @@ module CTRL (
     input wire                  ex_branch_flag_i,
 
     output reg[`CTRL_Wire_Bus] ctrl_signal_pc_o,
-    output reg                 ctrl_iram_rdata_sel_o,
     output reg[`CTRL_Wire_Bus] ctrl_signal_if_id_o,
     output reg[`CTRL_Wire_Bus] ctrl_signal_id_ex_o,
     output reg[`CTRL_Wire_Bus] ctrl_signal_ex_mem_o,
     output reg[`CTRL_Wire_Bus] ctrl_signal_mem_wb_o,
-    output reg                  ctrl_to_pc_branch_flag_o,
-    output reg[`AddrBus]        ctrl_to_pc_new_o
+    output reg[`AddrBus]       ctrl_to_pc_new_o
 );
 
     reg [`FSM_Wire_Bus] FSM_pre_state;

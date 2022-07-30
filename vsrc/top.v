@@ -278,12 +278,11 @@ module top(
 		.ex_branch_flag_i(ex_branch_flag),
 
 		.ctrl_signal_pc_o(ctrl_to_pc_ctrl_signal),
-		.ctrl_iram_rdata_sel_o(ctrl_to_iram_rdata_sel),
 		.ctrl_signal_if_id_o(ctrl_to_if_id_ctrl_signal),
 		.ctrl_signal_id_ex_o(ctrl_to_id_ex_ctrl_signal),
 		.ctrl_signal_ex_mem_o(ctrl_to_ex_mem_ctrl_signal),
 		.ctrl_signal_mem_wb_o(ctrl_to_mem_wb_ctrl_signal),
-		.ctrl_to_pc_new_o(ctrl_to_ex_pc_new)
+		.ctrl_to_pc_new_o(ctrl_to_pc_pc_new)
 	);
 
 	initial begin
