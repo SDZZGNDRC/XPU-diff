@@ -1,9 +1,8 @@
 `include "defines.v"
-`include "MuxKey.v"
 /* (* DONT_TOUCH= "true" *) */
 module ID
 (
-	input wire rst,  //复位信号
+/* 	input wire rst,  //复位信号 */
 	input wire[`InstBus] inst_i,  //来自 ram 的指令
 
 	//Data of ram
@@ -35,9 +34,9 @@ module ID
 	output wire wreg_o,                             //标志位: 是否使用目标寄存器 rd
 	output wire[`ImmBus] imm_o,                     //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
 /* 	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
-/* 	output wire[`ShamtBus] shamt_o,
+/* 	output wire[`ShamtBus] shamt_o, */
 	output wire[`Offset12Bus] offset12_o,
-	output wire[`Offset20Bus] offset20_o,
+/* 	output wire[`Offset20Bus] offset20_o,
 	output wire offset_sel_o, */
 	output wire[`AddrBus] pc_o
 
@@ -66,11 +65,23 @@ module ID
 /* rd_addr_o */
 	assign rd_addr_o = inst_i[11:7];
 
+/* wreg_o */
+	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_o, opcode_o, 1'b1, {
+		`Opcode_B_type, 1'b0,
+		`Opcode_S_type, 1'b1
+	});
+
 /* imm_o */
-	MuxKeyWithDefault #(3, 7, 20) mux1 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
+	MuxKeyWithDefault #(3, 7, 20) mux2 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
 		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
 		`Opcode_U_type_auipc, inst_i[31:12],
 		`Opcode_U_type_lui, inst_i[31:12]
+	});
+
+/* offset12_o */
+	MuxKeyWithDefault #(2, 7, 12) mux3 (offset12_o, opcode_o, inst_i[31:20], {
+		`Opcode_S_type, {inst_i[31:25], inst_i[11:7]}, 
+		`Opcode_B_type, {inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]}
 	});
 
 /* pc_o */

@@ -1,32 +1,3 @@
-//本模块定义了一个执行模块
-//功能: 根据译码模块传入的数据来执行运算, 并将结果传送到下一阶段
-//
-//输入: rst 复位端
-//      rsx_read_i 标志位: 是否使用源寄存器x的数据
-//      opcode_i 译码结果: 操作码
-//      functx_i 译码结果: x位宽操作码附加段
-//      rsx_data_i 源寄存器x的数据输出
-//      rd_addr_i 目标寄存器 rd 的地址
-//      wreg_i 标志位: 是否使用目标寄存器 rd
-//      imm_i 立即数 
-//      imm_sel_i 立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20
-//      offset12_i
-//      offset20_i
-//      offset_sel_i 位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20
-//      pc_i pc值输入
-//
-//输出: rd_addr_o 目标寄存器 rd 的地址
-//      wreg_o 标志位: 是否使用目标寄存器 rd
-//      wdata_o 运算结果/写入rd的数据
-//      opcode_o 操作码, 传输到访存阶段, 确定加载/存储指令类型
-//      funct3_o 3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
-//      back_rd_addr_o 数据前推
-//      back_wreg_o 数据前推
-//      back_wdata_o 数据前推
-//      branch_flag_o 分支标志位
-//      pc_new_o 输送到PC模块的新pc值
-//
-
 `include "defines.v"
 /* (* DONT_TOUCH= "true" *) */
 module EX(
@@ -46,9 +17,9 @@ module EX(
 	input wire 					wreg_i,  //标志位: 是否使用目标寄存器 rd
 	input wire[`ImmBus] 		imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
 /* 	input wire 					imm_sel_i,  //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
-/* 	input wire[`ShamtBus] 		shamt_i,
+/* 	input wire[`ShamtBus] 		shamt_i, */
 	input wire[`Offset12Bus] 	offset12_i,
-	input wire[`Offset20Bus] 	offset20_i,
+/* 	input wire[`Offset20Bus] 	offset20_i,
 	input wire 					offset_sel_i, */
 	input wire[`AddrBus] 		pc_i,
 /* 	input wire		 			dcache_data_valid_i,
@@ -91,12 +62,12 @@ module EX(
 	wire[`ImmBus] imm; */
 
 
-	wire[`RegBus] wdata_addiw;
+	wire[`HalfRegBus] wdata_addiw;
 /* 	wire[`RegBus] wdata_slliw;
 	wire[`RegBus] wdata_sraiw;
 	wire[`RegBus] wdata_srliw; */
 
-	assign wdata_addiw = rs1_data + { {52{imm[11]}}, imm[11:0] };
+	assign wdata_addiw = {rs1_data + { {52{imm_i[11]}}, imm_i[11:0] }}[63:32];
 /* 	assign wdata_slliw = rs1_data << shamt_i;
 	assign wdata_sraiw = ($signed(rs1_data)) >>> shamt_i;
 	assign wdata_srliw = rs1_data >> shamt_i; */
@@ -136,28 +107,33 @@ module EX(
 
 /* wdata_o */
 	wire wdata_wen;
+	assign wdata_wen = 1'b1;
 	Reg #(64, 64'b0) reg1 (clk, rst, wdata_t, wdata_o, wdata_wen);
 
 	wire [`RegBus] wdata_t_add;
 	wire [`RegBus] wdata_t_addi;
 	wire [`RegBus] wdata_t_addiw;
+	wire [`RegBus] wdata_t_auipc;
 	wire [`RegBus] wdata_t_sub;
 
 	assign wdata_t_add = rs1_data + rs2_data;
-	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]}
+	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
+	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_sub = rs1_data - rs2_data;
 
 	wire [`RegBus] wdata_opcode_R;
-	wire [`RegBus] wdata_opcode_R_imm;
-	wire [`RegBus] wdata_opcode_I_word;
+/* 	wire [`RegBus] wdata_opcode_R_imm;
+	wire [`RegBus] wdata_opcode_I_word; */
+	wire [`RegBus] wdata_opcode_U_auipc;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
-	wire [`RegBus] wdata_funct7;
-
-	MuxKeyWithDefault #(3, 7, 64) mux1 (wdata_t, opcode_i, 64'b0, {
+/* 	wire [`RegBus] wdata_funct7; */
+	assign wdata_opcode_U_auipc = wdata_t_auipc;
+	MuxKeyWithDefault #(2, 7, 64) mux1 (wdata_t, opcode_i, 64'b0, {
 		`Opcode_R_type, 			wdata_opcode_R,
-		`Opcode_R_type_imm, 		wdata_opcode_R_imm,
-		`Opcode_I_type_word, 		wdata_opcode_I_word
+/* 		`Opcode_R_type_imm, 		wdata_opcode_R_imm,
+		`Opcode_I_type_word, 		wdata_opcode_I_word, */
+		`Opcode_U_type_auipc, 		wdata_opcode_U_auipc
 	});
 
 	MuxKeyWithDefault #(3, 3, 64) mux2 (wdata_opcode_R, funct3_i, 64'b0, {
@@ -174,6 +150,7 @@ module EX(
 /* branch_flag_o */
 	wire branch_flag_wen;
 	wire branch_flag_t;
+	assign branch_flag_wen = 1'b1;
 	Reg #(1, 1'b0) reg2 (clk, rst, branch_flag_t, branch_flag_o, branch_flag_wen);
 
 	wire branch_flag_t_beq;
@@ -181,13 +158,13 @@ module EX(
 	assign branch_flag_t_beq = {1{(rs1_data == rs2_data)}};
 	assign branch_flag_t_bge = {1{($signed(rs1_data) >= $signed(rs2_data))}};
 	
-	assign branch_flag_t = ({1{(opcode_i == `Opcode_B_type && funct3_beq == `funct3_beq)}} & branch_flag_t_beq)
-					|	   ({1{(opcode_i == `Opcode_B_type && funct3_bge == `funct3_bge)}} & branch_flag_t_bge)
+	assign branch_flag_t = ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_beq)}} & branch_flag_t_beq)
+					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bge)}} & branch_flag_t_bge)
 					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1)
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);
 
 /* pc_new_o */
-	assign pc_new_o <= pc_i + $signed({{52{offset12_i[10]}}, offset12_i << 1});
+	assign pc_new_o = pc_i + $signed({{52{offset12_i[10]}}, offset12_i << 1});
 /* ============================================================ */
 
 /* 	always @(*) begin

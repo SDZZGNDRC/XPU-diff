@@ -1,17 +1,3 @@
-//本模块定义了一个基于RV64IM的 CPU 处理器 XPU_v0.1
-//功能: 连接了五级流水线的各个部件以及32个通用寄存器
-//
-//注意: 约定采用 RAM 的p1端口传输指令, p2端口传输数据
-//
-//输入: clk 时钟
-//      rst 复位
-//      ram_px_data_i RAM px端口的读数据
-//
-//输出: ram_px_addr_o RAM px端口的读写地址  
-//      ram_px_write_o RAM px端口的读写控制 
-//      ram_px_data_o RAM px端口的写数据 
-//      ram_ce_o RAM的使能端
-//
 `include "defines.v"
 /* (* DONT_TOUCH= "true" *) */
 module top(
@@ -19,28 +5,34 @@ module top(
 	input rst,
 
 	input			 			icache_data_valid_i,	
-	input			 			dcache_data_valid_i,
-	input wire [`DataBus]		icache_data_i,
-	input wire	[`DataBus]		dcache_data_i,
+/* 	input			 			dcache_data_valid_i, */
+	input wire [`InstBus]		icache_data_i,
+/* 	input wire	[`DataBus]		dcache_data_i, */
 	output [`AddrBus] 			icache_addr_o,
-	output [`AddrBus] 			dcache_addr_o,
+/* 	output [`AddrBus] 			dcache_addr_o, */
 	output wire					icache_req_valid_o,
-	output wire 				dcache_req_valid_o,
+/* 	output wire 				dcache_req_valid_o, */
 	output wire					icache_data_wen_o,
-	output wire 				dcache_data_wen_o,
-	output wire	[`DataBus]		icache_data_o,
-	output wire	[`DataBus]		dcache_data_o,
+/* 	output wire 				dcache_data_wen_o, */
+/* 	output wire	[`InstBus]		icache_data_o, */
+/* 	output wire	[`DataBus]		dcache_data_o, */
 
+	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
+	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
+	output wire [`AddrBus]		diff_id_ex_to_ex_pc_o,
 	output wire [`RegBus]		diff_regs_o [0:`RegNum-1]
 
 );
 
-	wire[`AddrBus] pc;
 	wire[`AddrBus] if_id_to_id_pc;
 	wire[`AddrBus] id_to_id_ex_pc;
 	wire[`AddrBus] id_ex_to_ex_pc;
-	wire[`InstBus] ram_to_if_id_inst;
 	wire[`InstBus] if_id_to_id_inst;
+
+/* diff-test */
+	assign diff_if_id_to_id_pc_o = if_id_to_id_pc;
+	assign diff_id_to_id_ex_pc_o = id_to_id_ex_pc;
+	assign diff_id_ex_to_ex_pc_o = id_ex_to_ex_pc;
 
 	wire[`RegBus] regfile_to_id_rs1_data;
 	wire[`RegBus] regfile_to_id_rs2_data;
@@ -66,12 +58,8 @@ module top(
 
 	wire[`OpcodeBus] id_to_id_ex_opcode;
 	wire[`OpcodeBus] id_ex_to_ex_opcode;
-	wire[`OpcodeBus] ex_to_ex_mem_opcode;
-	wire[`OpcodeBus] ex_mem_to_mem_opcode;
 	wire[`funct3Bus] id_to_id_ex_funct3;
 	wire[`funct3Bus] id_ex_to_ex_funct3;
-	wire[`funct3Bus] ex_to_ex_mem_funct3;
-	wire[`funct3Bus] ex_mem_to_mem_funct3;
 	wire[`funct7Bus] id_to_id_ex_funct7;
 	wire[`funct7Bus] id_ex_to_ex_funct7;
 
@@ -83,6 +71,9 @@ module top(
 
 	wire[`ImmBus] id_to_id_ex_imm;
 	wire[`ImmBus] id_ex_to_ex_imm;
+
+	wire[`Offset12Bus] id_to_id_ex_offset12;
+	wire[`Offset12Bus] id_ex_to_ex_offset12;
 
 	wire mem_wb_to_regfile_we;
 	wire[`RegAddrBus] mem_wb_to_regfile_waddr;
@@ -118,8 +109,7 @@ module top(
 		.pc_ram_o(icache_addr_o),
 		.pc_pipeline_o(pc_to_if_id_pc),
 		.icache_data_wen_o(icache_data_wen_o),
-		.icache_req_valid_o(icache_req_valid_o),
-		.icache_data_o(icache_data_o)
+		.icache_req_valid_o(icache_req_valid_o)
 	);
 
 	IF_ID if_id0(
@@ -133,7 +123,7 @@ module top(
 	);
 
 	ID id0(
-		.rst(rst),
+/* 		.rst(rst), */
 		.inst_i(if_id_to_id_inst),
 
 		.rs1_data_i(regfile_to_id_rs1_data),
@@ -159,6 +149,7 @@ module top(
 		.rd_addr_o(id_to_id_ex_rd_addr),
 		.wreg_o(id_to_id_ex_wreg),
 		.imm_o(id_to_id_ex_imm),
+		.offset12_o(id_to_id_ex_offset12),
 		.pc_o(id_to_id_ex_pc)
 	);
 
@@ -189,8 +180,22 @@ module top(
 		.rd_addr_i(id_to_id_ex_rd_addr),
 		.wreg_i(id_to_id_ex_wreg),
 		.imm_i(id_to_id_ex_imm),
+		.offset12_i(id_to_id_ex_offset12),
 		.pc_i(id_to_id_ex_pc),
-		.ctrl_signal_i(ctrl_to_id_ex_ctrl_signal)
+		.ctrl_signal_i(ctrl_to_id_ex_ctrl_signal),
+
+		.rs1_addr_o(id_ex_to_ex_rs1_addr),
+		.rs2_addr_o(id_ex_to_ex_rs2_addr),
+		.opcode_o(id_ex_to_ex_opcode),
+		.funct3_o(id_ex_to_ex_funct3),
+		.funct7_o(id_ex_to_ex_funct7),
+		.rs1_data_o(id_ex_to_ex_rs1_data),
+		.rs2_data_o(id_ex_to_ex_rs2_data),
+		.rd_addr_o(id_ex_to_ex_rd_addr),
+		.wreg_o(id_ex_to_ex_wreg),
+		.imm_o(id_ex_to_ex_imm),
+		.offset12_o(id_ex_to_ex_offset12),
+		.pc_o(id_ex_to_ex_pc)
 	);
 
 	EX ex0(
@@ -207,6 +212,7 @@ module top(
 		.rd_addr_i(id_ex_to_ex_rd_addr),
 		.wreg_i(id_ex_to_ex_wreg),
 		.imm_i(id_ex_to_ex_imm),
+		.offset12_i(id_ex_to_ex_offset12),
 		.pc_i(id_ex_to_ex_pc),
 		.mem_back_wdata_i(mem_to_id_back_wdata),
 		.mem_back_rd_addr_i(mem_to_id_back_rd_addr),
@@ -270,8 +276,9 @@ module top(
 
 	CTRL ctrl0(
 		.clk(clk),
-		.resetn(rst),
+		.rst(rst),
 
+		.icache_data_valid_i(icache_data_valid_i),
 		.ex_opcode_i(id_ex_to_ex_opcode),
 		.ex_funct3_i(id_ex_to_ex_funct3),
 		.ex_pc_new_i(ex_to_ctrl_pc_new),

@@ -10,9 +10,17 @@
 
 Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
-    , a{vlSymsp->TOP.a}
-    , b{vlSymsp->TOP.b}
-    , f{vlSymsp->TOP.f}
+    , clk{vlSymsp->TOP.clk}
+    , rst{vlSymsp->TOP.rst}
+    , icache_data_valid_i{vlSymsp->TOP.icache_data_valid_i}
+    , icache_data_i{vlSymsp->TOP.icache_data_i}
+    , icache_addr_o{vlSymsp->TOP.icache_addr_o}
+    , icache_req_valid_o{vlSymsp->TOP.icache_req_valid_o}
+    , icache_data_wen_o{vlSymsp->TOP.icache_data_wen_o}
+    , diff_if_id_to_id_pc_o{vlSymsp->TOP.diff_if_id_to_id_pc_o}
+    , diff_id_to_id_ex_pc_o{vlSymsp->TOP.diff_id_to_id_ex_pc_o}
+    , diff_id_ex_to_ex_pc_o{vlSymsp->TOP.diff_id_ex_to_ex_pc_o}
+    , diff_regs_o{vlSymsp->TOP.diff_regs_o}
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -59,7 +67,7 @@ static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/root/project/XPU-diff/vsrc/top.v", 1, "",
+            VL_FATAL_MT("/root/project/XPU-diff/vsrc/top.v", 3, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -90,7 +98,7 @@ void Vtop::eval_step() {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/root/project/XPU-diff/vsrc/top.v", 1, "",
+            VL_FATAL_MT("/root/project/XPU-diff/vsrc/top.v", 3, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {

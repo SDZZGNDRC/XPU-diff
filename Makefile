@@ -4,6 +4,7 @@ INC_PATH ?= $(HOME_DIR)/include
 
 VERILATOR = verilator
 VERILATOR_CFLAGS += -Wall --trace -MMD --build -cc  \
+				-I./vsrc \
 				-O3 --x-assign fast --x-initial fast --noassert
 
 SPIKE = spike

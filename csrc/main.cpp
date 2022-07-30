@@ -43,6 +43,22 @@ static int elfloader(mif* _mif, char *filepath)
   return 1;
 }
 
+void init(Vtop* top, VerilatedContext* contextp)
+{
+	int init_cylces = 10;
+	top->rst = 1;
+	for(int i = 0; i < init_cylces; i++)
+	{
+		top->clk = 0;
+		contextp->timeInc(1);
+		top->eval();
+		top->clk = 1;
+		contextp->timeInc(1);
+		top->eval();
+	}
+	top->rst = 0;
+}
+
 int main(int argc, char** argv, char** env)
 {
     mif *_mif = new mif;
@@ -53,18 +69,20 @@ int main(int argc, char** argv, char** env)
 	contextp->commandArgs(argc, argv);
 	Vtop* top = new Vtop{contextp};
 	int count = 0;
-	top->a = 0;
-	top->b = 0;
+	init(top, contextp);
 	while (count <= 1000 && !contextp->gotFinish())
 	{
+		top->clk = 0;
 		contextp->timeInc(1);
-		int a = rand() % 2;
-		int b = rand() % 2;
-		top->a = a;
-		top->b = b;
 		top->eval();
-		printf("a = %d, b = %d, f = %d\n", a, b, top->f);
-		assert(top->f == a ^ b);
+		top->clk = 1;
+		top->icache_data_valid_i = 1;
+		if (top->icache_req_valid_o == 1 && top->icache_data_wen_o == 1){
+			_mif->load(top->icache_addr_o, 4, (uint8_t*)&top->icache_data_i);
+		}
+		printf("INST = 0x%08x\n", top->icache_data_i);
+		contextp->timeInc(1);
+		top->eval();
 		count += 1;
 	}
     delete _mif;

@@ -15,6 +15,7 @@ module ID_EX
 	input[`RegAddrBus] rd_addr_i,  //目标寄存器 rd 的地址
 	input wreg_i,  //标志位: 是否使用目标寄存器 rd
 	input[`ImmBus] imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
+	input [`Offset12Bus] offset12_i,
 	input[`AddrBus] pc_i,
 	input wire [`CTRL_Wire_Bus] ctrl_signal_i,
 	
@@ -28,6 +29,7 @@ module ID_EX
 	output wire[`RegAddrBus] rd_addr_o,  //目标寄存器 rd 的地址
 	output wire wreg_o,  //标志位: 是否使用目标寄存器 rd
 	output wire[`ImmBus] imm_o,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
+	output wire[`Offset12Bus] offset12_o,
 	output wire[`AddrBus] pc_o
 );
 
@@ -36,16 +38,16 @@ module ID_EX
     wire rs1_addr_wen;
     Reg #(5, 5'b0) reg1 (clk, rst, rs1_addr_t, rs1_addr_o, rs1_addr_wen);
     assign rs1_addr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
-    assign rs1_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Doubel_Zero_Word : 
-                        (ctrl_signal_i == `CTRL_STATE_Default) ? rs1_addr_i : `Doubel_Zero_Word;
+    assign rs1_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 5'b0 : 
+                        (ctrl_signal_i == `CTRL_STATE_Default) ? rs1_addr_i : 5'b0;
 
 /* rs2_addr_o */
     wire [`RegAddrBus] rs2_addr_t;
     wire rs2_addr_wen;
     Reg #(5, 5'b0) reg2 (clk, rst, rs2_addr_t, rs2_addr_o, rs2_addr_wen);
     assign rs2_addr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
-    assign rs2_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Doubel_Zero_Word : 
-                        (ctrl_signal_i == `CTRL_STATE_Default) ? rs2_addr_i : `Doubel_Zero_Word;
+    assign rs2_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 5'b0 : 
+                        (ctrl_signal_i == `CTRL_STATE_Default) ? rs2_addr_i : 5'b0;
 
 /* opcode_o */
     wire [`OpcodeBus] opcode_t;
@@ -111,10 +113,18 @@ module ID_EX
     assign imm_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 20'b0000_0000_0000_0000_0000 : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? imm_i : 20'b0000_0000_0000_0000_0000;
 
+/* offset12_o */
+	wire [`Offset12Bus] offset12_t;
+	wire offset12_wen;
+	Reg #(12, 12'b0) reg11 (clk, rst, offset12_t, offset12_o, offset12_wen);
+	assign offset12_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+	assign offset12_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 12'b0 : 
+						(ctrl_signal_i == `CTRL_STATE_Default) ? offset12_i : 12'b0;
+
 /* pc_o */
     wire [`AddrBus] pc_t;
     wire pc_wen;
-    Reg #(64, 64'b0) reg11 (clk, rst, pc_t, pc_o, pc_wen);
+    Reg #(64, 64'b0) reg12 (clk, rst, pc_t, pc_o, pc_wen);
     assign pc_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
     assign pc_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? pc_i : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? pc_i : pc_i;

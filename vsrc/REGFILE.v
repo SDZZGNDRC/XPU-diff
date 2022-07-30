@@ -162,8 +162,8 @@ module REGFILE
     assign wen_x31 = we_i & (waddr_i == 5'b11111);
 
     wire [`RegBus] rdata1_t;
-    assign rdata1_o = ({64{((wen_i == 1'b1) && (waddr_i == raddr1_i))}} & wdata_i)
-                    | (~{64{((wen_i == 1'b1) && (waddr_i == raddr1_i))}} & rdata1_t);
+    assign rdata1_o = ({64{((we_i == 1'b1) && (waddr_i == raddr1_i))}} & wdata_i)
+                    | (~{64{((we_i == 1'b1) && (waddr_i == raddr1_i))}} & rdata1_t);
     MuxKeyWithDefault #(31, 5, 64) mux1 (rdata1_t, raddr1_i, 64'b0, {
         5'b00001, out_x1,
         5'b00010, out_x2,
@@ -199,8 +199,8 @@ module REGFILE
     });
 
     wire [`RegBus] rdata2_t;
-    assign rdata2_o = ({64{((wen_i == 1'b1) && (waddr_i == raddr2_i))}} & wdata_i)
-                    | (~{64{((wen_i == 1'b1) && (waddr_i == raddr2_i))}} & rdata2_t);
+    assign rdata2_o = ({64{((we_i == 1'b1) && (waddr_i == raddr2_i))}} & wdata_i)
+                    | (~{64{((we_i == 1'b1) && (waddr_i == raddr2_i))}} & rdata2_t);
     MuxKeyWithDefault #(31, 5, 64) mux2 (rdata2_t, raddr2_i, 64'b0, {
         5'b00001, out_x1,
         5'b00010, out_x2,

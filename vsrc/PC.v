@@ -24,8 +24,8 @@ module PC
 	output wire[`AddrBus]   pc_ram_o,
 	output wire[`AddrBus]   pc_pipeline_o,
 	output wire             icache_data_wen_o,
-    output wire             icache_req_valid_o,
-	output wire[`DataBus]   icache_data_o
+    output wire             icache_req_valid_o/* ,
+	output wire[`InstBus]   icache_data_o */
 );
     /* pc_ram_o */
     wire [`AddrBus] pc_ram_t;
@@ -33,7 +33,7 @@ module PC
     Reg #(64, `Init_pc) pc_ram (clk, rst, pc_ram_t, pc_ram_o, pc_ram_wen);
     assign pc_ram_wen = ~{1{(ctrl_signal_i == `CTRL_STATE_Stalled)}};
     MuxKeyWithDefault #(2, 2, 64) mux1 (pc_ram_t, ctrl_signal_i, 64'b0, {
-        `CTRL_STATE_Default,    pc_ram + 64'h4,
+        `CTRL_STATE_Default,    pc_ram_o + 64'h4,
         `CTRL_STATE_Branch,     pc_new_i
     });
 
@@ -42,8 +42,8 @@ module PC
     wire pc_pipeline_wen;
     Reg #(64, `Init_pc - 64'h4) pc_pipeline (clk, rst, pc_pipeline_t, pc_pipeline_o, pc_pipeline_wen);
     assign pc_pipeline_wen = ~{1{(ctrl_signal_i == `CTRL_STATE_Stalled)}};
-    MuxKeyWithDefault #(2, 2, 64) mux1 (pc_pipeline_t, ctrl_signal_i, 64'b0, {
-        `CTRL_STATE_Default,    pc_pipeline + 64'h4,
+    MuxKeyWithDefault #(2, 2, 64) mux2 (pc_pipeline_t, ctrl_signal_i, 64'b0, {
+        `CTRL_STATE_Default,    pc_pipeline_o + 64'h4,
         `CTRL_STATE_Branch,     pc_new_i - 64'h4
     });
 
@@ -54,7 +54,7 @@ module PC
     assign icache_req_valid_o = ~rst;
 
     /* icache_data_o */
-    assign icache_addr_o = 64'b0;
+/*     assign icache_addr_o = 64'b0; */
 
 /* 	always @(posedge clk) begin  //控制 RAM 储存器的使能信号
 		if(rst == `RstEnable) begin

@@ -22,17 +22,17 @@ module MEM_WB
 /* wdata_o */
     wire wdata_wen;
     Reg #(64, 64'b0) reg1 (clk, rst, wdata_i, wdata_o, wdata_wen);
-    assign wdata_wen = (ctrl_signal_i == `FSM_STATE_Default) ? 1'b1 : 1'b0;
+    assign wdata_wen = (ctrl_signal_i == `CTRL_STATE_Default) ? 1'b1 : 1'b0;
 
 /* wreg_o */
     wire wreg_wen;
     Reg #(1, 1'b0) reg2 (clk, rst, wreg_i, wreg_o, wreg_wen);
-    assign wreg_wen = (ctrl_signal_i == `FSM_STATE_Default) ? 1'b1 : 1'b0;
+    assign wreg_wen = (ctrl_signal_i == `CTRL_STATE_Default) ? 1'b1 : 1'b0;
 
 /* rd_addr_o */
     wire rd_addr_wen;
     Reg #(5, 5'b0) reg3 (clk, rst, rd_addr_i, rd_addr_o, rd_addr_wen);
-    assign rd_addr_wen = (ctrl_signal_i == `FSM_STATE_Default) ? 1'b1 : 1'b0;
+    assign rd_addr_wen = (ctrl_signal_i == `CTRL_STATE_Default) ? 1'b1 : 1'b0;
 
 /* mem_wb_back_rd_addr_o mem_wb_back_wreg_o mem_wb_back_wdata_o */
     assign mem_wb_back_rd_addr_o = rd_addr_o;

@@ -3,7 +3,7 @@
 `define RstDisable 1'b1
 `define Byte_Zero 8'd0
 `define ZeroWord 32'h00_00_00_00
-`define Invalid_pc 32'h00_00_00_00
+`define Invalid_pc 64'h00_00_00_00_00_10_00_00
 `define Init_pc 64'h00_00_00_00_00_10_00_00
 `define Doubel_Zero_Word 64'h00_00_00_00_00_00_00_00
 `define RamMemNum 160 + 3 - 1 : 0
@@ -145,9 +145,11 @@
 `define InstMemNumLog2 17
 
 `define RegAddrBus 4:0
+`define HalfRegBus 31:0
 `define RegBus 63:0
 `define Double_RegBus 127:0
 `define ImmBus 19:0
+`define ImmBus12 11:0
 `define ShamtBus 5:0
 `define Stall_Bus 5:0
 `define Imm_zero 20'd0
@@ -172,13 +174,7 @@
 `define FSM_Wire_Bus                3:0
 `define FSM_STATE_Default           4'd0
 `define FSM_STATE_Branch_start      4'd1
-`define FSM_STATE_Uart_trans_start  4'd2
-`define FSM_STATE_Uart_trans_wait   4'd3
-`define FSM_STATE_Uart_trans_end    4'd4
-`define FSM_STATE_Uart_recev_start  4'd5
-`define FSM_STATE_Uart_recev_wait   4'd6
-`define FSM_STATE_Uart_recev_end    4'd7
-`define FSM_STATE_Branch_wait       4'd8
+`define FSM_STATE_Branch_wait       4'd2
 
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0
