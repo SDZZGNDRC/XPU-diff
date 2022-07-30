@@ -22,7 +22,7 @@ class mem_t {
   mem_t(const mem_t& that) = delete;
   ~mem_t();
 
-  bool load(reg_t addr, size_t len, uint8_t* bytes) { return load_store(addr, len, bytes, false); }
+  bool load(reg_t addr, size_t len, uint8_t* bytes) { return load_store(addr, len, const_cast<uint8_t*>(bytes), false); }
   bool store(reg_t addr, size_t len, const uint8_t* bytes) { return load_store(addr, len, const_cast<uint8_t*>(bytes), true); }
   char* contents(reg_t addr);
   reg_t size() { return sz; }

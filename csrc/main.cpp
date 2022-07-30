@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -32,7 +34,16 @@ static int elfloader(mif* _mif, char *filepath)
 	{
 		mbase = bytes2uint(buffer);
 		msize = bytes2uint(buffer+8);
-    _mif->store(mbase, msize, (uint8_t*)(buffer+16));
+/* 		std::cout << std::hex << mbase << std::endl;
+		std::cout << std::dec << msize << std::endl;
+		for (int i = 0; i <= msize/4; i++){
+			std::cout << std::hex << std::setw(2) << std::setfill('0') << (int) static_cast <unsigned char>(*(buffer+16+4*i+3)) << ' ';
+			std::cout << std::hex << std::setw(2) << std::setfill('0') << (int) static_cast <unsigned char>(*(buffer+16+4*i+2)) << ' ';
+			std::cout << std::hex << std::setw(2) << std::setfill('0') << (int) static_cast <unsigned char>(*(buffer+16+4*i+1)) << ' ';
+			std::cout << std::hex << std::setw(2) << std::setfill('0') << (int) static_cast <unsigned char>(*(buffer+16+4*i+0)) << ' ';
+			std::cout << std::endl;
+		} */
+    	_mif->store(mbase, msize, (uint8_t*)(buffer+16));
 		buffer = buffer+16+msize;
 		total = total + 16 + msize;
 		if(total >= size){
@@ -77,10 +88,10 @@ int main(int argc, char** argv, char** env)
 		top->eval();
 		top->clk = 1;
 		top->icache_data_valid_i = 1;
-		if (top->icache_req_valid_o == 1 && top->icache_data_wen_o == 1){
+		if (top->icache_req_valid_o == 1 && top->icache_data_wen_o == 0){
 			_mif->load(top->icache_addr_o, 4, (uint8_t*)&top->icache_data_i);
+			printf("INST = 0x%08x\n", top->icache_data_i);
 		}
-		printf("INST = 0x%08x\n", top->icache_data_i);
 		contextp->timeInc(1);
 		top->eval();
 		count += 1;

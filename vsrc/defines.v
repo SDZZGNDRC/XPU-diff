@@ -4,7 +4,7 @@
 `define Byte_Zero 8'd0
 `define ZeroWord 32'h00_00_00_00
 `define Invalid_pc 64'h00_00_00_00_00_10_00_00
-`define Init_pc 64'h00_00_00_00_00_10_00_00
+`define Init_pc 64'h00_00_00_00_80_00_00_00
 `define Doubel_Zero_Word 64'h00_00_00_00_00_00_00_00
 `define RamMemNum 160 + 3 - 1 : 0
 `define WriteEnable 1'b1

@@ -39,7 +39,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf) {
     VlWide<5>/*159:0*/ __Vtemp1346;
     // Body
     if (vlSelf->rst) {
-        vlSelf->icache_addr_o = 0x100000ULL;
+        vlSelf->icache_addr_o = 0x80000000ULL;
     } else if ((1U != (IData)(vlSelf->top__DOT__ctrl_to_pc_ctrl_signal))) {
         vlSelf->icache_addr_o = vlSelf->top__DOT__pc0__DOT__pc_ram_t;
     }
@@ -1874,7 +1874,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf) {
     vlSelf->diff_if_id_to_id_pc_o = vlSelf->top__DOT__if_id_to_id_pc;
     vlSelf->diff_id_to_id_ex_pc_o = vlSelf->top__DOT__if_id_to_id_pc;
     if (vlSelf->rst) {
-        vlSelf->top__DOT__pc_to_if_id_pc = 0xffffcULL;
+        vlSelf->top__DOT__pc_to_if_id_pc = 0x7ffffffcULL;
     } else if ((1U != (IData)(vlSelf->top__DOT__ctrl_to_pc_ctrl_signal))) {
         vlSelf->top__DOT__pc_to_if_id_pc = vlSelf->top__DOT__pc0__DOT__pc_pipeline_t;
     }

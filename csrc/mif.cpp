@@ -1,4 +1,5 @@
 #include "mif.h"
+#include <iostream>
 
 static std::vector<std::pair<reg_t, mem_t*>> make_mems(const std::vector<mem_cfg_t> &layout)
 {
@@ -47,10 +48,10 @@ bool mif::load_store(reg_t addr, size_t len, uint8_t* bytes, bool store)
         {
             if(store)
             {
-                return mem.second->store(addr, len, bytes);
+              return mem.second->store(addr, len, bytes);
             }else
             {
-                return mem.second->load(addr, len, bytes);
+              return mem.second->load(addr, len, bytes);
             }
         }
     }
@@ -85,9 +86,12 @@ char* mem_t::contents(reg_t addr) {
 
 bool mem_t::load_store(reg_t addr, size_t len, uint8_t* bytes, bool store)
 {
-  if (addr + len < addr || addr + len > sz)
+  if (addr + len < addr || len > sz){
+/*     std::cout << "mem_t::load_store> return false" << std::endl;
+    std::cout << "addr=" << addr << " " << "len=" << len << " " << "sz=" << sz << std::endl; */
     return false;
-
+  }
+/*   std::cout << "addr == " << addr << std::endl; */
   while (len > 0) {
     auto n = std::min(PGSIZE - (addr % PGSIZE), reg_t(len));
 

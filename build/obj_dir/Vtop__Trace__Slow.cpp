@@ -1184,7 +1184,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+1109,"top ctrl0 mux7 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+85,"top ctrl0 mux7 out", false,-1, 63,0);
         tracep->declBus(c+947,"top ctrl0 mux7 key", false,-1, 3,0);
-        tracep->declQuad(c+1110,"top ctrl0 mux7 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1149,"top ctrl0 mux7 default_out", false,-1, 63,0);
         tracep->declArray(c+1002,"top ctrl0 mux7 lut", false,-1, 203,0);
         tracep->declBus(c+1126,"top ctrl0 mux7 i0 NR_KEY", false,-1, 31,0);
         tracep->declBus(c+1145,"top ctrl0 mux7 i0 KEY_LEN", false,-1, 31,0);
@@ -1192,9 +1192,9 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+1115,"top ctrl0 mux7 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+85,"top ctrl0 mux7 i0 out", false,-1, 63,0);
         tracep->declBus(c+947,"top ctrl0 mux7 i0 key", false,-1, 3,0);
-        tracep->declQuad(c+1110,"top ctrl0 mux7 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1149,"top ctrl0 mux7 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+1002,"top ctrl0 mux7 i0 lut", false,-1, 203,0);
-        tracep->declBus(c+1149,"top ctrl0 mux7 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1151,"top ctrl0 mux7 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declArray(c+1009+i*3,"top ctrl0 mux7 i0 pair_list", true,(i+0), 67,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -2151,13 +2151,13 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                        ? vlSelf->icache_data_i
                                        : 0x13U)),32);
         tracep->fullIData(oldp+1109,(0x40U),32);
-        tracep->fullQData(oldp+1110,(0x100000ULL),64);
+        tracep->fullQData(oldp+1110,(0x80000000ULL),64);
         tracep->fullIData(oldp+1112,(2U),32);
         tracep->fullQData(oldp+1113,(0ULL),64);
         tracep->fullIData(oldp+1115,(1U),32);
         tracep->fullIData(oldp+1116,(0x42U),32);
         tracep->fullIData(oldp+1117,(2U),32);
-        tracep->fullQData(oldp+1118,(0xffffcULL),64);
+        tracep->fullQData(oldp+1118,(0x7ffffffcULL),64);
         tracep->fullIData(oldp+1120,(0x20U),32);
         tracep->fullIData(oldp+1121,(0U),32);
         tracep->fullIData(oldp+1122,(7U),32);
@@ -2187,6 +2187,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullCData(oldp+1146,(0U),4);
         tracep->fullIData(oldp+1147,(6U),32);
         tracep->fullIData(oldp+1148,(0x108U),18);
-        tracep->fullIData(oldp+1149,(0x44U),32);
+        tracep->fullQData(oldp+1149,(0x100000ULL),64);
+        tracep->fullIData(oldp+1151,(0x44U),32);
     }
 }
