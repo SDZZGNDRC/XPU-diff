@@ -9,6 +9,10 @@
 
 mif *_mif = new mif; // The interface of the memory
 unsigned long addr_t = 0x7ffffffc; // The address received last cycle.
+unsigned long addr = 0x7ffffffc; // The address received last cycle.
+
+uint8_t icache_req_valid_o = 0;
+uint8_t icache_data_wen_o = 0;
 
 uint64_t bytes2uint(char* bytes)
 {
@@ -63,18 +67,29 @@ void init(Vtop* top, VerilatedContext* contextp)
 	top->rst = 1;
 	for(int i = 0; i < init_cylces; i++)
 	{
+		addr_t = top->icache_addr_o;
+		icache_req_valid_o = top->icache_req_valid_o;
+		icache_data_wen_o = top->icache_data_wen_o;
+		/* =============POSEDGE-Start============== */
+		top->clk = 1;
+		top->eval_step();
+		/* =============POSEDGE-End============== */
+		top->icache_data_valid_i = 1;
+		_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
+		printf("ADDR_T = 0x%16lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		addr = addr_t;
+		if(i == init_cylces-1){
+			top->rst = 0;
+		}
+		contextp->timeInc(1);
+		top->eval_step();
+		top->eval_end_step();
+/* 		top->eval(); */
+		/* =============NEGEDGE============== */
 		top->clk = 0;
 		contextp->timeInc(1);
 		top->eval();
-		_mif->load(addr_t, 4, (uint8_t*)&top->icache_data_i);
-		top->icache_data_valid_i = 1;
-		printf("ADDR_T = 0x%16lx\tINST = 0x%08x\n", addr_t, top->icache_data_i);
-		addr_t = top->icache_addr_o;
-		top->clk = 1;
-		contextp->timeInc(1);
-		top->eval();
 	}
-	top->rst = 0;
 }
 
 int main(int argc, char** argv, char** env)
@@ -89,16 +104,25 @@ int main(int argc, char** argv, char** env)
 	init(top, contextp);
 	while (count <= 1000 && !contextp->gotFinish())
 	{
-		top->clk = 0;
-		contextp->timeInc(1);
-		top->eval();
+		addr_t = top->icache_addr_o;
+		icache_req_valid_o = top->icache_req_valid_o;
+		icache_data_wen_o = top->icache_data_wen_o;
+		/* =============POSEDGE-Start============== */
 		top->clk = 1;
+		top->eval_step();
+		/* =============POSEDGE-End============== */
 		top->icache_data_valid_i = 1;
-		if (top->icache_req_valid_o == 1 && top->icache_data_wen_o == 0){
-			_mif->load(addr_t, 4, (uint8_t*)&top->icache_data_i);
-			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr_t, top->icache_data_i);
-			addr_t = top->icache_addr_o;
+		if (icache_req_valid_o == 1 && icache_data_wen_o == 0){
+			_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
+			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr, top->icache_data_i);
 		}
+		addr = addr_t;
+		contextp->timeInc(1);
+		top->eval_step();
+		top->eval_end_step();
+/* 		top->eval(); */
+		/* =============NEGEDGE============== */
+		top->clk = 0;
 		contextp->timeInc(1);
 		top->eval();
 		count += 1;

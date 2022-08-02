@@ -22,8 +22,9 @@ module IF_ID
     should be passed directly to a wire,
  */
 /* if_inst_o */
-    wire if_inst_wen;
+/*     wire if_inst_wen;
     Reg #(32, 32'b0) reg2 (clk, rst, if_inst_i, if_inst_o, if_inst_wen);
-    assign if_inst_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    assign if_inst_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1; */
+    assign if_inst_o = if_inst_i;
 
 endmodule
