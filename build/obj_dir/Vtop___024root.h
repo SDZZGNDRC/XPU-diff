@@ -64,13 +64,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__ex0__DOT__mux2__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__ex0__DOT__mux3__DOT__i0__DOT__hit;
         CData/*3:0*/ top__DOT__ctrl0__DOT__FSM_next_state;
-        CData/*3:0*/ top__DOT__ctrl0__DOT__FSM_next_state_1;
         CData/*3:0*/ top__DOT__ctrl0__DOT__FSM_next_state_t;
         CData/*3:0*/ top__DOT__ctrl0__DOT__FSM_pre_state_t;
-        CData/*1:0*/ top__DOT__ctrl0__DOT__ctrl_signal_pc_t_1;
-        CData/*1:0*/ top__DOT__ctrl0__DOT__ctrl_signal_if_id_t_1;
-        CData/*1:0*/ top__DOT__ctrl0__DOT__ctrl_signal_id_ex_t_1;
-        CData/*1:0*/ top__DOT__ctrl0__DOT__ctrl_signal_ex_mem_t_1;
         CData/*3:0*/ top__DOT__ctrl0__DOT__mux1__DOT__i0__DOT__lut_out;
         CData/*0:0*/ top__DOT__ctrl0__DOT__mux1__DOT__i0__DOT__hit;
         CData/*1:0*/ top__DOT__ctrl0__DOT__mux2__DOT__i0__DOT__lut_out;
@@ -98,13 +93,13 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__id_ex_to_ex_rs2_data;
         QData/*63:0*/ top__DOT__mem_wb_to_regfile_wdata;
         QData/*63:0*/ top__DOT__ex_to_ex_mem_wdata;
-    };
-    struct {
         QData/*63:0*/ top__DOT__ex_mem_to_mem_wdata;
         QData/*63:0*/ top__DOT__ex_to_ctrl_pc_new;
         QData/*63:0*/ top__DOT__ctrl_to_pc_pc_new;
         QData/*63:0*/ top__DOT__pc_to_if_id_pc;
         QData/*63:0*/ top__DOT__pc0__DOT__pc_ram_t;
+    };
+    struct {
         QData/*63:0*/ top__DOT__pc0__DOT__pc_pipeline_t;
         QData/*63:0*/ top__DOT__pc0__DOT__mux1__DOT__i0__DOT__lut_out;
         QData/*63:0*/ top__DOT__pc0__DOT__mux2__DOT__i0__DOT__lut_out;
@@ -164,13 +159,13 @@ VL_MODULE(Vtop___024root) {
         VlUnpacked<IData/*26:0*/, 3> top__DOT__id0__DOT__mux2__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 3> top__DOT__id0__DOT__mux2__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*19:0*/, 3> top__DOT__id0__DOT__mux2__DOT__i0__DOT__data_list;
-    };
-    struct {
         VlUnpacked<IData/*18:0*/, 2> top__DOT__id0__DOT__mux3__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 2> top__DOT__id0__DOT__mux3__DOT__i0__DOT__key_list;
         VlUnpacked<SData/*11:0*/, 2> top__DOT__id0__DOT__mux3__DOT__i0__DOT__data_list;
         VlUnpacked<VlWide<3>/*68:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*4:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__key_list;
+    };
+    struct {
         VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__data_list;
         VlUnpacked<VlWide<3>/*68:0*/, 31> top__DOT__regfile0__DOT__mux2__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*4:0*/, 31> top__DOT__regfile0__DOT__mux2__DOT__i0__DOT__key_list;
@@ -220,7 +215,7 @@ VL_MODULE(Vtop___024root) {
     VlWide<7>/*203:0*/ top__DOT__ctrl0__DOT____Vcellinp__mux7____pinNumber4;
     QData/*37:0*/ top__DOT__id0__DOT____Vcellinp__mux3____pinNumber4;
     VlUnpacked<QData/*63:0*/, 32> top__DOT____Vcellout__regfile0__diff_reg_o;
-    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table
