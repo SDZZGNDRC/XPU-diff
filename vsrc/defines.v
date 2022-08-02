@@ -175,6 +175,7 @@
 `define FSM_STATE_Default           4'd0
 `define FSM_STATE_Branch_start      4'd1
 `define FSM_STATE_Branch_wait       4'd2
+`define FSM_STATE_Branch_1          4'd3
 
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0

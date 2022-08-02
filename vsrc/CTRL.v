@@ -28,56 +28,46 @@ module CTRL (
     Reg #(4, `FSM_STATE_Default) reg1 (clk, rst, FSM_next_state, FSM_next_state_t, 1'b1);
     Reg #(4, `FSM_STATE_Default) reg2 (clk, rst, FSM_next_state_t, FSM_pre_state_t, 1'b1);
 
-    MuxKeyWithDefault #(3, 4, 4) mux1 (FSM_next_state, FSM_pre_state_t, `FSM_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 4) mux1 (FSM_next_state, FSM_pre_state_t, `FSM_STATE_Default, {
         `FSM_STATE_Default, FSM_next_state_1,
-        `FSM_STATE_Branch_start, `FSM_STATE_Branch_wait,
-        `FSM_STATE_Branch_wait, `FSM_STATE_Default
+        `FSM_STATE_Branch_1, `FSM_STATE_Default
     });
 
-    assign FSM_next_state_1 = ({4{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `FSM_STATE_Default)
-                            | ({4{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `FSM_STATE_Default)
-                            | ({4{(ex_opcode_i == `Opcode_J_type_jal)}} & `FSM_STATE_Default)
-                            | ({4{(icache_data_valid_i == 1'b0)}} & `FSM_STATE_Default);
+    assign FSM_next_state_1 = ({4{(ex_branch_flag_i == 1'b1)}} & `FSM_STATE_Branch_1)
+                            | ({4{(ex_branch_flag_i == 1'b0)}} & `FSM_STATE_Default);
 
 /* ctrl_signal_pc_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_pc_t_1;
-    MuxKeyWithDefault #(3, 4, 2) mux2 (ctrl_signal_pc_o, FSM_pre_state_t, `CTRL_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 2) mux2 (ctrl_signal_pc_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_pc_t_1,
-        `FSM_STATE_Branch_start, `CTRL_STATE_Branch,
-        `FSM_STATE_Branch_wait, `CTRL_STATE_Default
+        `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
-    assign ctrl_signal_pc_t_1 = ({2{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_J_type_jal)}} & `CTRL_STATE_Default);
+    assign ctrl_signal_pc_t_1 = ({2{(ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Branch)
+                            |   ({2{(ex_branch_flag_i == 1'b0)}} & `CTRL_STATE_Default);
 
 /* ctrl_signal_if_id_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_if_id_t_1;
-    MuxKeyWithDefault #(3, 4, 2) mux3 (ctrl_signal_if_id_o, FSM_pre_state_t, `CTRL_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 2) mux3 (ctrl_signal_if_id_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_if_id_t_1,
-        `FSM_STATE_Branch_start, `CTRL_STATE_Default,
-        `FSM_STATE_Branch_wait, `CTRL_STATE_Default
+        `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
-    assign ctrl_signal_if_id_t_1 = ({2{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_J_type_jal)}} & `CTRL_STATE_Default);
+    assign ctrl_signal_if_id_t_1 = ({2{(ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Bubble)
+                                |  ({2{(ex_branch_flag_i == 1'b0)}} & `CTRL_STATE_Default);
 
 /* ctrl_signal_id_ex_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_id_ex_t_1;
-    MuxKeyWithDefault #(3, 4, 2) mux4 (ctrl_signal_id_ex_o, FSM_pre_state_t, `CTRL_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 2) mux4 (ctrl_signal_id_ex_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_id_ex_t_1,
-        `FSM_STATE_Branch_start, `CTRL_STATE_Default,
-        `FSM_STATE_Branch_wait, `CTRL_STATE_Default
+        `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
-    assign ctrl_signal_id_ex_t_1 = ({2{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
-                            |   ({2{(ex_opcode_i == `Opcode_J_type_jal)}} & `CTRL_STATE_Default);
+    assign ctrl_signal_id_ex_t_1 = ({2{(ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Bubble)
+                                |  ({2{(ex_branch_flag_i == 1'b0)}} & `CTRL_STATE_Default);
 
 /* ctrl_signal_ex_mem_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_ex_mem_t_1;
-    MuxKeyWithDefault #(3, 4, 2) mux5 (ctrl_signal_ex_mem_o, FSM_pre_state_t, `CTRL_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 2) mux5 (ctrl_signal_ex_mem_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_ex_mem_t_1,
-        `FSM_STATE_Branch_start, `CTRL_STATE_Default,
-        `FSM_STATE_Branch_wait, `CTRL_STATE_Default
+        `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
     assign ctrl_signal_ex_mem_t_1 = ({2{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
                             |   ({2{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
@@ -85,20 +75,18 @@ module CTRL (
 
 /* ctrl_signal_mem_wb_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_mem_wb_t_1;
-    MuxKeyWithDefault #(3, 4, 2) mux6 (ctrl_signal_mem_wb_o, FSM_pre_state_t, `CTRL_STATE_Default, {
+    MuxKeyWithDefault #(2, 4, 2) mux6 (ctrl_signal_mem_wb_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_mem_wb_t_1,
-        `FSM_STATE_Branch_start, `CTRL_STATE_Default,
-        `FSM_STATE_Branch_wait, `CTRL_STATE_Default
+        `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
     assign ctrl_signal_mem_wb_t_1 = ({2{(ex_opcode_i == `Opcode_B_type && ex_funct3_i == `funct3_beq && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
                             |   ({2{(ex_opcode_i == `Opcode_I_type_jalr && ex_funct3_i == `funct3_jalr && ex_branch_flag_i == 1'b1)}} & `CTRL_STATE_Default)
                             |   ({2{(ex_opcode_i == `Opcode_J_type_jal)}} & `CTRL_STATE_Default);
 
 /* ctrl_to_pc_new_o */
-    MuxKeyWithDefault #(3, 4, 64) mux7 (ctrl_to_pc_new_o, FSM_pre_state_t, `Invalid_pc, {
+    MuxKeyWithDefault #(2, 4, 64) mux7 (ctrl_to_pc_new_o, FSM_pre_state_t, `Invalid_pc, {
         `FSM_STATE_Default, `Invalid_pc,
-        `FSM_STATE_Branch_start, ex_pc_new_i,
-        `FSM_STATE_Branch_wait, ex_pc_new_i
+        `FSM_STATE_Branch_1, ex_pc_new_i
     });
 
 endmodule

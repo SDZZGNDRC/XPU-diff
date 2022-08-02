@@ -1,6 +1,6 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Tue Aug  2 09:17:20 2022
+[*] Tue Aug  2 12:39:00 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
 [dumpfile_mtime] "Tue Aug  2 09:15:56 2022"
@@ -82,10 +82,14 @@ TOP.top.ctrl0.FSM_pre_state_t[3:0]
 TOP.top.ctrl0.FSM_next_state[3:0]
 @28
 TOP.top.ctrl0.icache_data_valid_i
+@22
+TOP.top.ctrl0.ctrl_to_pc_new_o[63:0]
 @24
+TOP.top.ctrl0.ctrl_signal_pc_o[1:0]
 TOP.top.ctrl0.ctrl_signal_if_id_o[1:0]
 TOP.top.ctrl0.ctrl_signal_id_ex_o[1:0]
 TOP.top.ctrl0.ctrl_signal_ex_mem_o[1:0]
+@25
 TOP.top.ctrl0.ctrl_signal_mem_wb_o[1:0]
 @200
 -=================Regfiles

@@ -29,20 +29,25 @@ module PC
 );
     /* pc_ram_o */
     wire [`AddrBus] pc_ram_t;
+/* 	wire [`AddrBus] pc_ram_R; */
     wire pc_ram_wen;
-    Reg #(64, `Init_pc) pc_ram (clk, rst, pc_ram_t, pc_ram_o, pc_ram_wen);
+    Reg #(64, `Init_pc-64'h4) pc_ram (clk, rst, pc_ram_o, pc_ram_t, pc_ram_wen);
     assign pc_ram_wen = ~{1{(ctrl_signal_i == `CTRL_STATE_Stalled)}};
-    MuxKeyWithDefault #(2, 2, 64) mux1 (pc_ram_t, ctrl_signal_i, 64'b0, {
-        `CTRL_STATE_Default,    pc_ram_o + 64'h4,
+    MuxKeyWithDefault #(2, 2, 64) mux1 (pc_ram_o, ctrl_signal_i, 64'b0, {
+        `CTRL_STATE_Default,    pc_ram_t + 64'h4,
         `CTRL_STATE_Branch,     pc_new_i
     });
+/* 	MuxKeyWithDefault #(, 2, 64) mux2 (pc_ram_o, ctrl_signal_i, 64'b0, {
+		`CTRL_STATE_Default,	pc_ram_R,
+		`CTRL_STATE_Branch,		pc_new_i
+	}) */
 
     /* pc_pipeline_o */
     wire [`AddrBus] pc_pipeline_t;
     wire pc_pipeline_wen;
     Reg #(64, `Init_pc - 64'h4) pc_pipeline (clk, rst, pc_pipeline_t, pc_pipeline_o, pc_pipeline_wen);
     assign pc_pipeline_wen = ~{1{(ctrl_signal_i == `CTRL_STATE_Stalled)}};
-    MuxKeyWithDefault #(2, 2, 64) mux2 (pc_pipeline_t, ctrl_signal_i, 64'b0, {
+    MuxKeyWithDefault #(2, 2, 64) mux3 (pc_pipeline_t, ctrl_signal_i, 64'b0, {
         `CTRL_STATE_Default,    pc_pipeline_o + 64'h4,
         `CTRL_STATE_Branch,     pc_new_i - 64'h4
     });
