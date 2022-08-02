@@ -1,0 +1,404 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Aug  2 08:51:06 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AGENT_FOLDER = /root/.vscode-server
+# environment
+XDG_SESSION_TYPE = tty
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.2.1
+# makefile
+CURDIR := /root/project/XPU-diff
+# makefile
+SHELL = /bin/sh
+# makefile (from 'Makefile', line 16)
+BIN = $(BUILD_DIR)/$(TOPNAME)
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{}}
+# environment
+_ = /root/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/node
+# makefile (from 'Makefile', line 30)
+CFLAGS = -DTOP_NAME="\"V$(TOPNAME)\""
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# 'override' directive
+GNUMAKEFLAGS := 
+# makefile (from 'Makefile', line 15)
+OBJ_DIR = $(BUILD_DIR)/obj_dir
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
+# makefile (from 'Makefile', line 26)
+CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /root
+# environment
+SSH_CONNECTION = 112.6.224.58 54623 172.18.196.173 22
+# makefile (from 'Makefile', line 25)
+VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
+# environment
+PATH = /root/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/root/project/riscv-isa-sim/build/
+# makefile (from 'Makefile', line 1)
+HOME_DIR = ~/project/XPU-diff
+# makefile (from 'Makefile', line 6)
+VERILATOR_CFLAGS = -Wall --trace -MMD --build -cc -I./vsrc -O3 --x-assign fast --x-initial fast --noassert
+# makefile (from 'Makefile', line 11)
+SPIKE_FLAGS = -l --priv=m --isa=rv64im --log-commits --log=log.txt -m128 
+# environment
+XDG_RUNTIME_DIR = /run/user/0
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-284f4bad-121c-4e9a-982b-88937991eb90.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+PWD = /root/project/XPU-diff
+# default
+.LOADED := 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'Makefile', line 12)
+PYTHON = python3
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /root
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+RISCV = /root/riscv/bin
+# makefile (from 'Makefile', line 10)
+SPIKE = spike
+# environment
+LOGNAME = root
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# makefile (from 'Makefile', line 5)
+VERILATOR = verilator
+# automatic
++F = $(notdir $+)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 0
+# makefile (from 'Makefile', line 14)
+BUILD_DIR = ./build
+# environment
+XDG_SESSION_ID = 1024
+# environment
+USER = root
+# makefile (from 'Makefile', line 18)
+ELF = 
+# makefile
+.DEFAULT_GOAL := default
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile (from 'Makefile', line 2)
+TOPNAME = top
+# makefile (from 'Makefile', line 29)
+INCFLAGS = $(addprefix -I, $(INC_PATH))
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 112.6.224.58 54623 22
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /root/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/helpers/browser.sh
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# 'override' directive
+.SHELLSTATUS := 0
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# default
+.RECIPEPREFIX := 
+# makefile (from 'Makefile', line 3)
+INC_PATH = $(HOME_DIR)/include
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+MOTD_SHOWN = pam
+# variable set hash-table stats:
+# Load=83/1024=8%, Rehash=0, Collisions=15/135=11%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 64513, inode 1712412): 14 files, no impossibilities.
+
+# 14 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+/root/project/XPU-diff/vsrc/top.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 15:20:11.787268431
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/ID_EX.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 13:29:59.117823134
+#  File has been updated.
+#  Successfully updated.
+
+all: default
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/MEM_WB.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 12:59:08.213989143
+#  File has been updated.
+#  Successfully updated.
+
+.PHONY: default all clean run
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/MuxKeyInternal.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:14:42.656765072
+#  File has been updated.
+#  Successfully updated.
+
+build/top: /root/project/XPU-diff/vsrc/Reg.v /root/project/XPU-diff/vsrc/EX_MEM.v /root/project/XPU-diff/vsrc/CTRL.v /root/project/XPU-diff/vsrc/REGFILE.v /root/project/XPU-diff/vsrc/PC.v /root/project/XPU-diff/vsrc/ID_EX.v /root/project/XPU-diff/vsrc/defines.v /root/project/XPU-diff/vsrc/IF_ID.v /root/project/XPU-diff/vsrc/MuxKeyInternal.v /root/project/XPU-diff/vsrc/top.v /root/project/XPU-diff/vsrc/EX.v /root/project/XPU-diff/vsrc/MuxKey.v /root/project/XPU-diff/vsrc/MuxKeyWithDefault.v.v /root/project/XPU-diff/vsrc/ID.v /root/project/XPU-diff/vsrc/MEM_WB.v /root/project/XPU-diff/vsrc/MEM.v /root/project/XPU-diff/csrc/main.cpp /root/project/XPU-diff/csrc/mif.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-07-30 18:52:38.269005403
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 33):
+	@rm -rf $(OBJ_DIR)
+	$(VERILATOR) $(VERILATOR_CFLAGS) \
+		--top-module $(TOPNAME) $^ \
+		$(addprefix -CFLAGS , $(CFLAGS)) \
+		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+
+# Not a target:
+/root/project/XPU-diff/csrc/mif.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 18:52:16.036958823
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:09:44.700140255
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/EX_MEM.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 12:44:20.680138221
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/REGFILE.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 12:49:24.760771782
+#  File has been updated.
+#  Successfully updated.
+
+default: build/top
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/Reg.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:00:14.242941791
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+# Not a target:
+/root/project/XPU-diff/vsrc/defines.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 17:51:57.753472668
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/MEM.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:01:02.187042588
+#  File has been updated.
+#  Successfully updated.
+
+run: build/top
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 42):
+	$(SPIKE) $(SPIKE_FLAGS) $(ELF)
+	$(PYTHON) genbin.py $(ELF) $(BUILD_DIR)/$(notdir $(ELF)).temp
+	@$^ $(BUILD_DIR)/$(notdir $(ELF)).temp
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 48):
+	rm -rf $(BUILD_DIR)
+
+# Not a target:
+/root/project/XPU-diff/vsrc/MuxKey.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:15:03.136808037
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/MuxKeyWithDefault.v.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 11:14:39.096757604
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/ID.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 14:44:28.76300351
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/PC.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 15:46:27.914489081
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/csrc/main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 18:52:33.148994681
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/IF_ID.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 13:00:59.786222232
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/EX.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 14:33:12.873594858
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/root/project/XPU-diff/vsrc/CTRL.v:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-30 15:25:00.919853522
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=27/1024=3%, Rehash=0, Collisions=2/64=3%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 42 / storage = 842 B / avg = 20 B
+# current buf: size = 8162 B / used = 842 B / count = 42 / avg = 20 B
+
+# strcache performance: lookups = 60 / hit rate = 30%
+# hash-table stats:
+# Load=42/8192=1%, Rehash=0, Collisions=1/60=2%
+# Finished Make data base on Tue Aug  2 08:51:06 2022
+
+ 

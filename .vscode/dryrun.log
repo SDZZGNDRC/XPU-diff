@@ -1,0 +1,10 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/root/project/XPU-diff'
+ 
+rm -rf ./build/obj_dir
+verilator -Wall --trace -MMD --build -cc -I./vsrc -O3 --x-assign fast --x-initial fast --noassert \
+	--top-module top /root/project/XPU-diff/vsrc/Reg.v /root/project/XPU-diff/vsrc/EX_MEM.v /root/project/XPU-diff/vsrc/CTRL.v /root/project/XPU-diff/vsrc/REGFILE.v /root/project/XPU-diff/vsrc/PC.v /root/project/XPU-diff/vsrc/ID_EX.v /root/project/XPU-diff/vsrc/defines.v /root/project/XPU-diff/vsrc/IF_ID.v /root/project/XPU-diff/vsrc/MuxKeyInternal.v /root/project/XPU-diff/vsrc/top.v /root/project/XPU-diff/vsrc/EX.v /root/project/XPU-diff/vsrc/MuxKey.v /root/project/XPU-diff/vsrc/MuxKeyWithDefault.v.v /root/project/XPU-diff/vsrc/ID.v /root/project/XPU-diff/vsrc/MEM_WB.v /root/project/XPU-diff/vsrc/MEM.v /root/project/XPU-diff/csrc/main.cpp /root/project/XPU-diff/csrc/mif.cpp \
+	-CFLAGS -DTOP_NAME="\"Vtop\"" \
+	--Mdir ./build/obj_dir --exe -o /root/project/XPU-diff/build/top
+make: Leaving directory '/root/project/XPU-diff'
+ 
