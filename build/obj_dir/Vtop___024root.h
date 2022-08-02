@@ -84,7 +84,6 @@ VL_MODULE(Vtop___024root) {
         SData/*11:0*/ top__DOT__id0__DOT__mux3__DOT__i0__DOT__lut_out;
         IData/*19:0*/ top__DOT__id_to_id_ex_imm;
         IData/*19:0*/ top__DOT__id_ex_to_ex_imm;
-        IData/*31:0*/ top__DOT__if_id0__DOT__dout;
         IData/*19:0*/ top__DOT__id0__DOT__mux2__DOT__i0__DOT__lut_out;
         IData/*31:0*/ top__DOT__ex0__DOT__wdata_addiw;
         QData/*63:0*/ top__DOT__if_id_to_id_pc;
@@ -98,9 +97,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__ctrl_to_pc_pc_new;
         QData/*63:0*/ top__DOT__pc_to_if_id_pc;
         QData/*63:0*/ top__DOT__pc0__DOT__pc_ram_t;
+        QData/*63:0*/ top__DOT__pc0__DOT__pc_pipeline_t;
     };
     struct {
-        QData/*63:0*/ top__DOT__pc0__DOT__pc_pipeline_t;
         QData/*63:0*/ top__DOT__pc0__DOT__mux1__DOT__i0__DOT__lut_out;
         QData/*63:0*/ top__DOT__pc0__DOT__mux2__DOT__i0__DOT__lut_out;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x1;
@@ -164,9 +163,9 @@ VL_MODULE(Vtop___024root) {
         VlUnpacked<SData/*11:0*/, 2> top__DOT__id0__DOT__mux3__DOT__i0__DOT__data_list;
         VlUnpacked<VlWide<3>/*68:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*4:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__key_list;
+        VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__data_list;
     };
     struct {
-        VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__data_list;
         VlUnpacked<VlWide<3>/*68:0*/, 31> top__DOT__regfile0__DOT__mux2__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*4:0*/, 31> top__DOT__regfile0__DOT__mux2__DOT__i0__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile0__DOT__mux2__DOT__i0__DOT__data_list;
@@ -215,7 +214,7 @@ VL_MODULE(Vtop___024root) {
     VlWide<7>/*203:0*/ top__DOT__ctrl0__DOT____Vcellinp__mux7____pinNumber4;
     QData/*37:0*/ top__DOT__id0__DOT____Vcellinp__mux3____pinNumber4;
     VlUnpacked<QData/*63:0*/, 32> top__DOT____Vcellout__regfile0__diff_reg_o;
-    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table

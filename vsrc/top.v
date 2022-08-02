@@ -27,7 +27,7 @@ module top(
 	wire[`AddrBus] if_id_to_id_pc;
 	wire[`AddrBus] id_to_id_ex_pc;
 	wire[`AddrBus] id_ex_to_ex_pc;
-	wire[`InstBus] if_id_to_id_inst;
+/* 	wire[`InstBus] if_id_to_id_inst; */
 
 /* diff-test */
 	assign diff_if_id_to_id_pc_o = if_id_to_id_pc;
@@ -115,16 +115,16 @@ module top(
 	IF_ID if_id0(
 		.clk(clk),
 		.rst(rst),
-		.if_inst_i(icache_data_i),
+/* 		.if_inst_i(icache_data_i), */
 		.ctrl_signal_i(ctrl_to_if_id_ctrl_signal),
 		.pc_i(pc_to_if_id_pc),
-		.if_inst_o(if_id_to_id_inst),
+/* 		.if_inst_o(if_id_to_id_inst), */
 		.pc_o(if_id_to_id_pc)
 	);
 
 	ID id0(
 /* 		.rst(rst), */
-		.inst_i(if_id_to_id_inst),
+		.inst_i(icache_data_i),
 
 		.rs1_data_i(regfile_to_id_rs1_data),
 		.rs2_data_i(regfile_to_id_rs2_data),
