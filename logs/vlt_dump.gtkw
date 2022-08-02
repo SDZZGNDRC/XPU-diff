@@ -1,0 +1,52 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Tue Aug  2 06:03:27 2022
+[*]
+[dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
+[dumpfile_mtime] "Tue Aug  2 06:00:08 2022"
+[dumpfile_size] 2756196
+[savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
+[timestart] 20
+[size] 1848 1016
+[pos] -1 -1
+*0.000000 24 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.top.
+[treeopen] TOP.top.id_ex0.
+[sst_width] 278
+[signals_width] 498
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+TOP.top.clk
+TOP.top.rst
+TOP.top.if_id0.ctrl_signal_i[1:0]
+@22
+TOP.top.if_id0.pc_i[63:0]
+TOP.top.if_id0.if_inst_i[31:0]
+TOP.top.if_id0.pc_o[63:0]
+TOP.top.if_id0.if_inst_o[31:0]
+@200
+-=================ID
+@22
+TOP.top.id0.pc_i[63:0]
+TOP.top.id0.inst_i[31:0]
+@200
+-=================ID_EX
+@22
+TOP.top.id_ex0.opcode_i[6:0]
+TOP.top.id_ex0.opcode_o[6:0]
+@200
+-=================CTRL
+@22
+TOP.top.ctrl0.FSM_pre_state_t[3:0]
+TOP.top.ctrl0.FSM_next_state[3:0]
+@24
+TOP.top.ctrl0.ctrl_signal_if_id_o[1:0]
+TOP.top.ctrl0.ctrl_signal_id_ex_o[1:0]
+TOP.top.ctrl0.ctrl_signal_ex_mem_o[1:0]
+TOP.top.ctrl0.ctrl_signal_mem_wb_o[1:0]
+@28
+TOP.top.ctrl0.icache_data_valid_i
+[pattern_trace] 1
+[pattern_trace] 0

@@ -116,29 +116,29 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+91,"top pc0 pc_ram_wen", false,-1);
         tracep->declQuad(c+92,"top pc0 pc_pipeline_t", false,-1, 63,0);
         tracep->declBit(c+91,"top pc0 pc_pipeline_wen", false,-1);
-        tracep->declBus(c+1109,"top pc0 pc_ram WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1110,"top pc0 pc_ram RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top pc0 pc_ram WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1109,"top pc0 pc_ram RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top pc0 pc_ram clk", false,-1);
         tracep->declBit(c+1031,"top pc0 pc_ram rst", false,-1);
         tracep->declQuad(c+89,"top pc0 pc_ram din", false,-1, 63,0);
         tracep->declQuad(c+1034,"top pc0 pc_ram dout", false,-1, 63,0);
         tracep->declBit(c+91,"top pc0 pc_ram wen", false,-1);
-        tracep->declBus(c+1112,"top pc0 mux1 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1112,"top pc0 mux1 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top pc0 mux1 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux1 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux1 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top pc0 mux1 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+89,"top pc0 mux1 out", false,-1, 63,0);
         tracep->declBus(c+80,"top pc0 mux1 key", false,-1, 1,0);
-        tracep->declQuad(c+1113,"top pc0 mux1 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top pc0 mux1 default_out", false,-1, 63,0);
         tracep->declArray(c+94,"top pc0 mux1 lut", false,-1, 131,0);
-        tracep->declBus(c+1112,"top pc0 mux1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1112,"top pc0 mux1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top pc0 mux1 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top pc0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top pc0 mux1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top pc0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+89,"top pc0 mux1 i0 out", false,-1, 63,0);
         tracep->declBus(c+80,"top pc0 mux1 i0 key", false,-1, 1,0);
-        tracep->declQuad(c+1113,"top pc0 mux1 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top pc0 mux1 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+94,"top pc0 mux1 i0 lut", false,-1, 131,0);
-        tracep->declBus(c+1116,"top pc0 mux1 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1115,"top pc0 mux1 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declArray(c+99+i*3,"top pc0 mux1 i0 pair_list", true,(i+0), 65,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -147,30 +147,30 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+107+i*2,"top pc0 mux1 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+111,"top pc0 mux1 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+113,"top pc0 mux1 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top pc0 mux1 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1109,"top pc0 pc_pipeline WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1118,"top pc0 pc_pipeline RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1116,"top pc0 mux1 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1108,"top pc0 pc_pipeline WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1117,"top pc0 pc_pipeline RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top pc0 pc_pipeline clk", false,-1);
         tracep->declBit(c+1031,"top pc0 pc_pipeline rst", false,-1);
         tracep->declQuad(c+92,"top pc0 pc_pipeline din", false,-1, 63,0);
         tracep->declQuad(c+87,"top pc0 pc_pipeline dout", false,-1, 63,0);
         tracep->declBit(c+91,"top pc0 pc_pipeline wen", false,-1);
-        tracep->declBus(c+1112,"top pc0 mux2 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1112,"top pc0 mux2 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top pc0 mux2 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux2 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux2 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top pc0 mux2 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+92,"top pc0 mux2 out", false,-1, 63,0);
         tracep->declBus(c+80,"top pc0 mux2 key", false,-1, 1,0);
-        tracep->declQuad(c+1113,"top pc0 mux2 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top pc0 mux2 default_out", false,-1, 63,0);
         tracep->declArray(c+114,"top pc0 mux2 lut", false,-1, 131,0);
-        tracep->declBus(c+1112,"top pc0 mux2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1112,"top pc0 mux2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top pc0 mux2 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top pc0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1111,"top pc0 mux2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top pc0 mux2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top pc0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+92,"top pc0 mux2 i0 out", false,-1, 63,0);
         tracep->declBus(c+80,"top pc0 mux2 i0 key", false,-1, 1,0);
-        tracep->declQuad(c+1113,"top pc0 mux2 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top pc0 mux2 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+114,"top pc0 mux2 i0 lut", false,-1, 131,0);
-        tracep->declBus(c+1116,"top pc0 mux2 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1115,"top pc0 mux2 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declArray(c+119+i*3,"top pc0 mux2 i0 pair_list", true,(i+0), 65,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -179,7 +179,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+127+i*2,"top pc0 mux2 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+131,"top pc0 mux2 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+133,"top pc0 mux2 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top pc0 mux2 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1116,"top pc0 mux2 i0 i", false,-1, 31,0);
         tracep->declBit(c+1030,"top if_id0 clk", false,-1);
         tracep->declBit(c+1031,"top if_id0 rst", false,-1);
         tracep->declBus(c+1033,"top if_id0 if_inst_i", false,-1, 31,0);
@@ -189,21 +189,14 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+30,"top if_id0 pc_o", false,-1, 63,0);
         tracep->declBit(c+134,"top if_id0 pc_wen", false,-1);
         tracep->declBit(c+134,"top if_id0 if_inst_wen", false,-1);
-        tracep->declBus(c+1108,"top if_id0 if_inst_t", false,-1, 31,0);
-        tracep->declBus(c+1109,"top if_id0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top if_id0 reg1 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+34,"top if_id0 dout", false,-1, 31,0);
+        tracep->declBus(c+1108,"top if_id0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top if_id0 reg1 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top if_id0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top if_id0 reg1 rst", false,-1);
         tracep->declQuad(c+87,"top if_id0 reg1 din", false,-1, 63,0);
         tracep->declQuad(c+30,"top if_id0 reg1 dout", false,-1, 63,0);
         tracep->declBit(c+134,"top if_id0 reg1 wen", false,-1);
-        tracep->declBus(c+1120,"top if_id0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1121,"top if_id0 reg2 RESET_VAL", false,-1, 31,0);
-        tracep->declBit(c+1030,"top if_id0 reg2 clk", false,-1);
-        tracep->declBit(c+1031,"top if_id0 reg2 rst", false,-1);
-        tracep->declBus(c+1108,"top if_id0 reg2 din", false,-1, 31,0);
-        tracep->declBus(c+34,"top if_id0 reg2 dout", false,-1, 31,0);
-        tracep->declBit(c+134,"top if_id0 reg2 wen", false,-1);
         tracep->declBus(c+34,"top id0 inst_i", false,-1, 31,0);
         tracep->declQuad(c+35,"top id0 rs1_data_i", false,-1, 63,0);
         tracep->declQuad(c+37,"top id0 rs2_data_i", false,-1, 63,0);
@@ -229,22 +222,22 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+69,"top id0 imm_o", false,-1, 19,0);
         tracep->declBus(c+71,"top id0 offset12_o", false,-1, 11,0);
         tracep->declQuad(c+30,"top id0 pc_o", false,-1, 63,0);
-        tracep->declBus(c+1112,"top id0 mux1 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux1 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top id0 mux1 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top id0 mux1 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux1 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top id0 mux1 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+66,"top id0 mux1 out", false,-1, 0,0);
         tracep->declBus(c+60,"top id0 mux1 key", false,-1, 6,0);
-        tracep->declBus(c+1123,"top id0 mux1 default_out", false,-1, 0,0);
-        tracep->declBus(c+1124,"top id0 mux1 lut", false,-1, 15,0);
-        tracep->declBus(c+1112,"top id0 mux1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top id0 mux1 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top id0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1120,"top id0 mux1 default_out", false,-1, 0,0);
+        tracep->declBus(c+1121,"top id0 mux1 lut", false,-1, 15,0);
+        tracep->declBus(c+1111,"top id0 mux1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top id0 mux1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top id0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+66,"top id0 mux1 i0 out", false,-1, 0,0);
         tracep->declBus(c+60,"top id0 mux1 i0 key", false,-1, 6,0);
-        tracep->declBus(c+1123,"top id0 mux1 i0 default_out", false,-1, 0,0);
-        tracep->declBus(c+1124,"top id0 mux1 i0 lut", false,-1, 15,0);
-        tracep->declBus(c+1125,"top id0 mux1 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1120,"top id0 mux1 i0 default_out", false,-1, 0,0);
+        tracep->declBus(c+1121,"top id0 mux1 i0 lut", false,-1, 15,0);
+        tracep->declBus(c+1122,"top id0 mux1 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declBus(c+1+i*1,"top id0 mux1 i0 pair_list", true,(i+0), 7,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -253,23 +246,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+5+i*1,"top id0 mux1 i0 data_list", true,(i+0), 0,0);}}
         tracep->declBus(c+135,"top id0 mux1 i0 lut_out", false,-1, 0,0);
         tracep->declBit(c+136,"top id0 mux1 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top id0 mux1 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top id0 mux2 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux2 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1127,"top id0 mux2 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1116,"top id0 mux1 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top id0 mux2 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux2 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1124,"top id0 mux2 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+69,"top id0 mux2 out", false,-1, 19,0);
         tracep->declBus(c+60,"top id0 mux2 key", false,-1, 6,0);
         tracep->declBus(c+137,"top id0 mux2 default_out", false,-1, 19,0);
         tracep->declArray(c+138,"top id0 mux2 lut", false,-1, 80,0);
-        tracep->declBus(c+1126,"top id0 mux2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1127,"top id0 mux2 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top id0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top id0 mux2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1124,"top id0 mux2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top id0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+69,"top id0 mux2 i0 out", false,-1, 19,0);
         tracep->declBus(c+60,"top id0 mux2 i0 key", false,-1, 6,0);
         tracep->declBus(c+137,"top id0 mux2 i0 default_out", false,-1, 19,0);
         tracep->declArray(c+138,"top id0 mux2 i0 lut", false,-1, 80,0);
-        tracep->declBus(c+1128,"top id0 mux2 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1125,"top id0 mux2 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+141+i*1,"top id0 mux2 i0 pair_list", true,(i+0), 26,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -278,23 +271,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+147+i*1,"top id0 mux2 i0 data_list", true,(i+0), 19,0);}}
         tracep->declBus(c+150,"top id0 mux2 i0 lut_out", false,-1, 19,0);
         tracep->declBit(c+151,"top id0 mux2 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top id0 mux2 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1112,"top id0 mux3 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux3 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1130,"top id0 mux3 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top id0 mux2 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1111,"top id0 mux3 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux3 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1127,"top id0 mux3 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+71,"top id0 mux3 out", false,-1, 11,0);
         tracep->declBus(c+60,"top id0 mux3 key", false,-1, 6,0);
         tracep->declBus(c+152,"top id0 mux3 default_out", false,-1, 11,0);
         tracep->declQuad(c+153,"top id0 mux3 lut", false,-1, 37,0);
-        tracep->declBus(c+1112,"top id0 mux3 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top id0 mux3 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1130,"top id0 mux3 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top id0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1111,"top id0 mux3 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top id0 mux3 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1127,"top id0 mux3 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top id0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+71,"top id0 mux3 i0 out", false,-1, 11,0);
         tracep->declBus(c+60,"top id0 mux3 i0 key", false,-1, 6,0);
         tracep->declBus(c+152,"top id0 mux3 i0 default_out", false,-1, 11,0);
         tracep->declQuad(c+153,"top id0 mux3 i0 lut", false,-1, 37,0);
-        tracep->declBus(c+1131,"top id0 mux3 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1128,"top id0 mux3 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declBus(c+155+i*1,"top id0 mux3 i0 pair_list", true,(i+0), 18,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -303,7 +296,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+159+i*1,"top id0 mux3 i0 data_list", true,(i+0), 11,0);}}
         tracep->declBus(c+161,"top id0 mux3 i0 lut_out", false,-1, 11,0);
         tracep->declBit(c+162,"top id0 mux3 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top id0 mux3 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1116,"top id0 mux3 i0 i", false,-1, 31,0);
         tracep->declBit(c+1030,"top regfile0 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 rst", false,-1);
         tracep->declBit(c+73,"top regfile0 we_i", false,-1);
@@ -379,239 +372,239 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+319,"top regfile0 wen_x31", false,-1);
         tracep->declQuad(c+320,"top regfile0 rdata1_t", false,-1, 63,0);
         tracep->declQuad(c+322,"top regfile0 rdata2_t", false,-1, 63,0);
-        tracep->declBus(c+1109,"top regfile0 x1 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x1 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x1 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x1 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x1 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x1 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x1 din", false,-1, 63,0);
         tracep->declQuad(c+227,"top regfile0 x1 dout", false,-1, 63,0);
         tracep->declBit(c+289,"top regfile0 x1 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x2 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x2 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x2 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x2 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x2 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x2 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x2 din", false,-1, 63,0);
         tracep->declQuad(c+229,"top regfile0 x2 dout", false,-1, 63,0);
         tracep->declBit(c+290,"top regfile0 x2 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x3 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x3 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x3 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x3 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x3 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x3 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x3 din", false,-1, 63,0);
         tracep->declQuad(c+231,"top regfile0 x3 dout", false,-1, 63,0);
         tracep->declBit(c+291,"top regfile0 x3 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x4 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x4 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x4 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x4 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x4 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x4 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x4 din", false,-1, 63,0);
         tracep->declQuad(c+233,"top regfile0 x4 dout", false,-1, 63,0);
         tracep->declBit(c+292,"top regfile0 x4 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x5 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x5 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x5 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x5 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x5 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x5 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x5 din", false,-1, 63,0);
         tracep->declQuad(c+235,"top regfile0 x5 dout", false,-1, 63,0);
         tracep->declBit(c+293,"top regfile0 x5 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x6 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x6 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x6 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x6 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x6 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x6 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x6 din", false,-1, 63,0);
         tracep->declQuad(c+237,"top regfile0 x6 dout", false,-1, 63,0);
         tracep->declBit(c+294,"top regfile0 x6 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x7 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x7 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x7 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x7 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x7 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x7 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x7 din", false,-1, 63,0);
         tracep->declQuad(c+239,"top regfile0 x7 dout", false,-1, 63,0);
         tracep->declBit(c+295,"top regfile0 x7 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x8 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x8 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x8 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x8 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x8 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x8 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x8 din", false,-1, 63,0);
         tracep->declQuad(c+241,"top regfile0 x8 dout", false,-1, 63,0);
         tracep->declBit(c+296,"top regfile0 x8 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x9 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x9 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x9 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x9 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x9 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x9 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x9 din", false,-1, 63,0);
         tracep->declQuad(c+243,"top regfile0 x9 dout", false,-1, 63,0);
         tracep->declBit(c+297,"top regfile0 x9 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x10 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x10 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x10 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x10 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x10 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x10 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x10 din", false,-1, 63,0);
         tracep->declQuad(c+245,"top regfile0 x10 dout", false,-1, 63,0);
         tracep->declBit(c+298,"top regfile0 x10 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x11 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x11 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x11 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x11 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x11 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x11 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x11 din", false,-1, 63,0);
         tracep->declQuad(c+247,"top regfile0 x11 dout", false,-1, 63,0);
         tracep->declBit(c+299,"top regfile0 x11 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x12 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x12 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x12 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x12 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x12 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x12 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x12 din", false,-1, 63,0);
         tracep->declQuad(c+249,"top regfile0 x12 dout", false,-1, 63,0);
         tracep->declBit(c+300,"top regfile0 x12 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x13 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x13 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x13 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x13 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x13 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x13 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x13 din", false,-1, 63,0);
         tracep->declQuad(c+251,"top regfile0 x13 dout", false,-1, 63,0);
         tracep->declBit(c+301,"top regfile0 x13 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x14 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x14 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x14 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x14 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x14 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x14 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x14 din", false,-1, 63,0);
         tracep->declQuad(c+253,"top regfile0 x14 dout", false,-1, 63,0);
         tracep->declBit(c+302,"top regfile0 x14 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x15 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x15 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x15 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x15 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x15 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x15 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x15 din", false,-1, 63,0);
         tracep->declQuad(c+255,"top regfile0 x15 dout", false,-1, 63,0);
         tracep->declBit(c+303,"top regfile0 x15 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x16 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x16 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x16 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x16 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x16 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x16 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x16 din", false,-1, 63,0);
         tracep->declQuad(c+257,"top regfile0 x16 dout", false,-1, 63,0);
         tracep->declBit(c+304,"top regfile0 x16 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x17 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x17 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x17 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x17 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x17 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x17 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x17 din", false,-1, 63,0);
         tracep->declQuad(c+259,"top regfile0 x17 dout", false,-1, 63,0);
         tracep->declBit(c+305,"top regfile0 x17 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x18 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x18 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x18 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x18 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x18 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x18 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x18 din", false,-1, 63,0);
         tracep->declQuad(c+261,"top regfile0 x18 dout", false,-1, 63,0);
         tracep->declBit(c+306,"top regfile0 x18 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x19 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x19 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x19 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x19 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x19 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x19 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x19 din", false,-1, 63,0);
         tracep->declQuad(c+263,"top regfile0 x19 dout", false,-1, 63,0);
         tracep->declBit(c+307,"top regfile0 x19 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x20 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x20 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x20 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x20 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x20 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x20 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x20 din", false,-1, 63,0);
         tracep->declQuad(c+265,"top regfile0 x20 dout", false,-1, 63,0);
         tracep->declBit(c+308,"top regfile0 x20 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x21 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x21 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x21 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x21 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x21 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x21 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x21 din", false,-1, 63,0);
         tracep->declQuad(c+267,"top regfile0 x21 dout", false,-1, 63,0);
         tracep->declBit(c+309,"top regfile0 x21 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x22 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x22 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x22 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x22 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x22 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x22 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x22 din", false,-1, 63,0);
         tracep->declQuad(c+269,"top regfile0 x22 dout", false,-1, 63,0);
         tracep->declBit(c+310,"top regfile0 x22 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x23 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x23 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x23 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x23 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x23 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x23 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x23 din", false,-1, 63,0);
         tracep->declQuad(c+271,"top regfile0 x23 dout", false,-1, 63,0);
         tracep->declBit(c+311,"top regfile0 x23 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x24 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x24 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x24 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x24 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x24 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x24 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x24 din", false,-1, 63,0);
         tracep->declQuad(c+273,"top regfile0 x24 dout", false,-1, 63,0);
         tracep->declBit(c+312,"top regfile0 x24 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x25 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x25 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x25 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x25 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x25 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x25 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x25 din", false,-1, 63,0);
         tracep->declQuad(c+275,"top regfile0 x25 dout", false,-1, 63,0);
         tracep->declBit(c+313,"top regfile0 x25 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x26 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x26 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x26 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x26 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x26 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x26 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x26 din", false,-1, 63,0);
         tracep->declQuad(c+277,"top regfile0 x26 dout", false,-1, 63,0);
         tracep->declBit(c+314,"top regfile0 x26 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x27 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x27 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x27 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x27 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x27 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x27 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x27 din", false,-1, 63,0);
         tracep->declQuad(c+279,"top regfile0 x27 dout", false,-1, 63,0);
         tracep->declBit(c+315,"top regfile0 x27 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x28 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x28 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x28 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x28 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x28 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x28 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x28 din", false,-1, 63,0);
         tracep->declQuad(c+281,"top regfile0 x28 dout", false,-1, 63,0);
         tracep->declBit(c+316,"top regfile0 x28 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x29 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x29 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x29 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x29 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x29 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x29 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x29 din", false,-1, 63,0);
         tracep->declQuad(c+283,"top regfile0 x29 dout", false,-1, 63,0);
         tracep->declBit(c+317,"top regfile0 x29 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x30 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x30 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x30 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x30 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x30 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x30 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x30 din", false,-1, 63,0);
         tracep->declQuad(c+285,"top regfile0 x30 dout", false,-1, 63,0);
         tracep->declBit(c+318,"top regfile0 x30 wen", false,-1);
-        tracep->declBus(c+1109,"top regfile0 x31 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top regfile0 x31 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top regfile0 x31 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top regfile0 x31 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top regfile0 x31 clk", false,-1);
         tracep->declBit(c+1031,"top regfile0 x31 rst", false,-1);
         tracep->declQuad(c+54,"top regfile0 x31 din", false,-1, 63,0);
         tracep->declQuad(c+287,"top regfile0 x31 dout", false,-1, 63,0);
         tracep->declBit(c+319,"top regfile0 x31 wen", false,-1);
-        tracep->declBus(c+1132,"top regfile0 mux1 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1133,"top regfile0 mux1 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top regfile0 mux1 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1129,"top regfile0 mux1 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1130,"top regfile0 mux1 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top regfile0 mux1 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+320,"top regfile0 mux1 out", false,-1, 63,0);
         tracep->declBus(c+47,"top regfile0 mux1 key", false,-1, 4,0);
-        tracep->declQuad(c+1113,"top regfile0 mux1 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top regfile0 mux1 default_out", false,-1, 63,0);
         tracep->declArray(c+324,"top regfile0 mux1 lut", false,-1, 2138,0);
-        tracep->declBus(c+1132,"top regfile0 mux1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1133,"top regfile0 mux1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top regfile0 mux1 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top regfile0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1129,"top regfile0 mux1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1130,"top regfile0 mux1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top regfile0 mux1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top regfile0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+320,"top regfile0 mux1 i0 out", false,-1, 63,0);
         tracep->declBus(c+47,"top regfile0 mux1 i0 key", false,-1, 4,0);
-        tracep->declQuad(c+1113,"top regfile0 mux1 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top regfile0 mux1 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+324,"top regfile0 mux1 i0 lut", false,-1, 2138,0);
-        tracep->declBus(c+1134,"top regfile0 mux1 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1131,"top regfile0 mux1 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<31; i++) {
                 tracep->declArray(c+391+i*3,"top regfile0 mux1 i0 pair_list", true,(i+0), 68,0);}}
         {int i; for (i=0; i<31; i++) {
@@ -620,23 +613,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+515+i*2,"top regfile0 mux1 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+577,"top regfile0 mux1 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+579,"top regfile0 mux1 i0 hit", false,-1);
-        tracep->declBus(c+1135,"top regfile0 mux1 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1132,"top regfile0 mux2 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1133,"top regfile0 mux2 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top regfile0 mux2 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1132,"top regfile0 mux1 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1129,"top regfile0 mux2 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1130,"top regfile0 mux2 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top regfile0 mux2 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+322,"top regfile0 mux2 out", false,-1, 63,0);
         tracep->declBus(c+48,"top regfile0 mux2 key", false,-1, 4,0);
-        tracep->declQuad(c+1113,"top regfile0 mux2 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top regfile0 mux2 default_out", false,-1, 63,0);
         tracep->declArray(c+580,"top regfile0 mux2 lut", false,-1, 2138,0);
-        tracep->declBus(c+1132,"top regfile0 mux2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1133,"top regfile0 mux2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top regfile0 mux2 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top regfile0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1129,"top regfile0 mux2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1130,"top regfile0 mux2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top regfile0 mux2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top regfile0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+322,"top regfile0 mux2 i0 out", false,-1, 63,0);
         tracep->declBus(c+48,"top regfile0 mux2 i0 key", false,-1, 4,0);
-        tracep->declQuad(c+1113,"top regfile0 mux2 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top regfile0 mux2 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+580,"top regfile0 mux2 i0 lut", false,-1, 2138,0);
-        tracep->declBus(c+1134,"top regfile0 mux2 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1131,"top regfile0 mux2 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<31; i++) {
                 tracep->declArray(c+647+i*3,"top regfile0 mux2 i0 pair_list", true,(i+0), 68,0);}}
         {int i; for (i=0; i<31; i++) {
@@ -645,7 +638,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+771+i*2,"top regfile0 mux2 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+833,"top regfile0 mux2 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+835,"top regfile0 mux2 i0 hit", false,-1);
-        tracep->declBus(c+1135,"top regfile0 mux2 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1132,"top regfile0 mux2 i0 i", false,-1, 31,0);
         tracep->declBit(c+1030,"top id_ex0 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 rst", false,-1);
         tracep->declBus(c+47,"top id_ex0 rs1_addr_i", false,-1, 4,0);
@@ -697,85 +690,85 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+837,"top id_ex0 offset12_wen", false,-1);
         tracep->declQuad(c+30,"top id_ex0 pc_t", false,-1, 63,0);
         tracep->declBit(c+837,"top id_ex0 pc_wen", false,-1);
-        tracep->declBus(c+1133,"top id_ex0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1136,"top id_ex0 reg1 RESET_VAL", false,-1, 4,0);
+        tracep->declBus(c+1130,"top id_ex0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1133,"top id_ex0 reg1 RESET_VAL", false,-1, 4,0);
         tracep->declBit(c+1030,"top id_ex0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg1 rst", false,-1);
         tracep->declBus(c+836,"top id_ex0 reg1 din", false,-1, 4,0);
         tracep->declBus(c+49,"top id_ex0 reg1 dout", false,-1, 4,0);
         tracep->declBit(c+837,"top id_ex0 reg1 wen", false,-1);
-        tracep->declBus(c+1133,"top id_ex0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1136,"top id_ex0 reg2 RESET_VAL", false,-1, 4,0);
+        tracep->declBus(c+1130,"top id_ex0 reg2 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1133,"top id_ex0 reg2 RESET_VAL", false,-1, 4,0);
         tracep->declBit(c+1030,"top id_ex0 reg2 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg2 rst", false,-1);
         tracep->declBus(c+838,"top id_ex0 reg2 din", false,-1, 4,0);
         tracep->declBus(c+50,"top id_ex0 reg2 dout", false,-1, 4,0);
         tracep->declBit(c+837,"top id_ex0 reg2 wen", false,-1);
-        tracep->declBus(c+1122,"top id_ex0 reg3 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1137,"top id_ex0 reg3 RESET_VAL", false,-1, 6,0);
+        tracep->declBus(c+1119,"top id_ex0 reg3 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1134,"top id_ex0 reg3 RESET_VAL", false,-1, 6,0);
         tracep->declBit(c+1030,"top id_ex0 reg3 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg3 rst", false,-1);
         tracep->declBus(c+839,"top id_ex0 reg3 din", false,-1, 6,0);
         tracep->declBus(c+61,"top id_ex0 reg3 dout", false,-1, 6,0);
         tracep->declBit(c+837,"top id_ex0 reg3 wen", false,-1);
-        tracep->declBus(c+1126,"top id_ex0 reg4 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1138,"top id_ex0 reg4 RESET_VAL", false,-1, 2,0);
+        tracep->declBus(c+1123,"top id_ex0 reg4 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1135,"top id_ex0 reg4 RESET_VAL", false,-1, 2,0);
         tracep->declBit(c+1030,"top id_ex0 reg4 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg4 rst", false,-1);
         tracep->declBus(c+840,"top id_ex0 reg4 din", false,-1, 2,0);
         tracep->declBus(c+63,"top id_ex0 reg4 dout", false,-1, 2,0);
         tracep->declBit(c+837,"top id_ex0 reg4 wen", false,-1);
-        tracep->declBus(c+1122,"top id_ex0 reg5 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1137,"top id_ex0 reg5 RESET_VAL", false,-1, 6,0);
+        tracep->declBus(c+1119,"top id_ex0 reg5 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1134,"top id_ex0 reg5 RESET_VAL", false,-1, 6,0);
         tracep->declBit(c+1030,"top id_ex0 reg5 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg5 rst", false,-1);
         tracep->declBus(c+841,"top id_ex0 reg5 din", false,-1, 6,0);
         tracep->declBus(c+65,"top id_ex0 reg5 dout", false,-1, 6,0);
         tracep->declBit(c+837,"top id_ex0 reg5 wen", false,-1);
-        tracep->declBus(c+1109,"top id_ex0 reg6 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top id_ex0 reg6 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top id_ex0 reg6 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top id_ex0 reg6 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top id_ex0 reg6 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg6 rst", false,-1);
         tracep->declQuad(c+842,"top id_ex0 reg6 din", false,-1, 63,0);
         tracep->declQuad(c+41,"top id_ex0 reg6 dout", false,-1, 63,0);
         tracep->declBit(c+837,"top id_ex0 reg6 wen", false,-1);
-        tracep->declBus(c+1109,"top id_ex0 reg7 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top id_ex0 reg7 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top id_ex0 reg7 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top id_ex0 reg7 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top id_ex0 reg7 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg7 rst", false,-1);
         tracep->declQuad(c+844,"top id_ex0 reg7 din", false,-1, 63,0);
         tracep->declQuad(c+45,"top id_ex0 reg7 dout", false,-1, 63,0);
         tracep->declBit(c+837,"top id_ex0 reg7 wen", false,-1);
-        tracep->declBus(c+1133,"top id_ex0 reg8 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1136,"top id_ex0 reg8 RESET_VAL", false,-1, 4,0);
+        tracep->declBus(c+1130,"top id_ex0 reg8 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1133,"top id_ex0 reg8 RESET_VAL", false,-1, 4,0);
         tracep->declBit(c+1030,"top id_ex0 reg8 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg8 rst", false,-1);
         tracep->declBus(c+846,"top id_ex0 reg8 din", false,-1, 4,0);
         tracep->declBus(c+52,"top id_ex0 reg8 dout", false,-1, 4,0);
         tracep->declBit(c+837,"top id_ex0 reg8 wen", false,-1);
-        tracep->declBus(c+1115,"top id_ex0 reg9 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1139,"top id_ex0 reg9 RESET_VAL", false,-1, 0,0);
+        tracep->declBus(c+1114,"top id_ex0 reg9 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1136,"top id_ex0 reg9 RESET_VAL", false,-1, 0,0);
         tracep->declBit(c+1030,"top id_ex0 reg9 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg9 rst", false,-1);
         tracep->declBus(c+847,"top id_ex0 reg9 din", false,-1, 0,0);
         tracep->declBus(c+67,"top id_ex0 reg9 dout", false,-1, 0,0);
         tracep->declBit(c+837,"top id_ex0 reg9 wen", false,-1);
-        tracep->declBus(c+1127,"top id_ex0 reg10 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1140,"top id_ex0 reg10 RESET_VAL", false,-1, 19,0);
+        tracep->declBus(c+1124,"top id_ex0 reg10 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1137,"top id_ex0 reg10 RESET_VAL", false,-1, 19,0);
         tracep->declBit(c+1030,"top id_ex0 reg10 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg10 rst", false,-1);
         tracep->declBus(c+848,"top id_ex0 reg10 din", false,-1, 19,0);
         tracep->declBus(c+70,"top id_ex0 reg10 dout", false,-1, 19,0);
         tracep->declBit(c+837,"top id_ex0 reg10 wen", false,-1);
-        tracep->declBus(c+1130,"top id_ex0 reg11 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1141,"top id_ex0 reg11 RESET_VAL", false,-1, 11,0);
+        tracep->declBus(c+1127,"top id_ex0 reg11 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1138,"top id_ex0 reg11 RESET_VAL", false,-1, 11,0);
         tracep->declBit(c+1030,"top id_ex0 reg11 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg11 rst", false,-1);
         tracep->declBus(c+849,"top id_ex0 reg11 din", false,-1, 11,0);
         tracep->declBus(c+72,"top id_ex0 reg11 dout", false,-1, 11,0);
         tracep->declBit(c+837,"top id_ex0 reg11 wen", false,-1);
-        tracep->declBus(c+1109,"top id_ex0 reg12 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top id_ex0 reg12 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top id_ex0 reg12 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top id_ex0 reg12 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top id_ex0 reg12 clk", false,-1);
         tracep->declBit(c+1031,"top id_ex0 reg12 rst", false,-1);
         tracep->declQuad(c+30,"top id_ex0 reg12 din", false,-1, 63,0);
@@ -810,7 +803,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+852,"top ex0 rs2_data", false,-1, 63,0);
         tracep->declBus(c+854,"top ex0 wdata_addiw", false,-1, 31,0);
         tracep->declQuad(c+75,"top ex0 wdata_t", false,-1, 63,0);
-        tracep->declBit(c+1123,"top ex0 wdata_wen", false,-1);
+        tracep->declBit(c+1120,"top ex0 wdata_wen", false,-1);
         tracep->declQuad(c+855,"top ex0 wdata_t_add", false,-1, 63,0);
         tracep->declQuad(c+857,"top ex0 wdata_t_addi", false,-1, 63,0);
         tracep->declQuad(c+859,"top ex0 wdata_t_addiw", false,-1, 63,0);
@@ -819,33 +812,33 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+865,"top ex0 wdata_opcode_R", false,-1, 63,0);
         tracep->declQuad(c+861,"top ex0 wdata_opcode_U_auipc", false,-1, 63,0);
         tracep->declQuad(c+867,"top ex0 wdata_funct3_add_sub_mul", false,-1, 63,0);
-        tracep->declBit(c+1123,"top ex0 branch_flag_wen", false,-1);
+        tracep->declBit(c+1120,"top ex0 branch_flag_wen", false,-1);
         tracep->declBit(c+869,"top ex0 branch_flag_t", false,-1);
         tracep->declBit(c+870,"top ex0 branch_flag_t_beq", false,-1);
         tracep->declBit(c+871,"top ex0 branch_flag_t_bge", false,-1);
-        tracep->declBus(c+1109,"top ex0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top ex0 reg1 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top ex0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top ex0 reg1 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top ex0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top ex0 reg1 rst", false,-1);
         tracep->declQuad(c+75,"top ex0 reg1 din", false,-1, 63,0);
         tracep->declQuad(c+56,"top ex0 reg1 dout", false,-1, 63,0);
-        tracep->declBit(c+1123,"top ex0 reg1 wen", false,-1);
-        tracep->declBus(c+1112,"top ex0 mux1 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top ex0 mux1 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux1 DATA_LEN", false,-1, 31,0);
+        tracep->declBit(c+1120,"top ex0 reg1 wen", false,-1);
+        tracep->declBus(c+1111,"top ex0 mux1 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top ex0 mux1 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux1 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+75,"top ex0 mux1 out", false,-1, 63,0);
         tracep->declBus(c+61,"top ex0 mux1 key", false,-1, 6,0);
-        tracep->declQuad(c+1113,"top ex0 mux1 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux1 default_out", false,-1, 63,0);
         tracep->declArray(c+872,"top ex0 mux1 lut", false,-1, 141,0);
-        tracep->declBus(c+1112,"top ex0 mux1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top ex0 mux1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux1 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ex0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ex0 mux1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top ex0 mux1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ex0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+75,"top ex0 mux1 i0 out", false,-1, 63,0);
         tracep->declBus(c+61,"top ex0 mux1 i0 key", false,-1, 6,0);
-        tracep->declQuad(c+1113,"top ex0 mux1 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux1 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+872,"top ex0 mux1 i0 lut", false,-1, 141,0);
-        tracep->declBus(c+1142,"top ex0 mux1 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1139,"top ex0 mux1 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declArray(c+877+i*3,"top ex0 mux1 i0 pair_list", true,(i+0), 70,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -854,23 +847,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+885+i*2,"top ex0 mux1 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+889,"top ex0 mux1 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+891,"top ex0 mux1 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top ex0 mux1 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ex0 mux2 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ex0 mux2 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux2 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1116,"top ex0 mux1 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ex0 mux2 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ex0 mux2 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux2 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+865,"top ex0 mux2 out", false,-1, 63,0);
         tracep->declBus(c+63,"top ex0 mux2 key", false,-1, 2,0);
-        tracep->declQuad(c+1113,"top ex0 mux2 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux2 default_out", false,-1, 63,0);
         tracep->declArray(c+892,"top ex0 mux2 lut", false,-1, 200,0);
-        tracep->declBus(c+1126,"top ex0 mux2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ex0 mux2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux2 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ex0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ex0 mux2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ex0 mux2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ex0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+865,"top ex0 mux2 i0 out", false,-1, 63,0);
         tracep->declBus(c+63,"top ex0 mux2 i0 key", false,-1, 2,0);
-        tracep->declQuad(c+1113,"top ex0 mux2 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux2 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+892,"top ex0 mux2 i0 lut", false,-1, 200,0);
-        tracep->declBus(c+1143,"top ex0 mux2 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1140,"top ex0 mux2 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declArray(c+899+i*3,"top ex0 mux2 i0 pair_list", true,(i+0), 66,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -879,23 +872,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+911+i*2,"top ex0 mux2 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+917,"top ex0 mux2 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+919,"top ex0 mux2 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ex0 mux2 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ex0 mux3 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top ex0 mux3 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux3 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ex0 mux2 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ex0 mux3 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top ex0 mux3 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux3 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+867,"top ex0 mux3 out", false,-1, 63,0);
         tracep->declBus(c+65,"top ex0 mux3 key", false,-1, 6,0);
-        tracep->declQuad(c+1113,"top ex0 mux3 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux3 default_out", false,-1, 63,0);
         tracep->declArray(c+920,"top ex0 mux3 lut", false,-1, 141,0);
-        tracep->declBus(c+1112,"top ex0 mux3 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1122,"top ex0 mux3 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ex0 mux3 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ex0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ex0 mux3 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1119,"top ex0 mux3 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ex0 mux3 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ex0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+867,"top ex0 mux3 i0 out", false,-1, 63,0);
         tracep->declBus(c+65,"top ex0 mux3 i0 key", false,-1, 6,0);
-        tracep->declQuad(c+1113,"top ex0 mux3 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1112,"top ex0 mux3 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+920,"top ex0 mux3 i0 lut", false,-1, 141,0);
-        tracep->declBus(c+1142,"top ex0 mux3 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1139,"top ex0 mux3 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declArray(c+925+i*3,"top ex0 mux3 i0 pair_list", true,(i+0), 70,0);}}
         {int i; for (i=0; i<2; i++) {
@@ -904,14 +897,14 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+933+i*2,"top ex0 mux3 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+937,"top ex0 mux3 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+939,"top ex0 mux3 i0 hit", false,-1);
-        tracep->declBus(c+1117,"top ex0 mux3 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ex0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1139,"top ex0 reg2 RESET_VAL", false,-1, 0,0);
+        tracep->declBus(c+1116,"top ex0 mux3 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ex0 reg2 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1136,"top ex0 reg2 RESET_VAL", false,-1, 0,0);
         tracep->declBit(c+1030,"top ex0 reg2 clk", false,-1);
         tracep->declBit(c+1031,"top ex0 reg2 rst", false,-1);
         tracep->declBus(c+869,"top ex0 reg2 din", false,-1, 0,0);
         tracep->declBus(c+77,"top ex0 reg2 dout", false,-1, 0,0);
-        tracep->declBit(c+1123,"top ex0 reg2 wen", false,-1);
+        tracep->declBit(c+1120,"top ex0 reg2 wen", false,-1);
         tracep->declBit(c+1030,"top ex_mem0 clk", false,-1);
         tracep->declBit(c+1031,"top ex_mem0 rst", false,-1);
         tracep->declBus(c+52,"top ex_mem0 rd_addr_i", false,-1, 4,0);
@@ -927,22 +920,22 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+941,"top ex_mem0 wreg_wen", false,-1);
         tracep->declQuad(c+943,"top ex_mem0 wdata_t", false,-1, 63,0);
         tracep->declBit(c+941,"top ex_mem0 wdata_wen", false,-1);
-        tracep->declBus(c+1133,"top ex_mem0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1136,"top ex_mem0 reg1 RESET_VAL", false,-1, 4,0);
+        tracep->declBus(c+1130,"top ex_mem0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1133,"top ex_mem0 reg1 RESET_VAL", false,-1, 4,0);
         tracep->declBit(c+1030,"top ex_mem0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top ex_mem0 reg1 rst", false,-1);
         tracep->declBus(c+940,"top ex_mem0 reg1 din", false,-1, 4,0);
         tracep->declBus(c+53,"top ex_mem0 reg1 dout", false,-1, 4,0);
         tracep->declBit(c+941,"top ex_mem0 reg1 wen", false,-1);
-        tracep->declBus(c+1115,"top ex_mem0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1139,"top ex_mem0 reg2 RESET_VAL", false,-1, 0,0);
+        tracep->declBus(c+1114,"top ex_mem0 reg2 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1136,"top ex_mem0 reg2 RESET_VAL", false,-1, 0,0);
         tracep->declBit(c+1030,"top ex_mem0 reg2 clk", false,-1);
         tracep->declBit(c+1031,"top ex_mem0 reg2 rst", false,-1);
         tracep->declBus(c+942,"top ex_mem0 reg2 din", false,-1, 0,0);
         tracep->declBus(c+68,"top ex_mem0 reg2 dout", false,-1, 0,0);
         tracep->declBit(c+941,"top ex_mem0 reg2 wen", false,-1);
-        tracep->declBus(c+1109,"top ex_mem0 reg3 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top ex_mem0 reg3 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top ex_mem0 reg3 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top ex_mem0 reg3 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top ex_mem0 reg3 clk", false,-1);
         tracep->declBit(c+1031,"top ex_mem0 reg3 rst", false,-1);
         tracep->declQuad(c+943,"top ex_mem0 reg3 din", false,-1, 63,0);
@@ -972,22 +965,22 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+945,"top mem_wb0 wdata_wen", false,-1);
         tracep->declBit(c+945,"top mem_wb0 wreg_wen", false,-1);
         tracep->declBit(c+945,"top mem_wb0 rd_addr_wen", false,-1);
-        tracep->declBus(c+1109,"top mem_wb0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declQuad(c+1113,"top mem_wb0 reg1 RESET_VAL", false,-1, 63,0);
+        tracep->declBus(c+1108,"top mem_wb0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+1112,"top mem_wb0 reg1 RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+1030,"top mem_wb0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top mem_wb0 reg1 rst", false,-1);
         tracep->declQuad(c+58,"top mem_wb0 reg1 din", false,-1, 63,0);
         tracep->declQuad(c+54,"top mem_wb0 reg1 dout", false,-1, 63,0);
         tracep->declBit(c+945,"top mem_wb0 reg1 wen", false,-1);
-        tracep->declBus(c+1115,"top mem_wb0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1139,"top mem_wb0 reg2 RESET_VAL", false,-1, 0,0);
+        tracep->declBus(c+1114,"top mem_wb0 reg2 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1136,"top mem_wb0 reg2 RESET_VAL", false,-1, 0,0);
         tracep->declBit(c+1030,"top mem_wb0 reg2 clk", false,-1);
         tracep->declBit(c+1031,"top mem_wb0 reg2 rst", false,-1);
         tracep->declBus(c+68,"top mem_wb0 reg2 din", false,-1, 0,0);
         tracep->declBus(c+73,"top mem_wb0 reg2 dout", false,-1, 0,0);
         tracep->declBit(c+945,"top mem_wb0 reg2 wen", false,-1);
-        tracep->declBus(c+1133,"top mem_wb0 reg3 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1136,"top mem_wb0 reg3 RESET_VAL", false,-1, 4,0);
+        tracep->declBus(c+1130,"top mem_wb0 reg3 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1133,"top mem_wb0 reg3 RESET_VAL", false,-1, 4,0);
         tracep->declBit(c+1030,"top mem_wb0 reg3 clk", false,-1);
         tracep->declBit(c+1031,"top mem_wb0 reg3 rst", false,-1);
         tracep->declBus(c+53,"top mem_wb0 reg3 din", false,-1, 4,0);
@@ -1014,37 +1007,37 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+949,"top ctrl0 ctrl_signal_if_id_t_1", false,-1, 1,0);
         tracep->declBus(c+950,"top ctrl0 ctrl_signal_id_ex_t_1", false,-1, 1,0);
         tracep->declBus(c+951,"top ctrl0 ctrl_signal_ex_mem_t_1", false,-1, 1,0);
-        tracep->declBus(c+1144,"top ctrl0 ctrl_signal_mem_wb_t_1", false,-1, 1,0);
-        tracep->declBus(c+1145,"top ctrl0 reg1 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1146,"top ctrl0 reg1 RESET_VAL", false,-1, 3,0);
+        tracep->declBus(c+1141,"top ctrl0 ctrl_signal_mem_wb_t_1", false,-1, 1,0);
+        tracep->declBus(c+1142,"top ctrl0 reg1 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1143,"top ctrl0 reg1 RESET_VAL", false,-1, 3,0);
         tracep->declBit(c+1030,"top ctrl0 reg1 clk", false,-1);
         tracep->declBit(c+1031,"top ctrl0 reg1 rst", false,-1);
         tracep->declBus(c+16,"top ctrl0 reg1 din", false,-1, 3,0);
         tracep->declBus(c+946,"top ctrl0 reg1 dout", false,-1, 3,0);
-        tracep->declBit(c+1123,"top ctrl0 reg1 wen", false,-1);
-        tracep->declBus(c+1145,"top ctrl0 reg2 WIDTH", false,-1, 31,0);
-        tracep->declBus(c+1146,"top ctrl0 reg2 RESET_VAL", false,-1, 3,0);
+        tracep->declBit(c+1120,"top ctrl0 reg1 wen", false,-1);
+        tracep->declBus(c+1142,"top ctrl0 reg2 WIDTH", false,-1, 31,0);
+        tracep->declBus(c+1143,"top ctrl0 reg2 RESET_VAL", false,-1, 3,0);
         tracep->declBit(c+1030,"top ctrl0 reg2 clk", false,-1);
         tracep->declBit(c+1031,"top ctrl0 reg2 rst", false,-1);
         tracep->declBus(c+946,"top ctrl0 reg2 din", false,-1, 3,0);
         tracep->declBus(c+947,"top ctrl0 reg2 dout", false,-1, 3,0);
-        tracep->declBit(c+1123,"top ctrl0 reg2 wen", false,-1);
-        tracep->declBus(c+1126,"top ctrl0 mux1 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux1 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux1 DATA_LEN", false,-1, 31,0);
+        tracep->declBit(c+1120,"top ctrl0 reg2 wen", false,-1);
+        tracep->declBus(c+1123,"top ctrl0 mux1 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux1 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux1 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+16,"top ctrl0 mux1 out", false,-1, 3,0);
         tracep->declBus(c+947,"top ctrl0 mux1 key", false,-1, 3,0);
-        tracep->declBus(c+1146,"top ctrl0 mux1 default_out", false,-1, 3,0);
+        tracep->declBus(c+1143,"top ctrl0 mux1 default_out", false,-1, 3,0);
         tracep->declBus(c+18,"top ctrl0 mux1 lut", false,-1, 23,0);
-        tracep->declBus(c+1126,"top ctrl0 mux1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux1 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux1 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+16,"top ctrl0 mux1 i0 out", false,-1, 3,0);
         tracep->declBus(c+947,"top ctrl0 mux1 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1146,"top ctrl0 mux1 i0 default_out", false,-1, 3,0);
+        tracep->declBus(c+1143,"top ctrl0 mux1 i0 default_out", false,-1, 3,0);
         tracep->declBus(c+18,"top ctrl0 mux1 i0 lut", false,-1, 23,0);
-        tracep->declBus(c+1125,"top ctrl0 mux1 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1122,"top ctrl0 mux1 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+19+i*1,"top ctrl0 mux1 i0 pair_list", true,(i+0), 7,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1053,23 +1046,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+25+i*1,"top ctrl0 mux1 i0 data_list", true,(i+0), 3,0);}}
         tracep->declBus(c+28,"top ctrl0 mux1 i0 lut_out", false,-1, 3,0);
         tracep->declBit(c+29,"top ctrl0 mux1 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux1 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux2 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux2 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux2 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux1 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux2 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux2 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux2 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+80,"top ctrl0 mux2 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux2 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux2 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux2 default_out", false,-1, 1,0);
         tracep->declBus(c+952,"top ctrl0 mux2 lut", false,-1, 17,0);
-        tracep->declBus(c+1126,"top ctrl0 mux2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux2 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux2 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+80,"top ctrl0 mux2 i0 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux2 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux2 i0 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux2 i0 default_out", false,-1, 1,0);
         tracep->declBus(c+952,"top ctrl0 mux2 i0 lut", false,-1, 17,0);
-        tracep->declBus(c+1147,"top ctrl0 mux2 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1144,"top ctrl0 mux2 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+953+i*1,"top ctrl0 mux2 i0 pair_list", true,(i+0), 5,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1078,23 +1071,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+959+i*1,"top ctrl0 mux2 i0 data_list", true,(i+0), 1,0);}}
         tracep->declBus(c+962,"top ctrl0 mux2 i0 lut_out", false,-1, 1,0);
         tracep->declBit(c+963,"top ctrl0 mux2 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux2 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux3 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux3 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux3 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux2 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux3 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux3 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux3 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+81,"top ctrl0 mux3 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux3 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux3 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux3 default_out", false,-1, 1,0);
         tracep->declBus(c+964,"top ctrl0 mux3 lut", false,-1, 17,0);
-        tracep->declBus(c+1126,"top ctrl0 mux3 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux3 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux3 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux3 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux3 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux3 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux3 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+81,"top ctrl0 mux3 i0 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux3 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux3 i0 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux3 i0 default_out", false,-1, 1,0);
         tracep->declBus(c+964,"top ctrl0 mux3 i0 lut", false,-1, 17,0);
-        tracep->declBus(c+1147,"top ctrl0 mux3 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1144,"top ctrl0 mux3 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+965+i*1,"top ctrl0 mux3 i0 pair_list", true,(i+0), 5,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1103,23 +1096,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+971+i*1,"top ctrl0 mux3 i0 data_list", true,(i+0), 1,0);}}
         tracep->declBus(c+974,"top ctrl0 mux3 i0 lut_out", false,-1, 1,0);
         tracep->declBit(c+975,"top ctrl0 mux3 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux3 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux4 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux4 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux4 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux3 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux4 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux4 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux4 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+82,"top ctrl0 mux4 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux4 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux4 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux4 default_out", false,-1, 1,0);
         tracep->declBus(c+976,"top ctrl0 mux4 lut", false,-1, 17,0);
-        tracep->declBus(c+1126,"top ctrl0 mux4 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux4 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux4 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux4 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux4 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux4 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux4 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux4 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+82,"top ctrl0 mux4 i0 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux4 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux4 i0 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux4 i0 default_out", false,-1, 1,0);
         tracep->declBus(c+976,"top ctrl0 mux4 i0 lut", false,-1, 17,0);
-        tracep->declBus(c+1147,"top ctrl0 mux4 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1144,"top ctrl0 mux4 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+977+i*1,"top ctrl0 mux4 i0 pair_list", true,(i+0), 5,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1128,23 +1121,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+983+i*1,"top ctrl0 mux4 i0 data_list", true,(i+0), 1,0);}}
         tracep->declBus(c+986,"top ctrl0 mux4 i0 lut_out", false,-1, 1,0);
         tracep->declBit(c+987,"top ctrl0 mux4 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux4 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux5 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux5 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux5 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux4 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux5 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux5 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux5 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+83,"top ctrl0 mux5 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux5 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux5 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux5 default_out", false,-1, 1,0);
         tracep->declBus(c+988,"top ctrl0 mux5 lut", false,-1, 17,0);
-        tracep->declBus(c+1126,"top ctrl0 mux5 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux5 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux5 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux5 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux5 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux5 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux5 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux5 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+83,"top ctrl0 mux5 i0 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux5 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux5 i0 default_out", false,-1, 1,0);
+        tracep->declBus(c+1141,"top ctrl0 mux5 i0 default_out", false,-1, 1,0);
         tracep->declBus(c+988,"top ctrl0 mux5 i0 lut", false,-1, 17,0);
-        tracep->declBus(c+1147,"top ctrl0 mux5 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1144,"top ctrl0 mux5 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+989+i*1,"top ctrl0 mux5 i0 pair_list", true,(i+0), 5,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1153,23 +1146,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+995+i*1,"top ctrl0 mux5 i0 data_list", true,(i+0), 1,0);}}
         tracep->declBus(c+998,"top ctrl0 mux5 i0 lut_out", false,-1, 1,0);
         tracep->declBit(c+999,"top ctrl0 mux5 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux5 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux6 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux6 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux6 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux5 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux6 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux6 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux6 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+84,"top ctrl0 mux6 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux6 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux6 default_out", false,-1, 1,0);
-        tracep->declBus(c+1148,"top ctrl0 mux6 lut", false,-1, 17,0);
-        tracep->declBus(c+1126,"top ctrl0 mux6 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux6 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1112,"top ctrl0 mux6 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux6 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1141,"top ctrl0 mux6 default_out", false,-1, 1,0);
+        tracep->declBus(c+1145,"top ctrl0 mux6 lut", false,-1, 17,0);
+        tracep->declBus(c+1123,"top ctrl0 mux6 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux6 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1111,"top ctrl0 mux6 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux6 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+84,"top ctrl0 mux6 i0 out", false,-1, 1,0);
         tracep->declBus(c+947,"top ctrl0 mux6 i0 key", false,-1, 3,0);
-        tracep->declBus(c+1144,"top ctrl0 mux6 i0 default_out", false,-1, 1,0);
-        tracep->declBus(c+1148,"top ctrl0 mux6 i0 lut", false,-1, 17,0);
-        tracep->declBus(c+1147,"top ctrl0 mux6 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1141,"top ctrl0 mux6 i0 default_out", false,-1, 1,0);
+        tracep->declBus(c+1145,"top ctrl0 mux6 i0 lut", false,-1, 17,0);
+        tracep->declBus(c+1144,"top ctrl0 mux6 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+7+i*1,"top ctrl0 mux6 i0 pair_list", true,(i+0), 5,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1178,23 +1171,23 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+13+i*1,"top ctrl0 mux6 i0 data_list", true,(i+0), 1,0);}}
         tracep->declBus(c+1000,"top ctrl0 mux6 i0 lut_out", false,-1, 1,0);
         tracep->declBit(c+1001,"top ctrl0 mux6 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux6 i0 i", false,-1, 31,0);
-        tracep->declBus(c+1126,"top ctrl0 mux7 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux7 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ctrl0 mux7 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux6 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux7 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux7 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ctrl0 mux7 DATA_LEN", false,-1, 31,0);
         tracep->declQuad(c+85,"top ctrl0 mux7 out", false,-1, 63,0);
         tracep->declBus(c+947,"top ctrl0 mux7 key", false,-1, 3,0);
-        tracep->declQuad(c+1149,"top ctrl0 mux7 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1146,"top ctrl0 mux7 default_out", false,-1, 63,0);
         tracep->declArray(c+1002,"top ctrl0 mux7 lut", false,-1, 203,0);
-        tracep->declBus(c+1126,"top ctrl0 mux7 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+1145,"top ctrl0 mux7 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+1109,"top ctrl0 mux7 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+1115,"top ctrl0 mux7 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+1123,"top ctrl0 mux7 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+1142,"top ctrl0 mux7 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+1108,"top ctrl0 mux7 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+1114,"top ctrl0 mux7 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declQuad(c+85,"top ctrl0 mux7 i0 out", false,-1, 63,0);
         tracep->declBus(c+947,"top ctrl0 mux7 i0 key", false,-1, 3,0);
-        tracep->declQuad(c+1149,"top ctrl0 mux7 i0 default_out", false,-1, 63,0);
+        tracep->declQuad(c+1146,"top ctrl0 mux7 i0 default_out", false,-1, 63,0);
         tracep->declArray(c+1002,"top ctrl0 mux7 i0 lut", false,-1, 203,0);
-        tracep->declBus(c+1151,"top ctrl0 mux7 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+1148,"top ctrl0 mux7 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declArray(c+1009+i*3,"top ctrl0 mux7 i0 pair_list", true,(i+0), 67,0);}}
         {int i; for (i=0; i<3; i++) {
@@ -1203,7 +1196,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declQuad(c+1021+i*2,"top ctrl0 mux7 i0 data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+1027,"top ctrl0 mux7 i0 lut_out", false,-1, 63,0);
         tracep->declBit(c+1029,"top ctrl0 mux7 i0 hit", false,-1);
-        tracep->declBus(c+1129,"top ctrl0 mux7 i0 i", false,-1, 31,0);
+        tracep->declBus(c+1126,"top ctrl0 mux7 i0 i", false,-1, 31,0);
     }
 }
 
@@ -1272,13 +1265,13 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullBit(oldp+29,(vlSelf->top__DOT__ctrl0__DOT__mux1__DOT__i0__DOT__hit));
         tracep->fullQData(oldp+30,(vlSelf->top__DOT__if_id_to_id_pc),64);
         tracep->fullQData(oldp+32,(vlSelf->top__DOT__id_ex_to_ex_pc),64);
-        tracep->fullIData(oldp+34,(vlSelf->top__DOT__if_id_to_id_inst),32);
+        tracep->fullIData(oldp+34,(vlSelf->top__DOT__if_id0__DOT__dout),32);
         tracep->fullQData(oldp+35,((((- (QData)((IData)(
                                                         ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_we) 
                                                          & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                             == 
                                                             (0x1fU 
-                                                             & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                             & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                 >> 0xfU))))))) 
                                      & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                     | ((~ (- (QData)((IData)(
@@ -1286,7 +1279,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                               & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                  == 
                                                                  (0x1fU 
-                                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                      >> 0xfU)))))))) 
                                        & vlSelf->top__DOT__regfile0__DOT__rdata1_t))),64);
         tracep->fullQData(oldp+37,((((- (QData)((IData)(
@@ -1294,7 +1287,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                          & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                             == 
                                                             (0x1fU 
-                                                             & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                             & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                 >> 0x14U))))))) 
                                      & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                     | ((~ (- (QData)((IData)(
@@ -1302,28 +1295,28 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                               & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                  == 
                                                                  (0x1fU 
-                                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                      >> 0x14U)))))))) 
                                        & vlSelf->top__DOT__regfile0__DOT__rdata2_t))),64);
         tracep->fullQData(oldp+39,(((0U == (0x1fU & 
-                                            (vlSelf->top__DOT__if_id_to_id_inst 
+                                            (vlSelf->top__DOT__if_id0__DOT__dout 
                                              >> 0xfU)))
                                      ? 0ULL : ((((0x1fU 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 0xfU)) 
                                                  == (IData)(vlSelf->top__DOT__id_ex_to_ex_rd_addr)) 
                                                 & (IData)(vlSelf->top__DOT__id_ex_to_ex_wreg))
                                                 ? vlSelf->top__DOT__ex0__DOT__wdata_t
                                                 : (
                                                    (((0x1fU 
-                                                      & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                      & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                          >> 0xfU)) 
                                                      == (IData)(vlSelf->top__DOT__ex_mem_to_mem_rd_addr)) 
                                                     & (IData)(vlSelf->top__DOT__ex_mem_to_mem_wreg))
                                                     ? vlSelf->top__DOT__ex_mem_to_mem_wdata
                                                     : 
                                                    ((((0x1fU 
-                                                       & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                       & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                           >> 0xfU)) 
                                                       == (IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr)) 
                                                      & (IData)(vlSelf->top__DOT__mem_wb_to_regfile_we))
@@ -1334,7 +1327,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                           & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                              == 
                                                                              (0x1fU 
-                                                                              & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                              & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0xfU))))))) 
                                                       & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                                      | ((~ 
@@ -1343,29 +1336,29 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                              & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                                 == 
                                                                                 (0x1fU 
-                                                                                & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                                & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0xfU)))))))) 
                                                         & vlSelf->top__DOT__regfile0__DOT__rdata1_t))))))),64);
         tracep->fullQData(oldp+41,(vlSelf->top__DOT__id_ex_to_ex_rs1_data),64);
         tracep->fullQData(oldp+43,(((0U == (0x1fU & 
-                                            (vlSelf->top__DOT__if_id_to_id_inst 
+                                            (vlSelf->top__DOT__if_id0__DOT__dout 
                                              >> 0x14U)))
                                      ? 0ULL : ((((0x1fU 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 0x14U)) 
                                                  == (IData)(vlSelf->top__DOT__id_ex_to_ex_rd_addr)) 
                                                 & (IData)(vlSelf->top__DOT__id_ex_to_ex_wreg))
                                                 ? vlSelf->top__DOT__ex0__DOT__wdata_t
                                                 : (
                                                    (((0x1fU 
-                                                      & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                      & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                          >> 0x14U)) 
                                                      == (IData)(vlSelf->top__DOT__ex_mem_to_mem_rd_addr)) 
                                                     & (IData)(vlSelf->top__DOT__ex_mem_to_mem_wreg))
                                                     ? vlSelf->top__DOT__ex_mem_to_mem_wdata
                                                     : 
                                                    ((((0x1fU 
-                                                       & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                       & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                           >> 0x14U)) 
                                                       == (IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr)) 
                                                      & (IData)(vlSelf->top__DOT__mem_wb_to_regfile_we))
@@ -1376,7 +1369,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                           & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                              == 
                                                                              (0x1fU 
-                                                                              & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                              & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0x14U))))))) 
                                                       & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                                      | ((~ 
@@ -1385,29 +1378,29 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                              & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                                 == 
                                                                                 (0x1fU 
-                                                                                & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                                & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0x14U)))))))) 
                                                         & vlSelf->top__DOT__regfile0__DOT__rdata2_t))))))),64);
         tracep->fullQData(oldp+45,(vlSelf->top__DOT__id_ex_to_ex_rs2_data),64);
-        tracep->fullCData(oldp+47,((0x1fU & (vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullCData(oldp+47,((0x1fU & (vlSelf->top__DOT__if_id0__DOT__dout 
                                              >> 0xfU))),5);
-        tracep->fullCData(oldp+48,((0x1fU & (vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullCData(oldp+48,((0x1fU & (vlSelf->top__DOT__if_id0__DOT__dout 
                                              >> 0x14U))),5);
         tracep->fullCData(oldp+49,(vlSelf->top__DOT__id_ex_to_ex_rs1_addr),5);
         tracep->fullCData(oldp+50,(vlSelf->top__DOT__id_ex_to_ex_rs2_addr),5);
-        tracep->fullCData(oldp+51,((0x1fU & (vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullCData(oldp+51,((0x1fU & (vlSelf->top__DOT__if_id0__DOT__dout 
                                              >> 7U))),5);
         tracep->fullCData(oldp+52,(vlSelf->top__DOT__id_ex_to_ex_rd_addr),5);
         tracep->fullCData(oldp+53,(vlSelf->top__DOT__ex_mem_to_mem_rd_addr),5);
         tracep->fullQData(oldp+54,(vlSelf->top__DOT__mem_wb_to_regfile_wdata),64);
         tracep->fullQData(oldp+56,(vlSelf->top__DOT__ex_to_ex_mem_wdata),64);
         tracep->fullQData(oldp+58,(vlSelf->top__DOT__ex_mem_to_mem_wdata),64);
-        tracep->fullCData(oldp+60,((0x7fU & vlSelf->top__DOT__if_id_to_id_inst)),7);
+        tracep->fullCData(oldp+60,((0x7fU & vlSelf->top__DOT__if_id0__DOT__dout)),7);
         tracep->fullCData(oldp+61,(vlSelf->top__DOT__id_ex_to_ex_opcode),7);
-        tracep->fullCData(oldp+62,((7U & (vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullCData(oldp+62,((7U & (vlSelf->top__DOT__if_id0__DOT__dout 
                                           >> 0xcU))),3);
         tracep->fullCData(oldp+63,(vlSelf->top__DOT__id_ex_to_ex_funct3),3);
-        tracep->fullCData(oldp+64,((vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullCData(oldp+64,((vlSelf->top__DOT__if_id0__DOT__dout 
                                     >> 0x19U)),7);
         tracep->fullCData(oldp+65,(vlSelf->top__DOT__id_ex_to_ex_funct7),7);
         tracep->fullBit(oldp+66,(vlSelf->top__DOT__id_to_id_ex_wreg));
@@ -1453,7 +1446,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullBit(oldp+134,((1U != (IData)(vlSelf->top__DOT__ctrl_to_if_id_ctrl_signal))));
         tracep->fullBit(oldp+135,(vlSelf->top__DOT__id0__DOT__mux1__DOT__i0__DOT__lut_out));
         tracep->fullBit(oldp+136,(vlSelf->top__DOT__id0__DOT__mux1__DOT__i0__DOT__hit));
-        tracep->fullIData(oldp+137,((vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullIData(oldp+137,((vlSelf->top__DOT__if_id0__DOT__dout 
                                      >> 0x14U)),20);
         tracep->fullWData(oldp+138,(vlSelf->top__DOT__id0__DOT____Vcellinp__mux2____pinNumber4),81);
         tracep->fullIData(oldp+141,(vlSelf->top__DOT__id0__DOT__mux2__DOT__i0__DOT__pair_list[0]),27);
@@ -1467,7 +1460,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullIData(oldp+149,(vlSelf->top__DOT__id0__DOT__mux2__DOT__i0__DOT__data_list[2]),20);
         tracep->fullIData(oldp+150,(vlSelf->top__DOT__id0__DOT__mux2__DOT__i0__DOT__lut_out),20);
         tracep->fullBit(oldp+151,(vlSelf->top__DOT__id0__DOT__mux2__DOT__i0__DOT__hit));
-        tracep->fullSData(oldp+152,((vlSelf->top__DOT__if_id_to_id_inst 
+        tracep->fullSData(oldp+152,((vlSelf->top__DOT__if_id0__DOT__dout 
                                      >> 0x14U)),12);
         tracep->fullQData(oldp+153,(vlSelf->top__DOT__id0__DOT____Vcellinp__mux3____pinNumber4),38);
         tracep->fullIData(oldp+155,(vlSelf->top__DOT__id0__DOT__mux3__DOT__i0__DOT__pair_list[0]),19);
@@ -1800,14 +1793,14 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullCData(oldp+836,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                       ? 0U : ((0U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                                ? (0x1fU 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 0xfU))
                                                : 0U))),5);
         tracep->fullBit(oldp+837,((1U != (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))));
         tracep->fullCData(oldp+838,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                       ? 0U : ((0U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                                ? (0x1fU 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 0x14U))
                                                : 0U))),5);
         tracep->fullCData(oldp+839,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
@@ -1815,17 +1808,17 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                   == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                                   ? 
                                                  (0x7fU 
-                                                  & vlSelf->top__DOT__if_id_to_id_inst)
+                                                  & vlSelf->top__DOT__if_id0__DOT__dout)
                                                   : 0U))),7);
         tracep->fullCData(oldp+840,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                       ? 0U : ((0U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                                ? (7U 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 0xcU))
                                                : 0U))),3);
         tracep->fullCData(oldp+841,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                       ? 0U : ((0U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
-                                               ? (vlSelf->top__DOT__if_id_to_id_inst 
+                                               ? (vlSelf->top__DOT__if_id0__DOT__dout 
                                                   >> 0x19U)
                                                : 0U))),7);
         tracep->fullQData(oldp+842,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
@@ -1835,26 +1828,26 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                 ((0U 
                                                   == 
                                                   (0x1fU 
-                                                   & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                   & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                       >> 0xfU)))
                                                   ? 0ULL
                                                   : 
                                                  ((((0x1fU 
-                                                     & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                     & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                         >> 0xfU)) 
                                                     == (IData)(vlSelf->top__DOT__id_ex_to_ex_rd_addr)) 
                                                    & (IData)(vlSelf->top__DOT__id_ex_to_ex_wreg))
                                                    ? vlSelf->top__DOT__ex0__DOT__wdata_t
                                                    : 
                                                   ((((0x1fU 
-                                                      & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                      & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                          >> 0xfU)) 
                                                      == (IData)(vlSelf->top__DOT__ex_mem_to_mem_rd_addr)) 
                                                     & (IData)(vlSelf->top__DOT__ex_mem_to_mem_wreg))
                                                     ? vlSelf->top__DOT__ex_mem_to_mem_wdata
                                                     : 
                                                    ((((0x1fU 
-                                                       & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                       & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                           >> 0xfU)) 
                                                       == (IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr)) 
                                                      & (IData)(vlSelf->top__DOT__mem_wb_to_regfile_we))
@@ -1865,7 +1858,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                           & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                              == 
                                                                              (0x1fU 
-                                                                              & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                              & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0xfU))))))) 
                                                       & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                                      | ((~ 
@@ -1874,7 +1867,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                              & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                                 == 
                                                                                 (0x1fU 
-                                                                                & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                                & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0xfU)))))))) 
                                                         & vlSelf->top__DOT__regfile0__DOT__rdata1_t))))))
                                                  : 0ULL))),64);
@@ -1885,26 +1878,26 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                 ((0U 
                                                   == 
                                                   (0x1fU 
-                                                   & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                   & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                       >> 0x14U)))
                                                   ? 0ULL
                                                   : 
                                                  ((((0x1fU 
-                                                     & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                     & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                         >> 0x14U)) 
                                                     == (IData)(vlSelf->top__DOT__id_ex_to_ex_rd_addr)) 
                                                    & (IData)(vlSelf->top__DOT__id_ex_to_ex_wreg))
                                                    ? vlSelf->top__DOT__ex0__DOT__wdata_t
                                                    : 
                                                   ((((0x1fU 
-                                                      & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                      & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                          >> 0x14U)) 
                                                      == (IData)(vlSelf->top__DOT__ex_mem_to_mem_rd_addr)) 
                                                     & (IData)(vlSelf->top__DOT__ex_mem_to_mem_wreg))
                                                     ? vlSelf->top__DOT__ex_mem_to_mem_wdata
                                                     : 
                                                    ((((0x1fU 
-                                                       & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                       & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                           >> 0x14U)) 
                                                       == (IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr)) 
                                                      & (IData)(vlSelf->top__DOT__mem_wb_to_regfile_we))
@@ -1915,7 +1908,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                           & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                              == 
                                                                              (0x1fU 
-                                                                              & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                              & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0x14U))))))) 
                                                       & vlSelf->top__DOT__mem_wb_to_regfile_wdata) 
                                                      | ((~ 
@@ -1924,14 +1917,14 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                              & ((IData)(vlSelf->top__DOT__mem_wb_to_regfile_waddr) 
                                                                                 == 
                                                                                 (0x1fU 
-                                                                                & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                                                & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                                                 >> 0x14U)))))))) 
                                                         & vlSelf->top__DOT__regfile0__DOT__rdata2_t))))))
                                                  : 0ULL))),64);
         tracep->fullCData(oldp+846,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                       ? 0U : ((0U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal))
                                                ? (0x1fU 
-                                                  & (vlSelf->top__DOT__if_id_to_id_inst 
+                                                  & (vlSelf->top__DOT__if_id0__DOT__dout 
                                                      >> 7U))
                                                : 0U))),5);
         tracep->fullBit(oldp+847,(((2U == (IData)(vlSelf->top__DOT__ctrl_to_id_ex_ctrl_signal)) 
@@ -2147,47 +2140,42 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullQData(oldp+1102,(vlSelf->diff_regs_o[29]),64);
         tracep->fullQData(oldp+1104,(vlSelf->diff_regs_o[30]),64);
         tracep->fullQData(oldp+1106,(vlSelf->diff_regs_o[31]),64);
-        tracep->fullIData(oldp+1108,(((0U == (IData)(vlSelf->top__DOT__ctrl_to_if_id_ctrl_signal))
-                                       ? vlSelf->icache_data_i
-                                       : 0x13U)),32);
-        tracep->fullIData(oldp+1109,(0x40U),32);
-        tracep->fullQData(oldp+1110,(0x80000000ULL),64);
-        tracep->fullIData(oldp+1112,(2U),32);
-        tracep->fullQData(oldp+1113,(0ULL),64);
-        tracep->fullIData(oldp+1115,(1U),32);
-        tracep->fullIData(oldp+1116,(0x42U),32);
-        tracep->fullIData(oldp+1117,(2U),32);
-        tracep->fullQData(oldp+1118,(0x7ffffffcULL),64);
-        tracep->fullIData(oldp+1120,(0x20U),32);
-        tracep->fullIData(oldp+1121,(0U),32);
-        tracep->fullIData(oldp+1122,(7U),32);
-        tracep->fullBit(oldp+1123,(1U));
-        tracep->fullSData(oldp+1124,(0xc647U),16);
-        tracep->fullIData(oldp+1125,(8U),32);
+        tracep->fullIData(oldp+1108,(0x40U),32);
+        tracep->fullQData(oldp+1109,(0x80000000ULL),64);
+        tracep->fullIData(oldp+1111,(2U),32);
+        tracep->fullQData(oldp+1112,(0ULL),64);
+        tracep->fullIData(oldp+1114,(1U),32);
+        tracep->fullIData(oldp+1115,(0x42U),32);
+        tracep->fullIData(oldp+1116,(2U),32);
+        tracep->fullQData(oldp+1117,(0x7ffffffcULL),64);
+        tracep->fullIData(oldp+1119,(7U),32);
+        tracep->fullBit(oldp+1120,(1U));
+        tracep->fullSData(oldp+1121,(0xc647U),16);
+        tracep->fullIData(oldp+1122,(8U),32);
+        tracep->fullIData(oldp+1123,(3U),32);
+        tracep->fullIData(oldp+1124,(0x14U),32);
+        tracep->fullIData(oldp+1125,(0x1bU),32);
         tracep->fullIData(oldp+1126,(3U),32);
-        tracep->fullIData(oldp+1127,(0x14U),32);
-        tracep->fullIData(oldp+1128,(0x1bU),32);
-        tracep->fullIData(oldp+1129,(3U),32);
-        tracep->fullIData(oldp+1130,(0xcU),32);
-        tracep->fullIData(oldp+1131,(0x13U),32);
+        tracep->fullIData(oldp+1127,(0xcU),32);
+        tracep->fullIData(oldp+1128,(0x13U),32);
+        tracep->fullIData(oldp+1129,(0x1fU),32);
+        tracep->fullIData(oldp+1130,(5U),32);
+        tracep->fullIData(oldp+1131,(0x45U),32);
         tracep->fullIData(oldp+1132,(0x1fU),32);
-        tracep->fullIData(oldp+1133,(5U),32);
-        tracep->fullIData(oldp+1134,(0x45U),32);
-        tracep->fullIData(oldp+1135,(0x1fU),32);
-        tracep->fullCData(oldp+1136,(0U),5);
-        tracep->fullCData(oldp+1137,(0U),7);
-        tracep->fullCData(oldp+1138,(0U),3);
-        tracep->fullBit(oldp+1139,(0U));
-        tracep->fullIData(oldp+1140,(0U),20);
-        tracep->fullSData(oldp+1141,(0U),12);
-        tracep->fullIData(oldp+1142,(0x47U),32);
-        tracep->fullIData(oldp+1143,(0x43U),32);
-        tracep->fullCData(oldp+1144,(0U),2);
-        tracep->fullIData(oldp+1145,(4U),32);
-        tracep->fullCData(oldp+1146,(0U),4);
-        tracep->fullIData(oldp+1147,(6U),32);
-        tracep->fullIData(oldp+1148,(0x108U),18);
-        tracep->fullQData(oldp+1149,(0x100000ULL),64);
-        tracep->fullIData(oldp+1151,(0x44U),32);
+        tracep->fullCData(oldp+1133,(0U),5);
+        tracep->fullCData(oldp+1134,(0U),7);
+        tracep->fullCData(oldp+1135,(0U),3);
+        tracep->fullBit(oldp+1136,(0U));
+        tracep->fullIData(oldp+1137,(0U),20);
+        tracep->fullSData(oldp+1138,(0U),12);
+        tracep->fullIData(oldp+1139,(0x47U),32);
+        tracep->fullIData(oldp+1140,(0x43U),32);
+        tracep->fullCData(oldp+1141,(0U),2);
+        tracep->fullIData(oldp+1142,(4U),32);
+        tracep->fullCData(oldp+1143,(0U),4);
+        tracep->fullIData(oldp+1144,(6U),32);
+        tracep->fullIData(oldp+1145,(0x108U),18);
+        tracep->fullQData(oldp+1146,(0x100000ULL),64);
+        tracep->fullIData(oldp+1148,(0x44U),32);
     }
 }

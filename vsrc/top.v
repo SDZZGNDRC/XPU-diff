@@ -115,7 +115,7 @@ module top(
 	IF_ID if_id0(
 		.clk(clk),
 		.rst(rst),
-		.if_inst_i(icache_data_i[31:0]),
+		.if_inst_i(icache_data_i),
 		.ctrl_signal_i(ctrl_to_if_id_ctrl_signal),
 		.pc_i(pc_to_if_id_pc),
 		.if_inst_o(if_id_to_id_inst),

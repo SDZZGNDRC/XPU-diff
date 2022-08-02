@@ -87,9 +87,9 @@ VL_MODULE(Vtop___024root) {
         SData/*11:0*/ top__DOT__id_to_id_ex_offset12;
         SData/*11:0*/ top__DOT__id_ex_to_ex_offset12;
         SData/*11:0*/ top__DOT__id0__DOT__mux3__DOT__i0__DOT__lut_out;
-        IData/*31:0*/ top__DOT__if_id_to_id_inst;
         IData/*19:0*/ top__DOT__id_to_id_ex_imm;
         IData/*19:0*/ top__DOT__id_ex_to_ex_imm;
+        IData/*31:0*/ top__DOT__if_id0__DOT__dout;
         IData/*19:0*/ top__DOT__id0__DOT__mux2__DOT__i0__DOT__lut_out;
         IData/*31:0*/ top__DOT__ex0__DOT__wdata_addiw;
         QData/*63:0*/ top__DOT__if_id_to_id_pc;

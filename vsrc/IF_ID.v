@@ -18,10 +18,19 @@ module IF_ID
     assign pc_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
 
 /* if_inst_o */
-    wire if_inst_wen;
+/*     wire if_inst_wen;
     wire [`InstBus] if_inst_t;
-    Reg #(32, 32'b0) reg2 (clk, rst, if_inst_t, if_inst_o, if_inst_wen);
+    Reg #(32, 32'b0) reg2 (clk, rst, if_inst_i, if_inst_o, if_inst_wen);
     assign if_inst_t = (ctrl_signal_i == `CTRL_STATE_Default) ? if_inst_i : `NOP;
+    assign if_inst_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1; */
+
+    wire if_inst_wen;
     assign if_inst_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    reg [31:0] dout;
+    assign if_inst_o = dout;
+    always @(posedge clk) begin
+        if (rst) dout <= 32'b0;
+        else if (if_inst_wen) dout <= if_inst_i;
+    end
 
 endmodule

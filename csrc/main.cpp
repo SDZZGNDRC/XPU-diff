@@ -7,6 +7,9 @@
 #include "verilated.h"
 #include "mif.h"
 
+mif *_mif = new mif; // The interface of the memory
+unsigned long addr_t = 0x7ffffffc; // The address received last cycle.
+
 uint64_t bytes2uint(char* bytes)
 {
 	uint64_t a = *(uint64_t*)bytes;
@@ -63,6 +66,10 @@ void init(Vtop* top, VerilatedContext* contextp)
 		top->clk = 0;
 		contextp->timeInc(1);
 		top->eval();
+		_mif->load(addr_t, 4, (uint8_t*)&top->icache_data_i);
+		top->icache_data_valid_i = 1;
+		printf("ADDR_T = 0x%16lx\tINST = 0x%08x\n", addr_t, top->icache_data_i);
+		addr_t = top->icache_addr_o;
 		top->clk = 1;
 		contextp->timeInc(1);
 		top->eval();
@@ -72,7 +79,6 @@ void init(Vtop* top, VerilatedContext* contextp)
 
 int main(int argc, char** argv, char** env)
 {
-    mif *_mif = new mif;
     elfloader(_mif, argv[1]);
 	Verilated::mkdir("logs");
 	VerilatedContext* contextp = new VerilatedContext;
@@ -89,8 +95,9 @@ int main(int argc, char** argv, char** env)
 		top->clk = 1;
 		top->icache_data_valid_i = 1;
 		if (top->icache_req_valid_o == 1 && top->icache_data_wen_o == 0){
-			_mif->load(top->icache_addr_o, 4, (uint8_t*)&top->icache_data_i);
-			printf("INST = 0x%08x\n", top->icache_data_i);
+			_mif->load(addr_t, 4, (uint8_t*)&top->icache_data_i);
+			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr_t, top->icache_data_i);
+			addr_t = top->icache_addr_o;
 		}
 		contextp->timeInc(1);
 		top->eval();
