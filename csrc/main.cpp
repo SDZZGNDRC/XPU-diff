@@ -75,8 +75,12 @@ void init(Vtop* top, VerilatedContext* contextp)
 		top->eval_step();
 		/* =============POSEDGE-End============== */
 		top->icache_data_valid_i = 1;
-		_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
-		printf("ADDR_T = 0x%16lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		if (icache_req_valid_o == 1 && icache_data_wen_o == 0){
+			_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
+			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		} else {
+			top->icache_data_i = 0x0;
+		}
 		addr = addr_t;
 		if(i == init_cylces-1){
 			top->rst = 0;
@@ -115,6 +119,8 @@ int main(int argc, char** argv, char** env)
 		if (icache_req_valid_o == 1 && icache_data_wen_o == 0){
 			_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
 			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		} else {
+			top->icache_data_i = 0x0;
 		}
 		addr = addr_t;
 		contextp->timeInc(1);

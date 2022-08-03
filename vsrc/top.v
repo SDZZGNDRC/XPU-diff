@@ -71,9 +71,13 @@ module top(
 
 	wire[`ImmBus] id_to_id_ex_imm;
 	wire[`ImmBus] id_ex_to_ex_imm;
+	wire id_to_id_ex_imm_sel;
+	wire id_ex_to_ex_imm_sel;
 
-	wire[`Offset12Bus] id_to_id_ex_offset12;
+/* 	wire[`Offset12Bus] id_to_id_ex_offset12;
 	wire[`Offset12Bus] id_ex_to_ex_offset12;
+	wire[`Offset20Bus] id_to_id_ex_offset20;
+	wire[`Offset20Bus] id_ex_to_ex_offset20; */
 
 	wire mem_wb_to_regfile_we;
 	wire[`RegAddrBus] mem_wb_to_regfile_waddr;
@@ -149,7 +153,9 @@ module top(
 		.rd_addr_o(id_to_id_ex_rd_addr),
 		.wreg_o(id_to_id_ex_wreg),
 		.imm_o(id_to_id_ex_imm),
-		.offset12_o(id_to_id_ex_offset12),
+		.imm_sel_o(id_to_id_ex_imm_sel),
+/* 		.offset12_o(id_to_id_ex_offset12),
+		.offset20_o(id_to_id_ex_offset20), */
 		.pc_o(id_to_id_ex_pc)
 	);
 
@@ -180,7 +186,9 @@ module top(
 		.rd_addr_i(id_to_id_ex_rd_addr),
 		.wreg_i(id_to_id_ex_wreg),
 		.imm_i(id_to_id_ex_imm),
-		.offset12_i(id_to_id_ex_offset12),
+		.imm_sel_i(id_to_id_ex_imm_sel),
+/* 		.offset12_i(id_to_id_ex_offset12),
+		.offset20_i(id_to_id_ex_offset20), */
 		.pc_i(id_to_id_ex_pc),
 		.ctrl_signal_i(ctrl_to_id_ex_ctrl_signal),
 
@@ -194,13 +202,15 @@ module top(
 		.rd_addr_o(id_ex_to_ex_rd_addr),
 		.wreg_o(id_ex_to_ex_wreg),
 		.imm_o(id_ex_to_ex_imm),
-		.offset12_o(id_ex_to_ex_offset12),
+		.imm_sel_o(id_ex_to_ex_imm_sel),
+/* 		.offset12_o(id_ex_to_ex_offset12),
+		.offset20_o(id_ex_to_ex_offset20), */
 		.pc_o(id_ex_to_ex_pc)
 	);
 
 	EX ex0(
-		.clk(clk),
-		.rst(rst),
+/* 		.clk(clk),
+		.rst(rst), */
 
 		.rs1_addr_i(id_ex_to_ex_rs1_addr),
 		.rs2_addr_i(id_ex_to_ex_rs2_addr),
@@ -212,7 +222,9 @@ module top(
 		.rd_addr_i(id_ex_to_ex_rd_addr),
 		.wreg_i(id_ex_to_ex_wreg),
 		.imm_i(id_ex_to_ex_imm),
-		.offset12_i(id_ex_to_ex_offset12),
+		.imm_sel_i(id_ex_to_ex_imm_sel),
+/* 		.offset12_i(id_ex_to_ex_offset12),
+		.offset20_i(id_ex_to_ex_offset20), */
 		.pc_i(id_ex_to_ex_pc),
 		.mem_back_wdata_i(mem_to_id_back_wdata),
 		.mem_back_rd_addr_i(mem_to_id_back_rd_addr),

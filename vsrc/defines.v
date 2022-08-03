@@ -3,7 +3,7 @@
 `define RstDisable 1'b1
 `define Byte_Zero 8'd0
 `define ZeroWord 32'h00_00_00_00
-`define Invalid_pc 64'h00_00_00_00_00_10_00_00
+`define Invalid_pc 64'h00_00_00_00_00_00_00_00
 `define Init_pc 64'h00_00_00_00_80_00_00_00
 `define Doubel_Zero_Word 64'h00_00_00_00_00_00_00_00
 `define RamMemNum 160 + 3 - 1 : 0
@@ -40,6 +40,7 @@
 `define Opcode_I_type_jalr 7'b110_0111
 `define Opcode_I_type_word 7'b001_1011
 `define Opcode_J_type_jal 7'b110_1111
+`define Opcode_J_type 7'b110_1111
 `define Opcode_R_type 7'b011_0011
 `define Opcode_R_type_imm 7'b001_0011
 `define Opcode_R_I_type_imm 7'b001_0011

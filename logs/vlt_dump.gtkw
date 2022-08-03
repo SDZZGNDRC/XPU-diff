@@ -1,17 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Tue Aug  2 12:39:00 2022
+[*] Wed Aug  3 09:19:13 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Tue Aug  2 09:15:56 2022"
-[dumpfile_size] 3286601
+[dumpfile_mtime] "Wed Aug  3 09:13:47 2022"
+[dumpfile_size] 2785523
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 17
+[timestart] 26
 [size] 1848 1016
 [pos] -1 -1
-*-0.659639 19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 27 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
+[treeopen] TOP.top.ex0.
 [sst_width] 278
 [signals_width] 546
 [sst_expanded] 1
@@ -28,14 +29,29 @@ TOP.top.icache_data_i[31:0]
 TOP.top.icache_data_valid_i
 @22
 TOP.top.icache_addr_o[63:0]
+@28
+TOP.icache_req_valid_o
 @200
 -=================PC
 @28
 TOP.top.pc0.icache_req_valid_o
+@24
 TOP.top.pc0.ctrl_signal_i[1:0]
 @22
+TOP.top.pc0.pc_new_i[63:0]
 TOP.top.pc0.pc_ram_t[63:0]
 TOP.top.pc0.pc_ram_o[63:0]
+@23
+TOP.top.pc0.pc_pipeline_o[63:0]
+@200
+-=================IF_ID
+@28
+TOP.top.if_id0.ctrl_signal_i[1:0]
+@22
+TOP.top.if_id0.pc_i[63:0]
+TOP.top.if_id0.if_inst_i[31:0]
+TOP.top.if_id0.pc_o[63:0]
+TOP.top.if_id0.if_inst_o[31:0]
 @200
 -=================ID
 @22
@@ -43,13 +59,29 @@ TOP.top.id0.pc_i[63:0]
 TOP.top.id0.inst_i[31:0]
 @28
 TOP.top.id0.opcode_o[6:0]
+@22
+TOP.top.id0.pc_o[63:0]
 @200
 -=================ID_EX
+@28
+TOP.top.id_ex0.ctrl_signal_i[1:0]
 @22
 TOP.top.id_ex0.pc_i[63:0]
+@c00028
+TOP.top.id_ex0.opcode_i[6:0]
+@28
+(0)TOP.top.id_ex0.opcode_i[6:0]
+(1)TOP.top.id_ex0.opcode_i[6:0]
+(2)TOP.top.id_ex0.opcode_i[6:0]
+(3)TOP.top.id_ex0.opcode_i[6:0]
+(4)TOP.top.id_ex0.opcode_i[6:0]
+(5)TOP.top.id_ex0.opcode_i[6:0]
+(6)TOP.top.id_ex0.opcode_i[6:0]
+@1401200
+-group_end
+@22
 TOP.top.id_ex0.pc_o[63:0]
 @28
-TOP.top.id_ex0.opcode_i[6:0]
 TOP.top.id_ex0.opcode_o[6:0]
 @200
 -=================EX
@@ -58,23 +90,31 @@ TOP.top.ex0.pc_i[63:0]
 @28
 TOP.top.ex0.opcode_i[6:0]
 TOP.top.ex0.funct3_i[2:0]
-@22
 TOP.top.ex0.funct7_i[6:0]
+@22
+TOP.top.ex0.imm_i[19:0]
+@28
+TOP.top.ex0.branch_flag_o
+@22
+TOP.top.ex0.pc_new_o[63:0]
 TOP.top.ex0.rd_addr_o[4:0]
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
 @200
 -=================EX_MEM
+@28
+TOP.top.ex_mem0.clk
 @22
 TOP.top.ex_mem0.wdata_i[63:0]
-TOP.top.ex_mem0.wdata_t[63:0]
 @28
 TOP.top.ex_mem0.wreg_i
-TOP.top.ex_mem0.wreg_o
 @22
 TOP.top.ex_mem0.rd_addr_i[4:0]
 TOP.top.ex_mem0.rd_addr_o[4:0]
+TOP.top.ex_mem0.wdata_o[63:0]
+@28
+TOP.top.ex_mem0.wreg_o
 @200
 -=================CTRL
 @22
@@ -89,7 +129,6 @@ TOP.top.ctrl0.ctrl_signal_pc_o[1:0]
 TOP.top.ctrl0.ctrl_signal_if_id_o[1:0]
 TOP.top.ctrl0.ctrl_signal_id_ex_o[1:0]
 TOP.top.ctrl0.ctrl_signal_ex_mem_o[1:0]
-@25
 TOP.top.ctrl0.ctrl_signal_mem_wb_o[1:0]
 @200
 -=================Regfiles

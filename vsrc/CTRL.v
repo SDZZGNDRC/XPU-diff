@@ -33,8 +33,8 @@ module CTRL (
         `FSM_STATE_Branch_1, `FSM_STATE_Default
     });
 
-    assign FSM_next_state_1 = ({4{(ex_branch_flag_i == 1'b1)}} & `FSM_STATE_Branch_1)
-                            | ({4{(ex_branch_flag_i == 1'b0)}} & `FSM_STATE_Default);
+    assign FSM_next_state_1 = ({4{(ex_branch_flag_i == 1'b1 && icache_data_valid_i == 1'b1)}} & `FSM_STATE_Branch_1)
+                            | ({4{(ex_branch_flag_i == 1'b0 && icache_data_valid_i == 1'b1)}} & `FSM_STATE_Default);
 
 /* ctrl_signal_pc_o */
     wire [`CTRL_Wire_Bus] ctrl_signal_pc_t_1;
@@ -84,9 +84,10 @@ module CTRL (
                             |   ({2{(ex_opcode_i == `Opcode_J_type_jal)}} & `CTRL_STATE_Default);
 
 /* ctrl_to_pc_new_o */
-    MuxKeyWithDefault #(2, 4, 64) mux7 (ctrl_to_pc_new_o, FSM_pre_state_t, `Invalid_pc, {
+/*     MuxKeyWithDefault #(2, 4, 64) mux7 (ctrl_to_pc_new_o, FSM_pre_state_t, `Invalid_pc, {
         `FSM_STATE_Default, `Invalid_pc,
         `FSM_STATE_Branch_1, ex_pc_new_i
-    });
+    }); */
+    assign ctrl_to_pc_new_o = ex_pc_new_i;
 
 endmodule

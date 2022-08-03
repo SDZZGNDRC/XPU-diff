@@ -33,10 +33,10 @@ module ID
 	output wire[`RegAddrBus] rd_addr_o,             //目标寄存器 rd 的地址
 	output wire wreg_o,                             //标志位: 是否使用目标寄存器 rd
 	output wire[`ImmBus] imm_o,                     //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
-/* 	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
+ 	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
 /* 	output wire[`ShamtBus] shamt_o, */
-	output wire[`Offset12Bus] offset12_o,
-/* 	output wire[`Offset20Bus] offset20_o,
+/* 	output wire[`Offset12Bus] offset12_o,
+	output wire[`Offset20Bus] offset20_o,
 	output wire offset_sel_o, */
 	output wire[`AddrBus] pc_o
 
@@ -78,11 +78,26 @@ module ID
 		`Opcode_U_type_lui, inst_i[31:12]
 	});
 
+/* imm_sel_o */
+	assign imm_sel_o = ({1{(opcode_o == `Opcode_J_type)}} & 1'b1)
+					|  ({1{(opcode_o == `Opcode_U_type_auipc) & 1'b1}})
+					|  ({1{(opcode_o == `Opcode_U_type_lui) & 1'b1}})
+					|  (1'b0);
+
 /* offset12_o */
-	MuxKeyWithDefault #(2, 7, 12) mux3 (offset12_o, opcode_o, inst_i[31:20], {
-		`Opcode_S_type, {inst_i[31:25], inst_i[11:7]}, 
-		`Opcode_B_type, {inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]}
-	});
+/* 	MuxKeyWithDefault #(2, 7, 12) mux3 (offset12_o, opcode_o, inst_i[31:20], {
+		`Opcode_B_type,		{inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]},
+		`Opcode_S_type, 	{inst_i[31:25], inst_i[11:7]}
+	}); */
+
+/* offset20_o */
+/* 	MuxKeyWithDefault #(2, 7, 20) mux4 (offset20_o, opcode_o, inst_i[31:12], {
+		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
+		`Opcode_B_type,		{inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]}
+	}); */
+
+/* offset_sel_o */
+	
 
 /* pc_o */
 	assign pc_o = pc_i;

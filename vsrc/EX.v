@@ -2,8 +2,8 @@
 /* (* DONT_TOUCH= "true" *) */
 module EX(
 
-	input wire					clk,
-	input wire 					rst,
+/* 	input wire					clk, */
+/* 	input wire 					rst, */
 /* 	input wire 					rs1_read_i,  //标志位: 是否使用源寄存器1的数据
 	input wire 					rs2_read_i,  //标志位: 是否使用源寄存器2的数据 */
 	input[`RegAddrBus] 			rs1_addr_i,
@@ -16,11 +16,11 @@ module EX(
 	input wire[`RegAddrBus] 	rd_addr_i,  //目标寄存器 rd 的地址
 	input wire 					wreg_i,  //标志位: 是否使用目标寄存器 rd
 	input wire[`ImmBus] 		imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
-/* 	input wire 					imm_sel_i,  //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
+ 	input wire 					imm_sel_i,  //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 
 /* 	input wire[`ShamtBus] 		shamt_i, */
-	input wire[`Offset12Bus] 	offset12_i,
-/* 	input wire[`Offset20Bus] 	offset20_i,
-	input wire 					offset_sel_i, */
+/* 	input wire[`Offset12Bus] 	offset12_i,
+	input wire[`Offset20Bus] 	offset20_i, */
+/* 	input wire 					offset_sel_i, */
 	input wire[`AddrBus] 		pc_i,
 /* 	input wire		 			dcache_data_valid_i,
 	input wire	[`DataBus]		dcache_data_i, */
@@ -106,53 +106,62 @@ module EX(
 	assign ex_back_wdata_o = wdata_t;
 
 /* wdata_o */
-	wire wdata_wen;
+/* 	wire wdata_wen;
 	assign wdata_wen = 1'b1;
-	Reg #(64, 64'b0) reg1 (clk, rst, wdata_t, wdata_o, wdata_wen);
+	Reg #(64, 64'b0) reg1 (clk, rst, wdata_t, wdata_o, wdata_wen); */
+	assign wdata_o = wdata_t;
 
 	wire [`RegBus] wdata_t_add;
 	wire [`RegBus] wdata_t_addi;
 	wire [`RegBus] wdata_t_addiw;
 	wire [`RegBus] wdata_t_auipc;
+	wire [`RegBus] wdata_t_lui;
 	wire [`RegBus] wdata_t_sub;
 
 	assign wdata_t_add = rs1_data + rs2_data;
 	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
+	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
 	assign wdata_t_sub = rs1_data - rs2_data;
 
+	wire [`RegBus] wdata_opcode_J;
 	wire [`RegBus] wdata_opcode_R;
 /* 	wire [`RegBus] wdata_opcode_R_imm;
 	wire [`RegBus] wdata_opcode_I_word; */
 	wire [`RegBus] wdata_opcode_U_auipc;
+	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
 /* 	wire [`RegBus] wdata_funct7; */
+	assign wdata_opcode_J = pc_i + 64'h4;
 	assign wdata_opcode_U_auipc = wdata_t_auipc;
-	MuxKeyWithDefault #(2, 7, 64) mux1 (wdata_t, opcode_i, 64'b0, {
+	assign wdata_opcode_U_lui = wdata_t_lui;
+	MuxKeyWithDefault #(4, 7, 64) mux_t (wdata_t, opcode_i, 64'b0, {
+		`Opcode_J_type,				wdata_opcode_J,
 		`Opcode_R_type, 			wdata_opcode_R,
 /* 		`Opcode_R_type_imm, 		wdata_opcode_R_imm,
 		`Opcode_I_type_word, 		wdata_opcode_I_word, */
-		`Opcode_U_type_auipc, 		wdata_opcode_U_auipc
+		`Opcode_U_type_auipc, 		wdata_opcode_U_auipc,
+		`Opcode_U_type_lui, 		wdata_opcode_U_lui
 	});
 
-	MuxKeyWithDefault #(3, 3, 64) mux2 (wdata_opcode_R, funct3_i, 64'b0, {
+	MuxKeyWithDefault #(3, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
 		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
 		`funct3_addi,				wdata_t_addi,
 		`funct3_addiw, 				wdata_t_addiw
 	});
 
-	MuxKeyWithDefault #(2, 7, 64) mux3 (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
+	MuxKeyWithDefault #(2, 7, 64) mux_funct3_asm (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
 		`funct7_add, 				wdata_t_add,
 		`funct7_sub, 				wdata_t_sub
 	});
 
 /* branch_flag_o */
-	wire branch_flag_wen;
+/* 	wire branch_flag_wen; */
 	wire branch_flag_t;
-	assign branch_flag_wen = 1'b1;
-	Reg #(1, 1'b0) reg2 (clk, rst, branch_flag_t, branch_flag_o, branch_flag_wen);
-
+/* 	assign branch_flag_wen = 1'b1;
+	Reg #(1, 1'b0) reg2 (clk, rst, branch_flag_t, branch_flag_o, branch_flag_wen); */
+	assign branch_flag_o = branch_flag_t;
 	wire branch_flag_t_beq;
 	wire branch_flag_t_bge;
 	assign branch_flag_t_beq = {1{(rs1_data == rs2_data)}};
@@ -164,7 +173,9 @@ module EX(
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);
 
 /* pc_new_o */
-	assign pc_new_o = pc_i + $signed({{52{offset12_i[10]}}, offset12_i << 1});
+	wire [`AddrBus] pc_new_jal;
+	assign pc_new_o = (imm_sel_i == 1'b1) ? pc_new_jal : `Invalid_pc;
+	assign pc_new_jal = pc_i + $signed({{43{imm_i[19]}}, imm_i, 1'b0});
 /* ============================================================ */
 
 

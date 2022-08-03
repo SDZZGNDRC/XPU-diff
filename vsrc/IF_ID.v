@@ -15,7 +15,7 @@ module IF_ID
 /* pc_o */
     wire [`AddrBus] pc_t;
     wire pc_wen;
-    Reg #(64, 64'b0) reg1 (clk, rst, pc_i, pc_o, pc_wen);
+    Reg #(64, 64'b0) reg1 (clk, rst, pc_t, pc_o, pc_wen);
     assign pc_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
     MuxKeyWithDefault #(2, 2, 64) mux1 (pc_t, ctrl_signal_i, 64'b0, {
         `CTRL_STATE_Default,    pc_i,
@@ -26,10 +26,13 @@ module IF_ID
     should be passed directly to a wire,
  */
 /* if_inst_o */
-/*     wire if_inst_wen;
-    Reg #(32, 32'b0) reg2 (clk, rst, if_inst_i, if_inst_o, if_inst_wen);
-    assign if_inst_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1; */
-    assign if_inst_o = ({32{(ctrl_signal_i==`CTRL_STATE_Default)}} & if_inst_i)
+    wire [`InstBus] if_inst_t;
+    wire [`CTRL_Wire_Bus] state;
+    wire state_wen;
+    Reg #(2, 2'b0) reg2 (clk, rst, ctrl_signal_i, state, state_wen);
+    assign state_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    assign if_inst_o = ({32{(ctrl_signal_i==`CTRL_STATE_Default)}} & if_inst_t)
                     |  ({32{(ctrl_signal_i==`CTRL_STATE_Bubble)}} & `NOP);
+    assign if_inst_t = (state == `CTRL_STATE_Bubble) ? `NOP : if_inst_i;
 
 endmodule
