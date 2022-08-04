@@ -36,7 +36,7 @@
 `define Opcode_InValid 7'b000_0000
 `define Opcode_I_type_load 7'b000_0011
 `define Opcode_I_type_imm 7'b001_0011
-`define Opcode_I_type_privileged 7'b111_0011
+`define Opcode_I_type_prv 7'b111_0011
 `define Opcode_I_type_jalr 7'b110_0111
 `define Opcode_I_type_word 7'b001_1011
 `define Opcode_J_type_jal 7'b110_1111
@@ -70,6 +70,12 @@
 `define funct3_bltu 3'b110
 `define funct3_blu 3'b110
 `define funct3_bne 3'b001
+`define funct3_csrrc 3'b011
+`define funct3_csrrci 3'b111
+`define funct3_csrrs 3'b010
+`define funct3_csrrsi 3'b110
+`define funct3_csrrw 3'b001
+`define funct3_csrrwi 3'b101
 `define funct3_jalr 3'b000
 `define funct3_lb 3'b000
 `define funct3_lbu 3'b100
@@ -144,6 +150,46 @@
 `define Offset20Bus 19:0
 `define InstMemNum 131071
 `define InstMemNumLog2 17
+
+`define CSRAddrBus 11:0
+`define CSRAddrLen 12
+`define CSR_Addr_mstatus 12'h300
+`define CSR_Addr_misa 12'h301
+`define CSR_Addr_mie 12'h304
+`define CSR_Addr_mtvec 12'h305
+`define CSR_Addr_mtimecmp 12'h321
+`define CSR_Addr_mscratch 12'h340
+`define CSR_Addr_mepc 12'h341
+`define CSR_Addr_mcause 12'h342
+`define CSR_Addr_mtval 12'h343
+`define CSR_Addr_mip 12'h344
+`define CSR_Addr_mcpuid 12'hF00
+`define CSR_Addr_mvendorid 12'hF11
+`define CSR_Addr_marchid 12'hF12
+`define CSR_Addr_mimpid 12'hF13
+`define CSR_Addr_mhartid 12'hF14
+
+`define CSR_Hardwire_marchid 64'h0
+`define CSR_Hardwire_mcpuid 64'h0
+`define CSR_Hardwire_mhartid 64'h0
+`define CSR_Hardwire_mimpid 64'h0
+`define CSR_Hardwire_misa 64'h0
+`define CSR_Hardwire_mtvec 64'h100
+`define CSR_Hardwire_mvendorid 64'h0
+
+`define CSR_Reset_mtval 64'h0
+`define CSR_Reset_mcause_interrupt 1'b0
+`define CSR_Reset_mcause_code 4'h0
+`define CSR_Reset_mepc_H62 62'h0
+`define CSR_Reset_mie_mtie 1'b0
+`define CSR_Reset_mie_msie 1'b0
+`define CSR_Reset_mip_mtip 1'b0
+`define CSR_Reset_mip_msip 1'b0
+`define CSR_Reset_mscratch 64'h0
+`define CSR_Reset_mstatus_ie1 1'b0
+`define CSR_Reset_mstatus_ie 1'b0
+`define CSR_Reset_mtime 64'h0
+`define CSR_Reset_mtimecmp_L32 32'h0
 
 `define RegAddrBus 4:0
 `define HalfRegBus 31:0

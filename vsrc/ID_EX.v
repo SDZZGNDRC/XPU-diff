@@ -7,13 +7,17 @@ module ID_EX
 
 	input[`RegAddrBus] rs1_addr_i,
 	input[`RegAddrBus] rs2_addr_i,
+	input[`RegAddrBus] csr_raddr_i,
 	input[`OpcodeBus] opcode_i,  //译码结果: 操作码
 	input[`FunctBus3] funct3_i,  //译码结果: 3位宽操作码附加段
 	input[`FunctBus7] funct7_i,  //译码结果: 7位宽操作码附加段
 	input[`RegBus] rs1_data_i,  //源寄存器1的数据输出
 	input[`RegBus] rs2_data_i,  //源寄存器2的数据输出
+	input[`RegBus] csr_data_i,
 	input[`RegAddrBus] rd_addr_i,  //目标寄存器 rd 的地址
+	input[`CSRAddrBus] csr_waddr_i,
 	input wreg_i,  //标志位: 是否使用目标寄存器 rd
+	input csr_wreg_i,
 	input[`ImmBus] imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
 	input imm_sel_i,
 /* 	input [`Offset12Bus] offset12_i,
@@ -23,13 +27,17 @@ module ID_EX
 	
 	output wire[`RegAddrBus] rs1_addr_o,
 	output wire[`RegAddrBus] rs2_addr_o,
+	output wire[`CSRAddrBus] csr_raddr_o,
 	output wire[`OpcodeBus] opcode_o,  //译码结果: 操作码
 	output wire[`FunctBus3] funct3_o,  //译码结果: 3位宽操作码附加段
 	output wire[`FunctBus7] funct7_o,  //译码结果: 7位宽操作码附加段
 	output wire[`RegBus] rs1_data_o,  //源寄存器1的数据输出
 	output wire[`RegBus] rs2_data_o,  //源寄存器2的数据输出
+	output wire[`RegBus] csr_data_o,
 	output wire[`RegAddrBus] rd_addr_o,  //目标寄存器 rd 的地址
+	output wire[`CSRAddrBus] csr_waddr_o,
 	output wire wreg_o,  //标志位: 是否使用目标寄存器 rd
+	output wire csr_wreg_o,
 	output wire[`ImmBus] imm_o,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
 	output wire imm_sel_o,
 /* 	output wire[`Offset12Bus] offset12_o,
@@ -52,6 +60,14 @@ module ID_EX
     assign rs2_addr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
     assign rs2_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 5'b0 : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? rs2_addr_i : 5'b0;
+
+/* csr_raddr_o */
+	wire [`CSRAddrBus] csr_raddr_t;
+	wire csr_raddr_wen;
+	Reg #(12, `CSR_Addr_marchid) reg_csr_raddr (clk, rst, csr_raddr_t, csr_raddr_o, csr_raddr_wen);
+	assign csr_raddr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+	assign csr_raddr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `CSR_Addr_marchid : 
+						  (ctrl_signal_i == `CTRL_STATE_Default) ? csr_raddr_i : `CSR_Addr_marchid;
 
 /* opcode_o */
     wire [`OpcodeBus] opcode_t;
@@ -93,6 +109,14 @@ module ID_EX
     assign rs2_data_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Doubel_Zero_Word : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? rs2_data_i : `Doubel_Zero_Word;
 
+/* csr_data_o */
+	wire [`RegBus] csr_data_t;
+	wire csr_data_wen;
+	Reg #(64, 64'b0) reg_csr_data (clk, rst, csr_data_t, csr_data_o, csr_data_wen);
+	assign csr_data_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+	assign csr_data_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? Doubel_Zero_Word : 
+                        (ctrl_signal_i == `CTRL_STATE_Default) ? csr_data_i : `Doubel_Zero_Word;
+
 /* rd_addr_o */
     wire [`RegAddrBus] rd_addr_t;
     wire rd_addr_wen;
@@ -101,6 +125,14 @@ module ID_EX
     assign rd_addr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `reg_zero : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? rd_addr_i : `reg_zero;
 
+/* csr_waddr_o */
+	wire [`CSRAddrBus] csr_waddr_t;
+	wire csr_waddr_wen;
+	Reg #(12, `CSR_Addr_marchid) reg_csr_waddr (clk, rst, csr_waddr_t, csr_waddr_o, csr_waddr_wen);
+	assign csr_waddr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+	assign csr_waddr_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `CSR_Addr_marchid : 
+						 (ctrl_signal_i == `CTRL_STATE_Default) ? csr_waddr_i : `CSR_Addr_marchid;
+
 /* wreg_o */
     wire wreg_t;
     wire wreg_wen;
@@ -108,6 +140,14 @@ module ID_EX
     assign wreg_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
     assign wreg_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `WriteEnable : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? wreg_i : `WriteEnable;
+
+/* csr_wreg_o */
+	wire csr_wreg_t;
+	wire csr_wreg_wen;
+    Reg #(1, 1'b0) reg_csr_wreg (clk, rst, csr_wreg_t, csr_wreg_o, csr_wreg_wen);
+    assign csr_wreg_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    assign csr_wreg_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `WriteEnable : 
+                        (ctrl_signal_i == `CTRL_STATE_Default) ? csr_wreg_i : `WriteEnable;
 
 /* imm_o */
     wire [`ImmBus] imm_t;
