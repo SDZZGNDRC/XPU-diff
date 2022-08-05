@@ -22,7 +22,7 @@ module MEM_WB
 	output wire[`RegAddrBus] mem_wb_back_rd_addr_o,
 	output wire mem_wb_back_wreg_o,
 	output wire[`RegBus] mem_wb_back_wdata_o,
-	output wire[`RegAddrBus] mem_wb_back_csr_waddr_o,
+	output wire[`CSRAddrBus] mem_wb_back_csr_waddr_o,
 	output wire mem_wb_back_csr_wreg_o,
 	output wire[`RegBus] mem_wb_back_csr_wdata_o
 );
@@ -54,7 +54,7 @@ module MEM_WB
 
 /* csr_waddr_o */
     wire csr_waddr_wen;
-    Reg #(5, 5'b0) reg_csr_waddr (clk, rst, csr_waddr_i, csr_waddr_o, csr_waddr_wen);
+    Reg #(12, 12'b0) reg_csr_waddr (clk, rst, csr_waddr_i, csr_waddr_o, csr_waddr_wen);
     assign csr_waddr_wen = (ctrl_signal_i == `CTRL_STATE_Default) ? 1'b1 : 1'b0;
 
 /* mem_wb_back_rd_addr_o mem_wb_back_wreg_o mem_wb_back_wdata_o */

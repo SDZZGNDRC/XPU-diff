@@ -7,7 +7,7 @@ module ID_EX
 
 	input[`RegAddrBus] rs1_addr_i,
 	input[`RegAddrBus] rs2_addr_i,
-	input[`RegAddrBus] csr_raddr_i,
+	input[`CSRAddrBus] csr_raddr_i,
 	input[`OpcodeBus] opcode_i,  //译码结果: 操作码
 	input[`FunctBus3] funct3_i,  //译码结果: 3位宽操作码附加段
 	input[`FunctBus7] funct7_i,  //译码结果: 7位宽操作码附加段
@@ -114,7 +114,7 @@ module ID_EX
 	wire csr_data_wen;
 	Reg #(64, 64'b0) reg_csr_data (clk, rst, csr_data_t, csr_data_o, csr_data_wen);
 	assign csr_data_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
-	assign csr_data_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? Doubel_Zero_Word : 
+	assign csr_data_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Doubel_Zero_Word : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? csr_data_i : `Doubel_Zero_Word;
 
 /* rd_addr_o */

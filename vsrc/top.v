@@ -58,6 +58,7 @@ module top(
 	wire[`CSRAddrBus] ex_to_ex_mem_csr_waddr;
 	wire[`RegAddrBus] ex_mem_to_mem_rd_addr;
 	wire[`CSRAddrBus] ex_mem_to_mem_csr_waddr;
+	wire[`RegAddrBus] mem_to_mem_wb_rd_addr;
 	wire[`CSRAddrBus] mem_to_mem_wb_csr_waddr;
 
 	wire[`RegBus] mem_wb_to_regfile_wdata;
@@ -161,7 +162,7 @@ module top(
 
 		.rs1_data_i(regfile_to_id_rs1_data),
 		.rs2_data_i(regfile_to_id_rs2_data),
-		.csr_data_i(csr_to_id_rdata),
+		.csr_data_i(csr_to_id_csr_data),
 		.ex_back_wdata_i(ex_to_id_back_wdata),
 		.ex_back_rd_addr_i(ex_to_id_back_rd_addr),
 		.ex_back_wreg_i(ex_to_id_back_wreg),

@@ -20,7 +20,7 @@ module MEM
 	output wire[`RegBus] wdata_o,  // ALU运算结果/写入rd的数据
 	output wire[`RegBus] csr_wdata_o,
 	output wire[`RegAddrBus] mem_back_rd_addr_o,
-	output wire[`CSRAddrBus] mem_back_csr_waddr_0,
+	output wire[`CSRAddrBus] mem_back_csr_waddr_o,
 	output wire mem_back_wreg_o,
 	output wire mem_back_csr_wreg_o,
 	output wire[`RegBus] mem_back_wdata_o,

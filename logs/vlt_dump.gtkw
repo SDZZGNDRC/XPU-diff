@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Aug  3 09:19:13 2022
+[*] Fri Aug  5 01:00:26 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Wed Aug  3 09:13:47 2022"
-[dumpfile_size] 2785523
+[dumpfile_mtime] "Fri Aug  5 00:50:15 2022"
+[dumpfile_size] 2915453
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 26
+[timestart] 91
 [size] 1848 1016
 [pos] -1 -1
-*-0.659639 27 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 93 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.ex0.
@@ -41,7 +41,6 @@ TOP.top.pc0.ctrl_signal_i[1:0]
 TOP.top.pc0.pc_new_i[63:0]
 TOP.top.pc0.pc_ram_t[63:0]
 TOP.top.pc0.pc_ram_o[63:0]
-@23
 TOP.top.pc0.pc_pipeline_o[63:0]
 @200
 -=================IF_ID
@@ -86,6 +85,7 @@ TOP.top.id_ex0.opcode_o[6:0]
 @200
 -=================EX
 @22
+TOP.top.ex0.csr_data_i[63:0]
 TOP.top.ex0.pc_i[63:0]
 @28
 TOP.top.ex0.opcode_i[6:0]
@@ -101,6 +101,11 @@ TOP.top.ex0.rd_addr_o[4:0]
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
+@29
+TOP.top.ex0.csr_wreg_o
+@22
+TOP.top.ex0.csr_waddr_o[11:0]
+TOP.top.ex0.csr_wdata_o[63:0]
 @200
 -=================EX_MEM
 @28
@@ -165,5 +170,16 @@ TOP.top.regfile0.out_x29[63:0]
 TOP.top.regfile0.out_x30[63:0]
 TOP.top.regfile0.out_x31[63:0]
 TOP.top.regfile0.out_x18[63:0]
+@200
+-=================CSR
+@28
+TOP.top.csr0.clk
+@22
+TOP.top.csr0.out_mcause[63:0]
+TOP.top.csr0.out_mepc[63:0]
+TOP.top.csr0.out_mie[63:0]
+TOP.top.csr0.out_mip[63:0]
+TOP.top.csr0.out_mstatus[63:0]
+TOP.top.csr0.out_mtval[63:0]
 [pattern_trace] 1
 [pattern_trace] 0

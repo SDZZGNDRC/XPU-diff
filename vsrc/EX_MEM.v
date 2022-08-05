@@ -36,7 +36,7 @@ module EX_MEM
                         (ctrl_signal_i == `CTRL_STATE_Default) ? rd_addr_i : `reg_zero;
 
 /* csr_waddr_o */
-    wire [`RegAddrBus] csr_waddr_t;
+    wire [`CSRAddrBus] csr_waddr_t;
     wire csr_waddr_wen;
     Reg #(12, `CSR_Addr_marchid) reg_csr_waddr (clk, rst, csr_waddr_t, csr_waddr_o, csr_waddr_wen);
     assign csr_waddr_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;

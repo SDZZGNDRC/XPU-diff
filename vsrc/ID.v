@@ -102,7 +102,8 @@ module ID
 	assign csr_wreg_o = {1{(opcode_o == `Opcode_I_type_prv)}};
 
 /* imm_o */
-	MuxKeyWithDefault #(3, 7, 20) mux2 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
+	MuxKeyWithDefault #(4, 7, 20) mux2 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
+		`Opcode_B_type, {8'h0, inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]},
 		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
 		`Opcode_U_type_auipc, inst_i[31:12],
 		`Opcode_U_type_lui, inst_i[31:12]

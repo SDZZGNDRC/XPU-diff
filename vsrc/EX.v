@@ -16,7 +16,7 @@ module EX(
 	input wire[`RegBus] 		rs2_data_i,  //源寄存器2的数据输出
 	input wire[`RegBus]			csr_data_i,
 	input wire[`RegAddrBus] 	rd_addr_i,  //目标寄存器 rd 的地址
-	input wire[`CSRAddrBus]		csr_addr_i,
+	input wire[`CSRAddrBus]		csr_waddr_i,
 	input wire 					wreg_i,  //标志位: 是否使用目标寄存器 rd
 	input wire					csr_wreg_i,
 	input wire[`ImmBus] 		imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
@@ -60,6 +60,7 @@ module EX(
 /* 	wire[`RegAddrBus] rd_addr;  //目标寄存器地址 */
 	wire[`RegBus] rs1_data;  //源寄存器1数据输入
 	wire[`RegBus] rs2_data;  //源寄存器2数据输入
+	wire[`RegBus] csr_data;
 /* 	wire[`AddrBus] memory_addr; */
 /* 	reg[`RegBus] wdata_p;  //数据输出 */
 /* 	reg[`RegBus] mul_h;  //乘法结果高位
@@ -94,18 +95,12 @@ module EX(
 	// assign rs2_data = ({64{((rs2_addr_i == mem_back_rd_addr_i) && (rs2_read_i == `ReadEnable) && (mem_back_wreg_i == `WriteEnable))}} & mem_back_wdata_i) | rs2_data_i;
 	assign rs1_data = ((rs1_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs1_data_i;
 	assign rs2_data = ((rs2_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs2_data_i;
+	assign csr_data = ((csr_raddr_i == mem_back_csr_waddr_i ) && (mem_back_csr_wreg_i == `WriteEnable)) ? mem_back_csr_wdata_i : csr_data_i;
 /* 	assign opcode = opcode_i;
 	assign funct3 = funct3_i;
 	assign funct7 = funct7_i;
 	assign imm = imm_i; */
 /* 	assign memory_addr = rs1_data + $signed({{52{offset12_i[11]}},offset12_i}); */
-
-/* 	always @(*) begin  //数据前推
-		ex_back_rd_addr_o <= rd_addr_i;
-		//ex_back_wreg_o <= wreg_i; //初始版本, 若出问题请改为该版本
-		ex_back_wreg_o <= wreg_o;
-		ex_back_wdata_o <= wdata_o;
-	end */
 
 /* ============================================================ */
 	wire [`RegBus] wdata_t;
@@ -146,7 +141,7 @@ module EX(
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
 	assign wdata_t_sub = rs1_data - rs2_data;
-	assign wdata_t_csr = csr_data_i;
+	assign wdata_t_csr = csr_data;
 
 	wire [`RegBus] wdata_opcode_I_csr;
 	wire [`RegBus] wdata_opcode_J;
@@ -183,6 +178,7 @@ module EX(
 	});
 
 /* csr_wdata_o */
+	assign csr_wdata_o = csr_wdata_t;
 	wire[`RegAddrBus] zimm;
 	wire[`RegBus] csr_wdata_t_csrrc;
 	wire[`RegBus] csr_wdata_t_csrrci;
@@ -191,14 +187,14 @@ module EX(
 	wire[`RegBus] csr_wdata_t_csrrw;
 	wire[`RegBus] csr_wdata_t_csrrwi;
 	assign zimm = rs1_addr_i;
-	assign csr_wdata_t_csrrc = csr_data_i & (~rs1_data_i);
-	assign csr_wdata_t_csrrci = csr_data_i & (~{59'h0, zimm});
-	assign csr_wdata_t_csrrs = csr_data_i | rs1_data_i;
-	assign csr_wdata_t_csrrsi = csr_data_i | {59'h0, zimm};
+	assign csr_wdata_t_csrrc = csr_data & (~rs1_data_i);
+	assign csr_wdata_t_csrrci = csr_data & (~{59'h0, zimm});
+	assign csr_wdata_t_csrrs = csr_data | rs1_data_i;
+	assign csr_wdata_t_csrrsi = csr_data | {59'h0, zimm};
 	assign csr_wdata_t_csrrw = rs1_data_i;
 	assign csr_wdata_t_csrrwi = {59'h0, zimm};
 
-	MuxKeyWithDefault #(6, 3, 64) mux_csr_wdata (csr_wdata_o, funct3_i, `Doubel_Zero_Word, {
+	MuxKeyWithDefault #(6, 3, 64) mux_csr_wdata (csr_wdata_t, funct3_i, `Doubel_Zero_Word, {
 		`funct3_csrrc, csr_wdata_t_csrrc,
 		`funct3_csrrci, csr_wdata_t_csrrci,
 		`funct3_csrrs, csr_wdata_t_csrrs,
@@ -215,17 +211,22 @@ module EX(
 	assign branch_flag_o = branch_flag_t;
 	wire branch_flag_t_beq;
 	wire branch_flag_t_bge;
+	wire branch_flag_t_bne;
 	assign branch_flag_t_beq = {1{(rs1_data == rs2_data)}};
 	assign branch_flag_t_bge = {1{($signed(rs1_data) >= $signed(rs2_data))}};
-	
+	assign branch_flag_t_bne = ~branch_flag_t_beq;
+
 	assign branch_flag_t = ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_beq)}} & branch_flag_t_beq)
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bge)}} & branch_flag_t_bge)
+					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bne)}} & branch_flag_t_bne)
 					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1)
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);
 
 /* pc_new_o */
+	wire [`AddrBus] pc_new_bne;
 	wire [`AddrBus] pc_new_jal;
-	assign pc_new_o = (imm_sel_i == 1'b1) ? pc_new_jal : `Invalid_pc;
+	assign pc_new_o = (imm_sel_i == 1'b1) ? pc_new_jal : pc_new_bne;
+	assign pc_new_bne = pc_i + $signed({{51{imm_i[11]}}, imm_i[11:0], 1'b0});
 	assign pc_new_jal = pc_i + $signed({{43{imm_i[19]}}, imm_i, 1'b0});
 /* ============================================================ */
 

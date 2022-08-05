@@ -157,7 +157,7 @@
 `define CSR_Addr_misa 12'h301
 `define CSR_Addr_mie 12'h304
 `define CSR_Addr_mtvec 12'h305
-`define CSR_Addr_mtimecmp 12'h321
+/* `define CSR_Addr_mtimecmp 12'h321 */
 `define CSR_Addr_mscratch 12'h340
 `define CSR_Addr_mepc 12'h341
 `define CSR_Addr_mcause 12'h342
@@ -179,7 +179,7 @@
 
 `define CSR_Reset_mtval 64'h0
 `define CSR_Reset_mcause_interrupt 1'b0
-`define CSR_Reset_mcause_code 4'h0
+`define CSR_Reset_mcause_code 5'h0
 `define CSR_Reset_mepc_H62 62'h0
 `define CSR_Reset_mie_mtie 1'b0
 `define CSR_Reset_mie_msie 1'b0
@@ -188,8 +188,8 @@
 `define CSR_Reset_mscratch 64'h0
 `define CSR_Reset_mstatus_ie1 1'b0
 `define CSR_Reset_mstatus_ie 1'b0
-`define CSR_Reset_mtime 64'h0
-`define CSR_Reset_mtimecmp_L32 32'h0
+/* `define CSR_Reset_mtime 64'h0
+`define CSR_Reset_mtimecmp_L32 32'h0 */
 
 `define RegAddrBus 4:0
 `define HalfRegBus 31:0
