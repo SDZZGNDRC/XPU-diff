@@ -12,11 +12,19 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rst{vlSymsp->TOP.rst}
+    , dcache_ready_i{vlSymsp->TOP.dcache_ready_i}
     , icache_data_valid_i{vlSymsp->TOP.icache_data_valid_i}
+    , dcache_data_valid_i{vlSymsp->TOP.dcache_data_valid_i}
     , icache_data_i{vlSymsp->TOP.icache_data_i}
+    , dcache_data_i{vlSymsp->TOP.dcache_data_i}
     , icache_addr_o{vlSymsp->TOP.icache_addr_o}
+    , dcache_addr_o{vlSymsp->TOP.dcache_addr_o}
     , icache_req_valid_o{vlSymsp->TOP.icache_req_valid_o}
-    , icache_data_wen_o{vlSymsp->TOP.icache_data_wen_o}
+    , dcache_req_valid_o{vlSymsp->TOP.dcache_req_valid_o}
+    , icache_wen_o{vlSymsp->TOP.icache_wen_o}
+    , dcache_wen_o{vlSymsp->TOP.dcache_wen_o}
+    , dcache_wdata_o{vlSymsp->TOP.dcache_wdata_o}
+    , dcache_wlen_o{vlSymsp->TOP.dcache_wlen_o}
     , diff_if_id_to_id_pc_o{vlSymsp->TOP.diff_if_id_to_id_pc_o}
     , diff_id_to_id_ex_pc_o{vlSymsp->TOP.diff_id_to_id_ex_pc_o}
     , diff_id_ex_to_ex_pc_o{vlSymsp->TOP.diff_id_ex_to_ex_pc_o}

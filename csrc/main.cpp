@@ -7,12 +7,14 @@
 #include "verilated.h"
 #include "mif.h"
 
+VerilatedContext* contextp = new VerilatedContext;
+Vtop* top = new Vtop{contextp};
 mif *_mif = new mif; // The interface of the memory
-unsigned long addr_t = 0x7ffffffc; // The address received last cycle.
-unsigned long addr = 0x7ffffffc; // The address received last cycle.
+unsigned long icache_addr_t = 0x7ffffffc; // The address received last cycle.
+unsigned long icache_addr = 0x7ffffffc; // The address received last cycle.
 
 uint8_t icache_req_valid_o = 0;
-uint8_t icache_data_wen_o = 0;
+uint8_t icache_wen_o = 0;
 
 uint64_t bytes2uint(char* bytes)
 {
@@ -20,7 +22,7 @@ uint64_t bytes2uint(char* bytes)
 	return a;
 }
 
-static int elfloader(mif* _mif, char *filepath)
+static int elfloader(char *filepath)
 {
     //std::cout << "File:" <<filepath << std::endl;
     assert(strlen(filepath) > 0);
@@ -61,27 +63,27 @@ static int elfloader(mif* _mif, char *filepath)
   return 1;
 }
 
-void init(Vtop* top, VerilatedContext* contextp)
+void init()
 {
 	int init_cylces = 10;
 	top->rst = 1;
 	for(int i = 0; i < init_cylces; i++)
 	{
-		addr_t = top->icache_addr_o;
+		icache_addr_t = top->icache_addr_o;
 		icache_req_valid_o = top->icache_req_valid_o;
-		icache_data_wen_o = top->icache_data_wen_o;
+		icache_wen_o = top->icache_wen_o;
 		/* =============POSEDGE-Start============== */
 		top->clk = 1;
 		top->eval_step();
 		/* =============POSEDGE-End============== */
 		top->icache_data_valid_i = 1;
-		if (icache_req_valid_o == 1 && icache_data_wen_o == 0){
-			_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
-			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		if (icache_req_valid_o == 1 && icache_wen_o == 0){
+			_mif->load(icache_addr, 4, (uint8_t*)&top->icache_data_i);
+			printf("ICACHE_ADDR_T = 0x%016lx\tINST = 0x%08x\n", icache_addr, top->icache_data_i);
 		} else {
 			top->icache_data_i = 0x0;
 		}
-		addr = addr_t;
+		icache_addr = icache_addr_t;
 		if(i == init_cylces-1){
 			top->rst = 0;
 		}
@@ -98,31 +100,29 @@ void init(Vtop* top, VerilatedContext* contextp)
 
 int main(int argc, char** argv, char** env)
 {
-    elfloader(_mif, argv[1]);
+    elfloader(argv[1]);
 	Verilated::mkdir("logs");
-	VerilatedContext* contextp = new VerilatedContext;
 	contextp->traceEverOn(true);
 	contextp->commandArgs(argc, argv);
-	Vtop* top = new Vtop{contextp};
 	int count = 0;
-	init(top, contextp);
+	init();
 	while (count <= 1000 && !contextp->gotFinish())
 	{
-		addr_t = top->icache_addr_o;
+		icache_addr_t = top->icache_addr_o;
 		icache_req_valid_o = top->icache_req_valid_o;
-		icache_data_wen_o = top->icache_data_wen_o;
+		icache_wen_o = top->icache_wen_o;
 		/* =============POSEDGE-Start============== */
 		top->clk = 1;
 		top->eval_step();
 		/* =============POSEDGE-End============== */
 		top->icache_data_valid_i = 1;
-		if (icache_req_valid_o == 1 && icache_data_wen_o == 0){
-			_mif->load(addr, 4, (uint8_t*)&top->icache_data_i);
-			printf("ADDR_T = 0x%016lx\tINST = 0x%08x\n", addr, top->icache_data_i);
+		if (icache_req_valid_o == 1 && icache_wen_o == 0){
+			_mif->load(icache_addr, 4, (uint8_t*)&top->icache_data_i);
+			printf("ICACHE_ADDR_T = 0x%016lx\tINST = 0x%08x\n", icache_addr, top->icache_data_i);
 		} else {
 			top->icache_data_i = 0x0;
 		}
-		addr = addr_t;
+		icache_addr = icache_addr_t;
 		contextp->timeInc(1);
 		top->eval_step();
 		top->eval_end_step();

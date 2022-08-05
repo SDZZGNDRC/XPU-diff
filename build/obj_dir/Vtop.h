@@ -29,11 +29,19 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rst,0,0);
+    VL_IN8(&dcache_ready_i,0,0);
     VL_IN8(&icache_data_valid_i,0,0);
+    VL_IN8(&dcache_data_valid_i,0,0);
     VL_IN(&icache_data_i,31,0);
+    VL_IN64(&dcache_data_i,63,0);
     VL_OUT64(&icache_addr_o,63,0);
+    VL_OUT64(&dcache_addr_o,63,0);
     VL_OUT8(&icache_req_valid_o,0,0);
-    VL_OUT8(&icache_data_wen_o,0,0);
+    VL_OUT8(&dcache_req_valid_o,0,0);
+    VL_OUT8(&icache_wen_o,0,0);
+    VL_OUT8(&dcache_wen_o,0,0);
+    VL_OUT64(&dcache_wdata_o,63,0);
+    VL_OUT8(&dcache_wlen_o,1,0);
     VL_OUT64(&diff_if_id_to_id_pc_o,63,0);
     VL_OUT64(&diff_id_to_id_ex_pc_o,63,0);
     VL_OUT64(&diff_id_ex_to_ex_pc_o,63,0);

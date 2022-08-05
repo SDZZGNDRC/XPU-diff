@@ -4,18 +4,20 @@ module top(
 	input clk,
 	input rst,
 
+	input						dcache_ready_i,
 	input			 			icache_data_valid_i,	
-/* 	input			 			dcache_data_valid_i, */
+	input			 			dcache_data_valid_i,
 	input wire [`InstBus]		icache_data_i,
-/* 	input wire	[`DataBus]		dcache_data_i, */
+	input wire	[`DataBus]		dcache_data_i,
 	output [`AddrBus] 			icache_addr_o,
-/* 	output [`AddrBus] 			dcache_addr_o, */
+	output [`AddrBus] 			dcache_addr_o,
 	output wire					icache_req_valid_o,
-/* 	output wire 				dcache_req_valid_o, */
-	output wire					icache_data_wen_o,
-/* 	output wire 				dcache_data_wen_o, */
+	output wire 				dcache_req_valid_o,
+	output wire					icache_wen_o,
+	output wire 				dcache_wen_o,
 /* 	output wire	[`InstBus]		icache_data_o, */
-/* 	output wire	[`DataBus]		dcache_data_o, */
+	output wire	[`DataBus]		dcache_wdata_o,
+	output wire [1:0]			dcache_wlen_o,
 
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
@@ -77,6 +79,12 @@ module top(
 	wire[`funct7Bus] id_to_id_ex_funct7;
 	wire[`funct7Bus] id_ex_to_ex_funct7;
 
+	wire[`OpcodeBus] ex_to_ex_mem_opcode;
+	wire[`funct3Bus] ex_to_ex_mem_funct3;
+
+	wire[`OpcodeBus] ex_mem_to_mem_opcode;
+	wire[`funct3Bus] ex_mem_to_mem_funct3;
+
 	wire id_to_id_ex_wreg;
 	wire id_to_id_ex_csr_wreg;
 	wire id_ex_to_ex_wreg;
@@ -123,7 +131,7 @@ module top(
 	wire[`RegBus] mem_wb_to_id_back_csr_wdata;
 
 	wire ex_branch_flag;
-
+	wire mem_to_ctrl_block_flag;
 
 	wire[`AddrBus] ex_to_ctrl_pc_new;
 
@@ -142,7 +150,7 @@ module top(
 		.pc_new_i(ctrl_to_pc_pc_new),
 		.pc_ram_o(icache_addr_o),
 		.pc_pipeline_o(pc_to_if_id_pc),
-		.icache_data_wen_o(icache_data_wen_o),
+		.icache_wen_o(icache_wen_o),
 		.icache_req_valid_o(icache_req_valid_o)
 	);
 
@@ -183,6 +191,11 @@ module top(
 		.mem_wb_back_csr_wreg_i(mem_wb_to_id_back_csr_wreg),
 		.pc_i(if_id_to_id_pc),
 
+		.dcache_req_valid_o(dcache_req_valid_o),
+		.dcache_wen_o(dcache_wen_o),
+		.dcache_wdata_o(dcache_wdata_o),
+		.dcache_addr_o(dcache_addr_o),
+		.dcache_wlen_o(dcache_wlen_o),
 		.rs1_addr_o(id_to_regfile_rs1_addr),
 		.rs2_addr_o(id_to_regfile_rs2_addr), 
 		.csr_raddr_o(id_to_csr_raddr),
@@ -308,6 +321,8 @@ module top(
 		.csr_wreg_o(ex_to_ex_mem_csr_wreg),
 		.wdata_o(ex_to_ex_mem_wdata),
 		.csr_wdata_o(ex_to_ex_mem_csr_wdata),
+		.opcode_o(ex_to_ex_mem_opcode),
+		.funct3_o(ex_to_ex_mem_funct3),
 
 		.ex_back_rd_addr_o(ex_to_id_back_rd_addr),
 		.ex_back_wreg_o(ex_to_id_back_wreg),
@@ -331,6 +346,8 @@ module top(
 		.csr_wreg_i(ex_to_ex_mem_csr_wreg),
 		.wdata_i(ex_to_ex_mem_wdata),
 		.csr_wdata_i(ex_to_ex_mem_csr_wdata),
+		.opcode_i(ex_to_ex_mem_opcode),
+		.funct3_i(ex_to_ex_mem_funct3),
 		.ctrl_signal_i(ctrl_to_ex_mem_ctrl_signal),
 
 		.rd_addr_o(ex_mem_to_mem_rd_addr),
@@ -338,7 +355,9 @@ module top(
 		.wreg_o(ex_mem_to_mem_wreg),
 		.csr_wreg_o(ex_mem_to_mem_csr_wreg),
 		.wdata_o(ex_mem_to_mem_wdata),
-		.csr_wdata_o(ex_mem_to_mem_csr_wdata)
+		.csr_wdata_o(ex_mem_to_mem_csr_wdata),
+		.opcode_o(ex_mem_to_mem_opcode),
+		.funct3_o(ex_mem_to_mem_funct3)
 
 	);
 
@@ -349,7 +368,12 @@ module top(
 		.csr_wreg_i(ex_mem_to_mem_csr_wreg),
 		.wdata_i(ex_mem_to_mem_wdata),
 		.csr_wdata_i(ex_mem_to_mem_csr_wdata),
+		.dcache_data_valid_i(dcache_data_valid_i),
+		.dcache_data_i(dcache_data_i),
+		.opcode_i(ex_mem_to_mem_opcode),
+		.funct3_i(ex_mem_to_mem_funct3),
 
+		.block_flag_o(mem_to_ctrl_block_flag),
 		.rd_addr_o(mem_to_mem_wb_rd_addr),
 		.csr_waddr_o(mem_to_mem_wb_csr_waddr),
 		.wreg_o(mem_to_mem_wb_wreg),
@@ -397,11 +421,13 @@ module top(
 		.clk(clk),
 		.rst(rst),
 
+		.dcache_ready_i(dcache_ready_i),
 		.icache_data_valid_i(icache_data_valid_i),
-		.ex_opcode_i(id_ex_to_ex_opcode),
-		.ex_funct3_i(id_ex_to_ex_funct3),
+/* 		.ex_opcode_i(id_ex_to_ex_opcode),
+		.ex_funct3_i(id_ex_to_ex_funct3), */
 		.ex_pc_new_i(ex_to_ctrl_pc_new),
 		.ex_branch_flag_i(ex_branch_flag),
+		.mem_block_flag_i(mem_to_ctrl_block_flag),
 
 		.ctrl_signal_pc_o(ctrl_to_pc_ctrl_signal),
 		.ctrl_signal_if_id_o(ctrl_to_if_id_ctrl_signal),
@@ -410,6 +436,9 @@ module top(
 		.ctrl_signal_mem_wb_o(ctrl_to_mem_wb_ctrl_signal),
 		.ctrl_to_pc_new_o(ctrl_to_pc_pc_new)
 	);
+
+
+/* The following code only for simulating */
 
 	initial begin
 		$dumpfile("logs/vlt_dump.vcd");

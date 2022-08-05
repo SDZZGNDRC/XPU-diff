@@ -31,6 +31,11 @@ module ID
 
 	input wire[`AddrBus] pc_i,
 
+	output wire dcache_req_valid_o,
+	output wire dcache_wen_o,
+	output wire[`RegBus] dcache_wdata_o,
+	output wire[`AddrBus] dcache_addr_o,
+	output wire[1:0]	  dcache_wlen_o,
 	output wire[`RegAddrBus] rs1_addr_o,  //源寄存器 rs1 的地址: 输入到 regfile 模块,用于读取rs1
 	output wire[`RegAddrBus] rs2_addr_o,  //源寄存器 rs2 的地址: 输入到 regfile 模块,用于读取rs2
 	output wire[`CSRAddrBus] csr_raddr_o,
@@ -56,12 +61,76 @@ module ID
 	output wire[`AddrBus] pc_o
 
 );
+
+/* dcache_req_valid_o */
+	MuxKeyWithDefault #(2, 7, 1) mux_dcache_req_valid (dcache_req_valid_o, opcode_o, 1'h0, {
+		`Opcode_S_type, 1'b1,
+		`Opcode_I_type_load, 1'b1
+	});
+
 /* rs1_addr_o rs2_addr_o opcode_o funct3_o funct7_o */
 	assign rs1_addr_o = inst_i[19:15];
 	assign rs2_addr_o = inst_i[24:20];
 	assign opcode_o = inst_i[6:0];
 	assign funct3_o = inst_i[14:12];
 	assign funct7_o = inst_i[31:25];
+
+/* dcache_wen_o */
+	assign dcache_wen_o = (opcode_o == `Opcode_S_type) ? 1'b1 : 1'b0;
+
+/* dcache_wdata_o */
+	wire[`RegBus] dcache_wdata_t_sb;
+	wire[`RegBus] dcache_wdata_t_sd;
+	wire[`RegBus] dcache_wdata_t_sh;
+	wire[`RegBus] dcache_wdata_t_sw;
+
+	assign dcache_wdata_t_sb = {56'h0, rs2_data_o[7:0]};
+	assign dcache_wdata_t_sd = rs2_data_o;
+	assign dcache_wdata_t_sh = {48'h0, rs2_data_o[15:0]};
+	assign dcache_wdata_t_sw = {32'h0, rs2_data_o[31:0]};
+
+	MuxKeyWithDefault #(4, 3, 64) mux_dcache_wdata (dcache_wdata_o, funct3_o, `Doubel_Zero_Word, {
+		`funct3_sb, dcache_wdata_t_sb,
+		`funct3_sd, dcache_wdata_t_sd,
+		`funct3_sh, dcache_wdata_t_sh,
+		`funct3_sw, dcache_wdata_t_sw
+	});
+
+/* dcache_addr_o */
+	wire[`Offset12Bus] dcache_addr_offset_load;
+	wire[`Offset12Bus] dcache_addr_offset_store;
+	wire[`AddrBus] dcache_addr_t_load; 
+	wire[`AddrBus] dcache_addr_t_store;
+
+	assign dcache_addr_offset_load = inst_i[31:20];
+	assign dcache_addr_offset_store = {inst_i[31:25], inst_i[11:7]};
+	assign dcache_addr_t_load = rs1_data_o + {{52{dcache_addr_offset_load[11]}}, dcache_addr_offset_load[11:0]};
+	assign dcache_addr_t_store = rs1_data_o + {{52{dcache_addr_offset_store[11]}}, dcache_addr_offset_store};
+
+	assign dcache_addr_o = (opcode_o == `Opcode_S_type) ? dcache_addr_t_store : dcache_addr_t_load;
+
+/* dcache_wlen_o */
+	wire[1:0] dcache_wlen_t_load;
+	wire[1:0] dcache_wlen_t_store;
+	
+	MuxKeyWithDefault #(7, 3, 2) mux_dcache_wlen_t_load (dcache_wlen_t_load, funct3_o, 2'h0, {
+		`funct3_lb, 2'h0,
+		`funct3_lbu, 2'h0,
+		`funct3_ld, 2'h3,
+		`funct3_lh, 2'h1,
+		`funct3_lhu, 2'h1,
+		`funct3_lw, 2'h2,
+		`funct3_lwu, 2'h2
+	});
+
+	MuxKeyWithDefault #(4, 3, 2) mux_dcache_wlen_t_store (dcache_wlen_t_store, funct3_o, 2'h0, {
+		`funct3_sb, 2'h0,
+		`funct3_sh, 2'h1,
+		`funct3_sw, 2'h2,
+		`funct3_sd, 2'h3
+	});
+
+	assign dcache_wlen_o = (opcode_o == `Opcode_S_type) ? dcache_wlen_t_store : dcache_wlen_t_load;
 
 /* rs1_data_o */
 	assign rs1_data_o = (rs1_addr_o == `reg_zero) ? `Doubel_Zero_Word : 

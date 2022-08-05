@@ -16,21 +16,18 @@ module IF_ID
     wire [`AddrBus] pc_t;
     wire pc_wen;
     Reg #(64, 64'b0) reg1 (clk, rst, pc_t, pc_o, pc_wen);
-    assign pc_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    assign pc_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
     MuxKeyWithDefault #(2, 2, 64) mux1 (pc_t, ctrl_signal_i, 64'b0, {
         `CTRL_STATE_Default,    pc_i,
         `CTRL_STATE_Bubble,     `Invalid_pc
     });
-/* NOTICE: For some reasion, the if_inst_o signal are pass to a reg here.
-    But when port this project to the real FPGA platform, the if_inst_o signal 
-    should be passed directly to a wire,
- */
+
 /* if_inst_o */
     wire [`InstBus] if_inst_t;
     wire [`CTRL_Wire_Bus] state;
     wire state_wen;
     Reg #(2, 2'b0) reg2 (clk, rst, ctrl_signal_i, state, state_wen);
-    assign state_wen = (ctrl_signal_i == `CTRL_STATE_Stalled) ? 1'b0 : 1'b1;
+    assign state_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
     assign if_inst_o = ({32{(ctrl_signal_i==`CTRL_STATE_Default)}} & if_inst_t)
                     |  ({32{(ctrl_signal_i==`CTRL_STATE_Bubble)}} & `NOP);
     assign if_inst_t = (state == `CTRL_STATE_Bubble) ? `NOP : if_inst_i;

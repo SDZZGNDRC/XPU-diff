@@ -26,8 +26,6 @@ module EX(
 	input wire[`Offset20Bus] 	offset20_i, */
 /* 	input wire 					offset_sel_i, */
 	input wire[`AddrBus] 		pc_i,
-/* 	input wire		 			dcache_data_valid_i,
-	input wire	[`DataBus]		dcache_data_i, */
 
 	input wire[`RegBus] mem_back_wdata_i,                   //数据前推
 	input wire[`RegAddrBus] mem_back_rd_addr_i,             //数据前推
@@ -43,9 +41,9 @@ module EX(
 	output wire csr_wreg_o,
 	output wire[`RegBus] wdata_o,                // ALU运算结果/写入rd的数据
 	output wire[`RegBus] csr_wdata_o,
-/* 	output wire[`OpcodeBus] opcode_o,  */           //操作码, 传输到访存阶段, 确定加载/存储指令类型
-/* 	output wire[`FunctBus3] funct3_o,            //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
-	output wire[`FunctBus7] funct7_o,            //7位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型 */
+	output wire[`OpcodeBus] opcode_o,            //操作码, 传输到访存阶段, 确定加载/存储指令类型
+	output wire[`FunctBus3] funct3_o,            //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
+/* 	output wire[`FunctBus7] funct7_o,            //7位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型 */
 	output wire[`RegAddrBus] ex_back_rd_addr_o,
 	output wire ex_back_wreg_o,
 	output wire[`RegBus] ex_back_wdata_o,
@@ -53,9 +51,7 @@ module EX(
 	output wire ex_back_csr_wreg_o,
 	output wire[`RegBus] ex_back_csr_wdata_o,
 	output wire branch_flag_o,  //分支标志位
-	output wire[`AddrBus] pc_new_o/* ,
-	output wire[`DRAM_Rdata_Bus] dram_rdata_o,
-	output wire	mem_wdata_sel_o */
+	output wire[`AddrBus] pc_new_o
 );
 /* 	wire[`RegAddrBus] rd_addr;  //目标寄存器地址 */
 	wire[`RegBus] rs1_data;  //源寄存器1数据输入
@@ -91,8 +87,6 @@ module EX(
 
 /* 	assign rd_addr = rd_addr_i; */
 	//mem级的数据前推
-	// assign rs1_data = ({64{((rs1_addr_i == mem_back_rd_addr_i) && (rs1_read_i == `ReadEnable) && (mem_back_wreg_i == `WriteEnable))}} & mem_back_wdata_i) | rs1_data_i; //该版本会导致高阻态传播
-	// assign rs2_data = ({64{((rs2_addr_i == mem_back_rd_addr_i) && (rs2_read_i == `ReadEnable) && (mem_back_wreg_i == `WriteEnable))}} & mem_back_wdata_i) | rs2_data_i;
 	assign rs1_data = ((rs1_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs1_data_i;
 	assign rs2_data = ((rs2_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs2_data_i;
 	assign csr_data = ((csr_raddr_i == mem_back_csr_waddr_i ) && (mem_back_csr_wreg_i == `WriteEnable)) ? mem_back_csr_wdata_i : csr_data_i;
@@ -202,6 +196,12 @@ module EX(
 		`funct3_csrrw, csr_wdata_t_csrrw,
 		`funct3_csrrwi, csr_wdata_t_csrrwi
 	});
+
+/* opcode_o */
+	assign opcode_o = opcode_i;
+
+/* funct3_o */
+	assign funct3_o = funct3_i;
 
 /* branch_flag_o */
 /* 	wire branch_flag_wen; */
