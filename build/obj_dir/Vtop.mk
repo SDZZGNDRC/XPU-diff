@@ -36,6 +36,7 @@ VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 	-DTOP_NAME="Vtop" \
+	-I/home/sdzz/project/XPU-diff/include \
 	-I/home/sdzz/boost/ \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)

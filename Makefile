@@ -1,6 +1,6 @@
 HOME_DIR = /home/sdzz/project/XPU-diff
 TOPNAME = top
-INC_PATH ?=  /home/sdzz/boost/
+INC_PATH ?=  $(HOME_DIR)/include  /home/sdzz/boost/
 
 VERILATOR = verilator
 VERILATOR_CFLAGS += -Wall --trace -MMD --build -cc  \

@@ -3,8 +3,8 @@ main.o: /home/sdzz/project/XPU-diff/csrc/main.cpp Vtop.h \
  /usr/local/share/verilator/include/verilated.h \
  /usr/local/share/verilator/include/verilatedos.h \
  /usr/local/share/verilator/include/verilated.h \
- /home/sdzz/project/XPU-diff/csrc/mif.h \
- /home/sdzz/project/XPU-diff/csrc/logparser.h \
+ /home/sdzz/project/XPU-diff/include/mif.h \
+ /home/sdzz/project/XPU-diff/include/logparser.h \
  /home/sdzz/boost/boost/variant/variant.hpp \
  /home/sdzz/boost/boost/type_index.hpp /home/sdzz/boost/boost/config.hpp \
  /home/sdzz/boost/boost/config/user.hpp \
@@ -417,4 +417,5 @@ main.o: /home/sdzz/project/XPU-diff/csrc/main.cpp Vtop.h \
  /home/sdzz/boost/boost/mpl/inserter.hpp \
  /home/sdzz/boost/boost/mpl/front_inserter.hpp \
  /home/sdzz/boost/boost/variant/detail/variant_io.hpp \
- /home/sdzz/project/XPU-diff/csrc/utils.h
+ /home/sdzz/project/XPU-diff/include/utils.h \
+ /home/sdzz/project/XPU-diff/include/utils.h
