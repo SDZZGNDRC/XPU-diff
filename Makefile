@@ -1,6 +1,6 @@
-HOME_DIR = ~/project/XPU-diff
+HOME_DIR = /home/sdzz/project/XPU-diff
 TOPNAME = top
-INC_PATH ?= $(HOME_DIR)/include
+INC_PATH ?=  /home/sdzz/boost/
 
 VERILATOR = verilator
 VERILATOR_CFLAGS += -Wall --trace -MMD --build -cc  \
@@ -27,7 +27,7 @@ CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*
 
 # rules for verilator
 INCFLAGS = $(addprefix -I, $(INC_PATH))
-CFLAGS +=  -DTOP_NAME="\"V$(TOPNAME)\""
+CFLAGS +=  -DTOP_NAME="\"V$(TOPNAME)\"" $(INCFLAGS)
 
 $(BIN): $(VSRCS) $(CSRCS)
 	@rm -rf $(OBJ_DIR)

@@ -1,19 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Fri Aug  5 12:19:14 2022
+[*] Sat Aug  6 05:59:48 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Fri Aug  5 12:14:12 2022"
-[dumpfile_size] 155335
+[dumpfile_mtime] "Sat Aug  6 05:52:20 2022"
+[dumpfile_size] 5033872
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 22
+[timestart] 175
 [size] 1848 1016
 [pos] -1 -1
-*-0.659639 93 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 177 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.ctrl0.
 [treeopen] TOP.top.ex0.
+[treeopen] TOP.top.id0.
 [sst_width] 317
 [signals_width] 546
 [sst_expanded] 1
@@ -32,6 +33,18 @@ TOP.top.icache_data_valid_i
 TOP.top.icache_addr_o[63:0]
 @28
 TOP.icache_req_valid_o
+@22
+TOP.top.dcache_addr_o[63:0]
+TOP.top.dcache_data_i[63:0]
+@28
+TOP.top.dcache_data_valid_i
+TOP.top.dcache_ready_i
+TOP.top.dcache_req_valid_o
+@22
+TOP.top.dcache_wdata_o[63:0]
+@28
+TOP.top.dcache_wlen_o[1:0]
+TOP.top.dcache_wen_o
 @200
 -=================PC
 @28
@@ -62,6 +75,18 @@ TOP.top.id0.inst_i[31:0]
 TOP.top.id0.opcode_o[6:0]
 @22
 TOP.top.id0.pc_o[63:0]
+TOP.top.id0.dcache_addr_o[63:0]
+@28
+TOP.top.id0.dcache_req_valid_o
+@22
+TOP.top.id0.dcache_wdata_o[63:0]
+@28
+TOP.top.id0.dcache_wen_o
+TOP.top.id0.dcache_wlen_o[1:0]
+@22
+TOP.top.id0.rs1_data_o[63:0]
+@23
+TOP.top.id0.rs2_data_o[63:0]
 @200
 -=================ID_EX
 @28
@@ -122,8 +147,18 @@ TOP.top.ex_mem0.wdata_o[63:0]
 @28
 TOP.top.ex_mem0.wreg_o
 @200
+-=================MEM
+@22
+TOP.top.mem0.dcache_data_i[63:0]
+@28
+TOP.top.mem0.dcache_data_valid_i
+TOP.top.mem0.wreg_o
+@22
+TOP.top.mem0.rd_addr_o[4:0]
+TOP.top.mem0.wdata_o[63:0]
+@200
 -=================CTRL
-@29
+@28
 TOP.top.ctrl0.mem_block_flag_i
 @22
 TOP.top.ctrl0.FSM_pre_state_t[3:0]
