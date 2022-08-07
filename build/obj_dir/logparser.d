@@ -412,4 +412,9 @@ logparser.o: /home/sdzz/project/XPU-diff/csrc/logparser.cpp \
  /home/sdzz/boost/boost/mpl/inserter.hpp \
  /home/sdzz/boost/boost/mpl/front_inserter.hpp \
  /home/sdzz/boost/boost/variant/detail/variant_io.hpp \
+ /home/sdzz/boost/boost/variant/get.hpp \
+ /home/sdzz/boost/boost/utility/addressof.hpp \
+ /home/sdzz/boost/boost/core/addressof.hpp \
+ /home/sdzz/boost/boost/variant/detail/element_index.hpp \
+ /home/sdzz/boost/boost/type_traits/add_pointer.hpp \
  /home/sdzz/project/XPU-diff/include/utils.h
