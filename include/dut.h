@@ -1,9 +1,8 @@
 #include "Vtop.h"
 #include "verilated.h"
 #include "mif.h"
+#include "encode.h"
 
-#define RESET_VALUE_PC 0x80000000
-#define ECALL 0x00000073
 
 class Dut
 {
@@ -15,8 +14,6 @@ private:
     /* Signals */
     reg_t icache_addr_i_t = RESET_VALUE_PC-0x4; // The address received last cycle.
     reg_t icache_addr_i = RESET_VALUE_PC-0x4; // The address received last cycle.
-    uint8_t icache_req_valid_i = 0;
-    uint8_t icache_wen_i = 0;
     reg_t dcache_addr_i_t;
     reg_t dcache_addr_i;
     uint8_t icache_req_valid_i_t;
