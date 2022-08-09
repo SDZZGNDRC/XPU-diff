@@ -153,6 +153,9 @@
 
 `define CSRAddrBus 11:0
 `define CSRAddrLen 12
+`define CSR_Addr_cycle 12'hC00
+`define CSR_Addr_time 12'hC01
+`define CSR_Addr_instret 12'hC02
 `define CSR_Addr_mstatus 12'h300
 `define CSR_Addr_misa 12'h301
 `define CSR_Addr_mie 12'h304
@@ -177,6 +180,9 @@
 `define CSR_Hardwire_mtvec 64'h100
 `define CSR_Hardwire_mvendorid 64'h0
 
+`define CSR_Reset_cycle 64'h0
+`define CSR_Reset_time 64'h0
+`define CSR_Reset_instret 64'h0
 `define CSR_Reset_mtval 64'h0
 `define CSR_Reset_mcause_interrupt 1'b0
 `define CSR_Reset_mcause_code 5'h0

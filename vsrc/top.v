@@ -15,7 +15,6 @@ module top(
 	output wire 				dcache_req_valid_o,
 	output wire					icache_wen_o,
 	output wire 				dcache_wen_o,
-/* 	output wire	[`InstBus]		icache_data_o, */
 	output wire	[`DataBus]		dcache_wdata_o,
 	output wire [1:0]			dcache_wlen_o,
 
