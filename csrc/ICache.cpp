@@ -44,17 +44,19 @@ void ICache::posedge()
     icache_req_valid_i_t1 = icache_req_valid_i;
 
     /* Drive the output */
-    icache_ready_o = 1;
+    
     if(rand()%100<=((int)(ICache_Miss_Rate*100)))
     {
         reload_delay_cycle = 0;
         reload_flag = true;
         icache_data_o = 0;
         icache_data_valid_o = 0;
+        icache_ready_o = 0;
     }else
     {
         mif_p->load(icache_addr_i_t2, 4, (uint8_t*)icache_data_o);
         icache_data_valid_o = 1;
+        icache_ready_o = 1;
     }
 
 }
