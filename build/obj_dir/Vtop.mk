@@ -44,6 +44,10 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	DCache \
+	DiffTest \
+	ICache \
+	dut \
 	logparser \
 	main \
 	mif \
@@ -63,6 +67,14 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
+DCache.o: /home/sdzz/project/XPU-diff/csrc/DCache.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+DiffTest.o: /home/sdzz/project/XPU-diff/csrc/DiffTest.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+ICache.o: /home/sdzz/project/XPU-diff/csrc/ICache.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+dut.o: /home/sdzz/project/XPU-diff/csrc/dut.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 logparser.o: /home/sdzz/project/XPU-diff/csrc/logparser.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 main.o: /home/sdzz/project/XPU-diff/csrc/main.cpp
