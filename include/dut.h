@@ -34,8 +34,10 @@ public:
 public:
     Dut(VerilatedContext* _contextp_t, Vtop* _top_t, mif* _mif_t);
     ~Dut();
+    void update_inputs();
     void update_outputs();
     void posedge();
+    void pass_time();
     void negedge();
     bool is_finished() { return finished; };
 };

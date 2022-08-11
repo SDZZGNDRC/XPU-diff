@@ -68,8 +68,6 @@ int elfloader(char *filepath, mif *mif_p)
 
 void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
-    dut_p->update_outputs();
-
     /* ICache */
 	icache_p->icache_addr_i = dut_p->icache_addr_o;
     icache_p->icache_req_valid_i = dut_p->icache_req_valid_o;
@@ -91,9 +89,13 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 
 void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
+    dut_p->update_outputs();
     update_signals(dut_p, icache_p, dcache_p);
     dut_p->posedge();
-    dut_p->negedge();
     icache_p->posedge();
     dcache_p->posedge();
+    update_signals(dut_p, icache_p, dcache_p);
+    dut_p->update_inputs();
+    dut_p->pass_time();
+    dut_p->negedge();
 }
