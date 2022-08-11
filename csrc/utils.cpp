@@ -34,7 +34,7 @@ uint64_t bytes2uint(char* bytes)
 	return a;
 }
 
-static int elfloader(char *filepath, mif *mif_p)
+int elfloader(char *filepath, mif *mif_p)
 {
     //std::cout << "File:" <<filepath << std::endl;
     assert(strlen(filepath) > 0);
@@ -64,4 +64,36 @@ static int elfloader(char *filepath, mif *mif_p)
 	}
 	delete temp;
   return 1;
+}
+
+void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
+{
+    dut_p->update_outputs();
+
+    /* ICache */
+	icache_p->icache_addr_i = dut_p->icache_addr_o;
+    icache_p->icache_req_valid_i = dut_p->icache_req_valid_o;
+    
+    /* DCache */
+    dcache_p->dcache_addr_i = dut_p->dcache_addr_o;
+    dcache_p->dcache_req_valid_i = dut_p->dcache_req_valid_o;
+    dcache_p->dcache_wen_i = dut_p->dcache_wen_o;
+    dcache_p->dcache_wdata_i = dut_p->dcache_wdata_o;
+    dcache_p->dcache_wlen_i = dut_p->dcache_wlen_o;
+
+    /* DUT */
+    dut_p->icache_data_valid_i = icache_p->icache_data_valid_o;
+    dut_p->icache_data_i = icache_p->icache_data_o;
+    dut_p->dcache_ready_i = dcache_p->dcache_ready_o;
+    dut_p->dcache_data_valid_i = dcache_p->dcache_data_valid_o;
+    dut_p->dcache_data_i = dcache_p->dcache_data_o;
+}
+
+void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
+{
+    update_signals(dut_p, icache_p, dcache_p);
+    dut_p->posedge();
+    dut_p->negedge();
+    icache_p->posedge();
+    dcache_p->posedge();
 }

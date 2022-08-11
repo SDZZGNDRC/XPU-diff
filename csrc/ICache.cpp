@@ -5,11 +5,13 @@ ICache::ICache(mif *_mif_p)
 {
     srand((unsigned int)(time(NULL)));
     mif_p = _mif_p;
+    state = Default;
 }
 
 ICache::~ICache()
 {
 }
+
 
 void ICache::posedge()
 {
@@ -21,7 +23,6 @@ void ICache::posedge()
     {
         state = Default;
     }
-
     if(reload_flag)
     {
         reload_delay_cycle += 1;
@@ -44,7 +45,7 @@ void ICache::posedge()
     icache_req_valid_i_t1 = icache_req_valid_i;
 
     /* Drive the output */
-    
+
     if(rand()%100<=((int)(ICache_Miss_Rate*100)))
     {
         reload_delay_cycle = 0;
@@ -54,11 +55,10 @@ void ICache::posedge()
         icache_ready_o = 0;
     }else
     {
-        mif_p->load(icache_addr_i_t2, 4, (uint8_t*)icache_data_o);
+        mif_p->load(icache_addr_i_t2, 4, (uint8_t*)(&icache_data_o));
         icache_data_valid_o = 1;
         icache_ready_o = 1;
     }
-
 }
 
 

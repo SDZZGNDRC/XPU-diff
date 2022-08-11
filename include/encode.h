@@ -1,3 +1,4 @@
+#pragma once
 #define ICache_Miss_Rate 0.1
 #define DCache_Miss_Rate 0.1
 #define ICache_Reload_Cycle 10
@@ -7,3 +8,8 @@
 
 #define CTRL_STATE_Default 0x0
 #define CTRL_STATE_Block 0x1
+
+enum CacheState {
+    Default,
+    Block
+};

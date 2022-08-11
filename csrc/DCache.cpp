@@ -4,6 +4,7 @@ DCache::DCache(mif *_mif_p)
 {
     srand((unsigned int)(time(NULL)));
     mif_p = _mif_p;
+    state = Default;
 }
 
 DCache::~DCache()
@@ -54,7 +55,7 @@ void DCache::posedge()
             dcache_ready_o = 0;
         }else
         {
-            mif_p->load(dcache_addr_i_t2, 4, (uint8_t*)dcache_data_o);
+            mif_p->load(dcache_addr_i_t2, 8, (uint8_t*)(&dcache_data_o));
             dcache_data_valid_o = 1;
             dcache_ready_o = 1;
         }

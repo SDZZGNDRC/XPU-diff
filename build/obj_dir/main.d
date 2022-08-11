@@ -423,5 +423,9 @@ main.o: /home/sdzz/project/XPU-diff/csrc/main.cpp Vtop.h \
  /home/sdzz/boost/boost/variant/detail/element_index.hpp \
  /home/sdzz/boost/boost/type_traits/add_pointer.hpp \
  /home/sdzz/project/XPU-diff/include/utils.h \
- /home/sdzz/project/XPU-diff/include/utils.h \
+ /home/sdzz/project/XPU-diff/include/mif.h \
+ /home/sdzz/project/XPU-diff/include/dut.h \
+ /home/sdzz/project/XPU-diff/include/encode.h \
+ /home/sdzz/project/XPU-diff/include/ICache.h \
+ /home/sdzz/project/XPU-diff/include/DCache.h \
  /home/sdzz/project/XPU-diff/include/state.h

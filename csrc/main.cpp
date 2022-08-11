@@ -9,12 +9,11 @@
 #include "logparser.h"
 #include "utils.h"
 #include "state.h"
+#include "dut.h"
+#include "ICache.h"
+#include "DCache.h"
 
-VerilatedContext* contextp = new VerilatedContext;
-Vtop* top = new Vtop{contextp};
-mif *_mif = new mif; // The interface of the memory
-Logparser logparser_t("./log.txt");
-state state_t;
+
 uint64_t icache_addr_t = 0x7ffffffc; // The address received last cycle.
 uint64_t icache_addr = 0x7ffffffc; // The address received last cycle.
 
@@ -22,7 +21,8 @@ uint8_t icache_req_valid_o = 0;
 uint8_t icache_wen_o = 0;
 
 
-bool update_state()
+
+bool update_state(Logparser logparser_t, state state_t)
 {
 	static auto iter = logparser_t.traces.begin();
 	size_t rd, rd_new_value;
@@ -79,76 +79,36 @@ bool update_state()
 	return true;
 }
 
-void init()
+void init(Vtop *top, Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
 	int init_cylces = 10;
 	top->rst = 1;
 	for(int i = 0; i < init_cylces; i++)
 	{
-		icache_addr_t = top->icache_addr_o;
-		icache_req_valid_o = top->icache_req_valid_o;
-		icache_wen_o = top->icache_wen_o;
-		/* =============POSEDGE-Start============== */
-		top->clk = 1;
-		top->eval_step();
-		/* =============POSEDGE-End============== */
-		top->icache_data_valid_i = 1;
-		top->dcache_data_valid_i = 1;
-		if (icache_req_valid_o == 1 && icache_wen_o == 0){
-			_mif->load(icache_addr, 4, (uint8_t*)&top->icache_data_i);
-			printf("ICACHE_ADDR_T = 0x%016lx\tINST = 0x%08x\n", icache_addr, top->icache_data_i);
-		} else {
-			top->icache_data_i = 0x0;
-		}
-		icache_addr = icache_addr_t;
-		if(i == init_cylces-1){
-			top->rst = 0;
-		}
-		contextp->timeInc(1);
-		top->eval_step();
-		top->eval_end_step();
-/* 		top->eval(); */
-		/* =============NEGEDGE============== */
-		top->clk = 0;
-		contextp->timeInc(1);
-		top->eval();
+		step_one_cycle(dut_p, icache_p, dcache_p);
 	}
+	top->rst = 0;
 }
 
 int main(int argc, char** argv, char** env)
 {
-    elfloader(argv[1], _mif);
 	Verilated::mkdir("logs");
+	VerilatedContext* contextp = new VerilatedContext;
 	contextp->traceEverOn(true);
 	contextp->commandArgs(argc, argv);
+	Vtop* top = new Vtop{contextp};
+	mif *_mif = new mif; // The interface of the memory
+	Logparser logparser_t("./log.txt");
+	elfloader(argv[1], _mif);
+	state state_t;
+	Dut dut(contextp, top, _mif);
+	ICache icache(_mif);
+	DCache dcache(_mif);
 	int count = 0;
-
-	init();
+	init(top, &dut, &icache, &dcache);
 	while (count <= 1000 && !contextp->gotFinish())
 	{
-		icache_addr_t = top->icache_addr_o;
-		icache_req_valid_o = top->icache_req_valid_o;
-		icache_wen_o = top->icache_wen_o;
-		/* =============POSEDGE-Start============== */
-		top->clk = 1;
-		top->eval_step();
-		/* =============POSEDGE-End============== */
-		top->icache_data_valid_i = 1;
-		if (icache_req_valid_o == 1 && icache_wen_o == 0){
-			_mif->load(icache_addr, 4, (uint8_t*)&top->icache_data_i);
-			printf("ICACHE_ADDR_T = 0x%016lx\tINST = 0x%08x\n", icache_addr, top->icache_data_i);
-		} else {
-			top->icache_data_i = 0x0;
-		}
-		icache_addr = icache_addr_t;
-		contextp->timeInc(1);
-		top->eval_step();
-		top->eval_end_step();
-/* 		top->eval(); */
-		/* =============NEGEDGE============== */
-		top->clk = 0;
-		contextp->timeInc(1);
-		top->eval();
+		step_one_cycle(&dut, &icache, &dcache);
 		count += 1;
 	}
     delete _mif;
