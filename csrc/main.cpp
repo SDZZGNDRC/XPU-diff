@@ -41,13 +41,9 @@ bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logpars
 		break;
 	case BRANCHINST:
 		state_p->pc = boost::get<branchInst>(iter->second).pc;
-		printf("1:state_p->pc=0x%016lx\n", state_p->pc);
 		rd = boost::get<branchInst>(iter->second).rd;
 		rd_new_value = boost::get<branchInst>(iter->second).rd_new_value;
-		printf("2:state_p->pc=0x%016lx\n", state_p->pc);
-		printf("rd=%ld, rd_new_value=%ld\n", rd, rd_new_value);
 		state_p->XPR.write(rd, rd_new_value);
-		printf("3:state_p->pc=0x%016lx\n", state_p->pc);
 		state_p->mem_update_valid = false;
 		break;
 	case LOADINST:
@@ -105,11 +101,37 @@ int main(int argc, char** argv, char** env)
 	ICache icache(_mif);
 	DCache dcache(_mif);
 	DiffTest difftest(&state_t, &dut);
-	int count = 0;
+	int count = 1;
+	reg_t pc_t = 0;
 	init(top, &dut, &icache, &dcache);
+	/* Synchronize the dut and the spike */
+	while (true)
+	{
+		if(dut.diff_mem_wb_pc_o == RESET_VALUE_PC)
+		{
+			break;
+		}
+		step_one_cycle(&dut, &icache, &dcache);
+	}
+	while (true)
+	{
+		if(state_t.pc == RESET_VALUE_PC)
+		{
+			break;
+		}
+		update_state(iter++, logparser_t, &state_t);
+	}
+	difftest.check_pc();
 	while (count <= 1000 && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
+		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t)
+		{
+			continue;
+		}else
+		{
+			pc_t = dut.diff_mem_wb_pc_o;
+		}
 		if(!update_state(iter++, logparser_t, &state_t)) // ecall
 		{
 			count = 1000;
