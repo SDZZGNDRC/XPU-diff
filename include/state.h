@@ -52,7 +52,7 @@ struct state
         std::cout << "PC: " << std::hex << std::setw(16) << std::setfill('0') << t.pc << std::endl;
         for(size_t i=0; i < NXPR; i++)
         {
-            std::cout << std::setw(6) << 'x' << i << ": " << std::hex << std::setw(16) << std::setfill('0') << t.XPR[i];
+            std::cout << '\t' << 'x' << i << ": " << std::hex << std::setw(16) << std::setfill('0') << t.XPR[i];
             if(i%4==3)
             {
                 std::cout << std::endl;

@@ -43,6 +43,12 @@ void DCache::posedge()
     dcache_addr_i_t1 = dcache_addr_i;
     dcache_req_valid_i_t1 = dcache_req_valid_i;
 
+    if(~dcache_req_valid_i_t2)
+    {
+        dcache_data_valid_o = 1;
+        dcache_ready_o = 1;
+        return;
+    }
     /* Drive the output */
     if(dcache_wen_i_t2 == 0)
     {

@@ -23,7 +23,7 @@ uint8_t icache_wen_o = 0;
 
 
 
-bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logparser logparser_t, state state_t)
+bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logparser logparser_t, state *state_p)
 {
 	size_t rd, rd_new_value;
 	if(iter == logparser_t.traces.end())
@@ -33,50 +33,53 @@ bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logpars
 	switch (iter->first)
 	{
 	case COMMONINST:
-		state_t.pc = boost::get<commonInst>(iter->second).pc;
-		rd = state_t.pc = boost::get<commonInst>(iter->second).rd;
+		state_p->pc = boost::get<commonInst>(iter->second).pc;
+		rd = boost::get<commonInst>(iter->second).rd;
 		rd_new_value = boost::get<commonInst>(iter->second).rd_new_value;
 		if(rd>=0)
 		{
-			state_t.XPR.write(rd, rd_new_value);
+			state_p->XPR.write(rd, rd_new_value);
 		}
-		state_t.mem_update_valid = false;
+		state_p->mem_update_valid = false;
 		break;
 	case BRANCHINST:
-		state_t.pc = boost::get<branchInst>(iter->second).pc;
-		rd = state_t.pc = boost::get<branchInst>(iter->second).rd;
+		state_p->pc = boost::get<branchInst>(iter->second).pc;
+		rd = boost::get<branchInst>(iter->second).rd;
 		rd_new_value = boost::get<branchInst>(iter->second).rd_new_value;
 		if(rd>=0)
 		{
-			state_t.XPR.write(rd, rd_new_value);
+			state_p->XPR.write(rd, rd_new_value);
 		}
-		state_t.mem_update_valid = false;
+		state_p->mem_update_valid = false;
 		break;
 	case LOADINST:
-		state_t.pc = boost::get<loadInst>(iter->second).pc;
-		rd = state_t.pc = boost::get<loadInst>(iter->second).rd;
+		state_p->pc = boost::get<loadInst>(iter->second).pc;
+		rd = boost::get<loadInst>(iter->second).rd;
 		rd_new_value = boost::get<loadInst>(iter->second).rd_new_value;
 		if(rd>=0)
 		{
-			state_t.XPR.write(rd, rd_new_value);
+			state_p->XPR.write(rd, rd_new_value);
 		}
-		state_t.mem_update_valid = false;
+		state_p->mem_update_valid = false;
 		break;
 	case STOREINST:
-		state_t.pc = boost::get<storeInst>(iter->second).pc;
-		state_t.mem_update_valid = true;
-		state_t.mem_update_addr = boost::get<storeInst>(iter->second).mem_addr;
-		state_t.mem_update_value = boost::get<storeInst>(iter->second).mem_val;
-		state_t.mem_update_len = boost::get<storeInst>(iter->second).mem_len;
+		state_p->pc = boost::get<storeInst>(iter->second).pc;
+		state_p->mem_update_valid = true;
+		state_p->mem_update_addr = boost::get<storeInst>(iter->second).mem_addr;
+		state_p->mem_update_value = boost::get<storeInst>(iter->second).mem_val;
+		state_p->mem_update_len = boost::get<storeInst>(iter->second).mem_len;
 		break;
 	case SPECIALINST:
-		state_t.pc = boost::get<specialInst>(iter->second).pc;
-		state_t.mem_update_valid = false;
+		state_p->pc = boost::get<specialInst>(iter->second).pc;
+		state_p->mem_update_valid = false;
+		if(boost::get<specialInst>(iter->second).name == "ecall")
+		{
+			return false;
+		}
 		break;
 	default:
 		assert(0);
 	}
-	iter+=1;
 	return true;
 }
 
@@ -112,7 +115,10 @@ int main(int argc, char** argv, char** env)
 	while (count <= 1000 && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
-		update_state(iter, logparser_t, state_t);
+		if(!update_state(iter++, logparser_t, &state_t)) // ecall
+		{
+			count == 1000;
+		}
 		difftest.check_pc();
 		count += 1;
 	}
