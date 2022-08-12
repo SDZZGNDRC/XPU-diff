@@ -28,6 +28,10 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , diff_if_id_to_id_pc_o{vlSymsp->TOP.diff_if_id_to_id_pc_o}
     , diff_id_to_id_ex_pc_o{vlSymsp->TOP.diff_id_to_id_ex_pc_o}
     , diff_id_ex_to_ex_pc_o{vlSymsp->TOP.diff_id_ex_to_ex_pc_o}
+    , diff_ex_to_ex_mem_pc_o{vlSymsp->TOP.diff_ex_to_ex_mem_pc_o}
+    , diff_ex_mem_to_mem_pc_o{vlSymsp->TOP.diff_ex_mem_to_mem_pc_o}
+    , diff_mem_to_mem_wb_pc_o{vlSymsp->TOP.diff_mem_to_mem_wb_pc_o}
+    , diff_mem_wb_pc_o{vlSymsp->TOP.diff_mem_wb_pc_o}
     , diff_regs_o{vlSymsp->TOP.diff_regs_o}
     , rootp{&(vlSymsp->TOP)}
 {

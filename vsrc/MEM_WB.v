@@ -10,6 +10,7 @@ module MEM_WB
 	input csr_wreg_i,
 	input[`RegBus] wdata_i,  //ALU运算结果/写入rd的数据
 	input[`RegBus] csr_wdata_i,
+    input[`AddrBus] mem_to_mem_wb_pc_i,
 	input wire [`CTRL_Wire_Bus] ctrl_signal_i,
 
 	//连接到refile模块
@@ -19,6 +20,7 @@ module MEM_WB
 	output wire csr_wreg_o,
 	output wire[`RegAddrBus] rd_addr_o,  //目标寄存器 rd 的地址
 	output wire[`CSRAddrBus] csr_waddr_o,  //目标寄存器 rd 的地址
+    output wire[`AddrBus] diff_mem_wb_pc_o,
 	output wire[`RegAddrBus] mem_wb_back_rd_addr_o,
 	output wire mem_wb_back_wreg_o,
 	output wire[`RegBus] mem_wb_back_wdata_o,
@@ -56,6 +58,11 @@ module MEM_WB
     wire csr_waddr_wen;
     Reg #(12, 12'b0) reg_csr_waddr (clk, rst, csr_waddr_i, csr_waddr_o, csr_waddr_wen);
     assign csr_waddr_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
+
+/* diff_mem_wb_pc_o */
+    wire diff_mem_to_mem_wb_pc_wen;
+    Reg #(64, `Invalid_pc) reg_diff_mem_to_mem_wb_pc (clk, rst, mem_to_mem_wb_pc_i, diff_mem_wb_pc_o, diff_mem_to_mem_wb_pc_wen);
+    assign diff_mem_to_mem_wb_pc_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
 
 /* mem_wb_back_rd_addr_o mem_wb_back_wreg_o mem_wb_back_wdata_o */
     assign mem_wb_back_rd_addr_o = rd_addr_o;

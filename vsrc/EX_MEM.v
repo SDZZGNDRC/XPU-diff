@@ -11,6 +11,7 @@ module EX_MEM
 	input csr_wreg_i,
     input[`RegBus] wdata_i,  // ALU运算结果/写入rd的数据
     input[`RegBus] csr_wdata_i,
+    input[`AddrBus] ex_to_ex_mem_pc_i,
 	input[`OpcodeBus] opcode_i,  //操作码, 传输到访存阶段, 确定加载/存储指令类型
 	input[`FunctBus3] funct3_i,  //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
 	input wire [`CTRL_Wire_Bus] ctrl_signal_i,
@@ -22,6 +23,7 @@ module EX_MEM
 	output wire csr_wreg_o,
     output wire[`RegBus] wdata_o,  // ALU运算结果/写入rd的数据
     output wire[`RegBus] csr_wdata_o,
+    output wire[`AddrBus] ex_mem_to_mem_pc_o,
 	output wire[`OpcodeBus] opcode_o,  //操作码, 传输到访存阶段, 确定加载/存储指令类型
 	output wire[`FunctBus3] funct3_o  //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
 /* 	output reg	mem_wdata_sel_o */
@@ -74,6 +76,14 @@ module EX_MEM
     assign csr_wdata_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
     assign csr_wdata_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Doubel_Zero_Word : 
                          (ctrl_signal_i == `CTRL_STATE_Default) ? csr_wdata_i : `Doubel_Zero_Word;
+
+/* ex_mem_to_mem_pc_o */
+    wire [`AddrBus] ex_mem_to_mem_pc_t;
+    wire ex_mem_to_mem_pc_wen;
+    Reg #(64, `Invalid_pc) reg_ex_mem_to_mem_pc (clk, rst, ex_mem_to_mem_pc_t, ex_mem_to_mem_pc_o, ex_mem_to_mem_pc_wen);
+    assign ex_mem_to_mem_pc_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
+    assign ex_mem_to_mem_pc_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? `Invalid_pc : 
+                                (ctrl_signal_i == `CTRL_STATE_Default) ? ex_to_ex_mem_pc_i : `Invalid_pc;
 
 /* opcode_o */
     wire [`OpcodeBus] opcode_t;

@@ -45,6 +45,10 @@ class Vtop VL_NOT_FINAL {
     VL_OUT64(&diff_if_id_to_id_pc_o,63,0);
     VL_OUT64(&diff_id_to_id_ex_pc_o,63,0);
     VL_OUT64(&diff_id_ex_to_ex_pc_o,63,0);
+    VL_OUT64(&diff_ex_to_ex_mem_pc_o,63,0);
+    VL_OUT64(&diff_ex_mem_to_mem_pc_o,63,0);
+    VL_OUT64(&diff_mem_to_mem_wb_pc_o,63,0);
+    VL_OUT64(&diff_mem_wb_pc_o,63,0);
     VL_OUT64((&diff_regs_o)[32],63,0);
 
     // CELLS

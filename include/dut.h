@@ -24,6 +24,10 @@ public:
     reg_t diff_if_id_to_id_pc_o;
     reg_t diff_id_to_id_ex_pc_o;
     reg_t diff_id_ex_to_ex_pc_o;
+    reg_t diff_ex_to_ex_mem_pc_o;
+    reg_t diff_ex_mem_to_mem_pc_o;
+    reg_t diff_mem_to_mem_wb_pc_o;
+    reg_t diff_mem_wb_pc_o;
     reg_t *diff_regs_o;
 
     uint8_t dcache_ready_i;

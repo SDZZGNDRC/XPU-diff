@@ -428,4 +428,5 @@ main.o: /home/sdzz/project/XPU-diff/csrc/main.cpp Vtop.h \
  /home/sdzz/project/XPU-diff/include/encode.h \
  /home/sdzz/project/XPU-diff/include/ICache.h \
  /home/sdzz/project/XPU-diff/include/DCache.h \
- /home/sdzz/project/XPU-diff/include/state.h
+ /home/sdzz/project/XPU-diff/include/state.h \
+ /home/sdzz/project/XPU-diff/include/DiffTest.h

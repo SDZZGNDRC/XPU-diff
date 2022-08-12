@@ -37,6 +37,10 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(diff_if_id_to_id_pc_o,63,0);
     VL_OUT64(diff_id_to_id_ex_pc_o,63,0);
     VL_OUT64(diff_id_ex_to_ex_pc_o,63,0);
+    VL_OUT64(diff_ex_to_ex_mem_pc_o,63,0);
+    VL_OUT64(diff_ex_mem_to_mem_pc_o,63,0);
+    VL_OUT64(diff_mem_to_mem_wb_pc_o,63,0);
+    VL_OUT64(diff_mem_wb_pc_o,63,0);
     VL_OUT64(diff_regs_o[32],63,0);
 
     // LOCAL SIGNALS
@@ -136,6 +140,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__ex0__DOT__wdata_addiw;
         QData/*63:0*/ top__DOT__if_id_to_id_pc;
         QData/*63:0*/ top__DOT__id_ex_to_ex_pc;
+        QData/*63:0*/ top__DOT__ex_mem_to_mem_pc;
         QData/*63:0*/ top__DOT__csr_to_id_csr_data;
         QData/*63:0*/ top__DOT__id_to_id_ex_rs1_data;
         QData/*63:0*/ top__DOT__id_ex_to_ex_rs1_data;
@@ -171,9 +176,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x13;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x14;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x15;
-        QData/*63:0*/ top__DOT__regfile0__DOT__out_x16;
     };
     struct {
+        QData/*63:0*/ top__DOT__regfile0__DOT__out_x16;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x17;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x18;
         QData/*63:0*/ top__DOT__regfile0__DOT__out_x19;
@@ -237,9 +242,9 @@ VL_MODULE(Vtop___024root) {
         VlUnpacked<CData/*0:0*/, 2> top__DOT__id0__DOT__mux1__DOT__i0__DOT__data_list;
         VlUnpacked<IData/*26:0*/, 4> top__DOT__id0__DOT__mux2__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 4> top__DOT__id0__DOT__mux2__DOT__i0__DOT__key_list;
-        VlUnpacked<IData/*19:0*/, 4> top__DOT__id0__DOT__mux2__DOT__i0__DOT__data_list;
     };
     struct {
+        VlUnpacked<IData/*19:0*/, 4> top__DOT__id0__DOT__mux2__DOT__i0__DOT__data_list;
         VlUnpacked<VlWide<3>/*68:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*4:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile0__DOT__mux1__DOT__i0__DOT__data_list;

@@ -23,7 +23,7 @@ void ICache::posedge()
     }else if(ctrl_signal_i == CTRL_STATE_Default)
     {
         state = Default;
-        printf("ICache: Default\n");
+        /* printf("ICache: Default\n"); */
     }
     if(reload_flag)
     {
@@ -58,7 +58,7 @@ void ICache::posedge()
     }else
     {
         mif_p->load(icache_addr_i_t2, 4, (uint8_t*)(&icache_data_o));
-        printf("ICache: Load 0x%016lx\n", icache_addr_i_t2);
+        /* printf("ICache: Load 0x%016lx\n", icache_addr_i_t2); */
         icache_data_valid_o = 1;
         icache_ready_o = 1;
     }

@@ -1,6 +1,6 @@
 #pragma once
 #define ICache_Miss_Rate 0
-#define DCache_Miss_Rate 0.1
+#define DCache_Miss_Rate 0.01
 #define ICache_Reload_Cycle 10
 #define DCache_Reload_Cycle 10
 #define RESET_VALUE_PC 0x80000000

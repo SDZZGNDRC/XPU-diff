@@ -21,6 +21,10 @@ module top(
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
 	output wire [`AddrBus]		diff_id_ex_to_ex_pc_o,
+	output wire [`AddrBus]		diff_ex_to_ex_mem_pc_o,
+	output wire [`AddrBus]		diff_ex_mem_to_mem_pc_o,
+	output wire [`AddrBus]		diff_mem_to_mem_wb_pc_o,
+	output wire [`AddrBus]		diff_mem_wb_pc_o,
 	output wire [`RegBus]		diff_regs_o [0:`RegNum-1]
 
 );
@@ -28,12 +32,18 @@ module top(
 	wire[`AddrBus] if_id_to_id_pc;
 	wire[`AddrBus] id_to_id_ex_pc;
 	wire[`AddrBus] id_ex_to_ex_pc;
+	wire[`AddrBus] ex_to_ex_mem_pc;
+	wire[`AddrBus] ex_mem_to_mem_pc;
+	wire[`AddrBus] mem_to_mem_wb_pc;
 	wire[`InstBus] if_id_to_id_inst;
 
 /* diff-test */
 	assign diff_if_id_to_id_pc_o = if_id_to_id_pc;
 	assign diff_id_to_id_ex_pc_o = id_to_id_ex_pc;
 	assign diff_id_ex_to_ex_pc_o = id_ex_to_ex_pc;
+	assign diff_ex_to_ex_mem_pc_o = ex_to_ex_mem_pc;
+	assign diff_ex_mem_to_mem_pc_o = ex_mem_to_mem_pc;
+	assign diff_mem_to_mem_wb_pc_o = mem_to_mem_wb_pc;
 
 	wire[`RegBus] regfile_to_id_rs1_data;
 	wire[`RegBus] regfile_to_id_rs2_data;
@@ -332,6 +342,7 @@ module top(
 		.ex_back_csr_wdata_o(ex_to_id_back_csr_wdata),
 
 		.branch_flag_o(ex_branch_flag),
+		.ex_to_ex_mem_pc_o(ex_to_ex_mem_pc),
 		.pc_new_o(ex_to_ctrl_pc_new)
 	);
 
@@ -345,6 +356,7 @@ module top(
 		.csr_wreg_i(ex_to_ex_mem_csr_wreg),
 		.wdata_i(ex_to_ex_mem_wdata),
 		.csr_wdata_i(ex_to_ex_mem_csr_wdata),
+		.ex_to_ex_mem_pc_i(ex_to_ex_mem_pc),
 		.opcode_i(ex_to_ex_mem_opcode),
 		.funct3_i(ex_to_ex_mem_funct3),
 		.ctrl_signal_i(ctrl_to_ex_mem_ctrl_signal),
@@ -355,6 +367,7 @@ module top(
 		.csr_wreg_o(ex_mem_to_mem_csr_wreg),
 		.wdata_o(ex_mem_to_mem_wdata),
 		.csr_wdata_o(ex_mem_to_mem_csr_wdata),
+		.ex_mem_to_mem_pc_o(ex_mem_to_mem_pc),
 		.opcode_o(ex_mem_to_mem_opcode),
 		.funct3_o(ex_mem_to_mem_funct3)
 
@@ -369,6 +382,7 @@ module top(
 		.csr_wdata_i(ex_mem_to_mem_csr_wdata),
 		.dcache_data_valid_i(dcache_data_valid_i),
 		.dcache_data_i(dcache_data_i),
+		.ex_mem_to_mem_pc_i(ex_mem_to_mem_pc),
 		.opcode_i(ex_mem_to_mem_opcode),
 		.funct3_i(ex_mem_to_mem_funct3),
 
@@ -379,6 +393,7 @@ module top(
 		.csr_wreg_o(mem_to_mem_wb_csr_wreg),
 		.wdata_o(mem_to_mem_wb_wdata),
 		.csr_wdata_o(mem_to_mem_wb_csr_wdata),
+		.mem_to_mem_wb_pc_o(mem_to_mem_wb_pc),
 		.mem_back_rd_addr_o(mem_to_id_back_rd_addr),
 		.mem_back_wreg_o(mem_to_id_back_wreg),
 		.mem_back_wdata_o(mem_to_id_back_wdata),
@@ -399,6 +414,7 @@ module top(
 		.csr_wreg_i(mem_to_mem_wb_csr_wreg),
 		.wdata_i(mem_to_mem_wb_wdata),
 		.csr_wdata_i(mem_to_mem_wb_csr_wdata),
+		.mem_to_mem_wb_pc_i(mem_to_mem_wb_pc),
 		.ctrl_signal_i(ctrl_to_mem_wb_ctrl_signal),
 	
 		.wdata_o(mem_wb_to_regfile_wdata),
@@ -407,6 +423,7 @@ module top(
 		.csr_wreg_o(mem_wb_to_csr_we),
 		.rd_addr_o(mem_wb_to_regfile_waddr),
 		.csr_waddr_o(mem_wb_to_csr_waddr),
+		.diff_mem_wb_pc_o(diff_mem_wb_pc_o),
 		.mem_wb_back_rd_addr_o(mem_wb_to_id_back_rd_addr),
 		.mem_wb_back_wreg_o(mem_wb_to_id_back_wreg),
 		.mem_wb_back_wdata_o(mem_wb_to_id_back_wdata),

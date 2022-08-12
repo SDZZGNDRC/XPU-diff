@@ -51,6 +51,7 @@ module EX(
 	output wire ex_back_csr_wreg_o,
 	output wire[`RegBus] ex_back_csr_wdata_o,
 	output wire branch_flag_o,  //分支标志位
+	output wire[`AddrBus] ex_to_ex_mem_pc_o,
 	output wire[`AddrBus] pc_new_o
 );
 /* 	wire[`RegAddrBus] rd_addr;  //目标寄存器地址 */
@@ -221,6 +222,9 @@ module EX(
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bne)}} & branch_flag_t_bne)
 					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1)
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);
+
+/* ex_to_ex_mem_pc_o */
+	assign ex_to_ex_mem_pc_o = pc_i;
 
 /* pc_new_o */
 	wire [`AddrBus] pc_new_bne;

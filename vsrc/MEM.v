@@ -10,6 +10,7 @@ module MEM
 	input[`RegBus] csr_wdata_i,
 	input wire		 			dcache_data_valid_i,
 	input wire	[`DataBus]		dcache_data_i,
+	input wire[`AddrBus] ex_mem_to_mem_pc_i,
 	input[`OpcodeBus] opcode_i,  //操作码, 传输到访存阶段, 确定加载/存储指令类型
 	input[`FunctBus3] funct3_i,  //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
 /* 	input[`DRAM_Rdata_Bus] dram_rdata_i,
@@ -22,6 +23,7 @@ module MEM
 	output wire csr_wreg_o,
 	output wire[`RegBus] wdata_o,  // ALU运算结果/写入rd的数据
 	output wire[`RegBus] csr_wdata_o,
+	output wire[`AddrBus] mem_to_mem_wb_pc_o,
 	output wire[`RegAddrBus] mem_back_rd_addr_o,
 	output wire[`CSRAddrBus] mem_back_csr_waddr_o,
 	output wire mem_back_wreg_o,
@@ -74,6 +76,9 @@ module MEM
 	assign csr_waddr_o = csr_waddr_i;
 	assign csr_wreg_o = csr_wreg_i;
 	assign csr_wdata_o = csr_wdata_i;
+
+/* mem_to_mem_wb_pc_o */
+	assign mem_to_mem_wb_pc_o = ex_mem_to_mem_pc_i;
 
 /* mem_back_rd_addr_o mem_back_wreg_o mem_back_wdata_o */
 	assign mem_back_rd_addr_o = rd_addr_i;

@@ -12,6 +12,7 @@
 #include "dut.h"
 #include "ICache.h"
 #include "DCache.h"
+#include "DiffTest.h"
 
 
 uint64_t icache_addr_t = 0x7ffffffc; // The address received last cycle.
@@ -22,9 +23,8 @@ uint8_t icache_wen_o = 0;
 
 
 
-bool update_state(Logparser logparser_t, state state_t)
+bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logparser logparser_t, state state_t)
 {
-	static auto iter = logparser_t.traces.begin();
 	size_t rd, rd_new_value;
 	if(iter == logparser_t.traces.end())
 	{
@@ -76,6 +76,7 @@ bool update_state(Logparser logparser_t, state state_t)
 	default:
 		assert(0);
 	}
+	iter+=1;
 	return true;
 }
 
@@ -99,16 +100,20 @@ int main(int argc, char** argv, char** env)
 	Vtop* top = new Vtop{contextp};
 	mif *_mif = new mif; // The interface of the memory
 	Logparser logparser_t("./log.txt");
+	auto iter = logparser_t.traces.begin();
 	elfloader(argv[1], _mif);
 	state state_t;
 	Dut dut(contextp, top, _mif);
 	ICache icache(_mif);
 	DCache dcache(_mif);
+	DiffTest difftest(&state_t, &dut);
 	int count = 0;
 	init(top, &dut, &icache, &dcache);
 	while (count <= 1000 && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
+		update_state(iter, logparser_t, state_t);
+		difftest.check_pc();
 		count += 1;
 	}
     delete _mif;
