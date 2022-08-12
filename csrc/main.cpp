@@ -81,7 +81,7 @@ bool update_state(Logparser logparser_t, state state_t)
 
 void init(Vtop *top, Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
-	int init_cylces = 10;
+	int init_cylces = 2;
 	top->rst = 1;
 	for(int i = 0; i < init_cylces; i++)
 	{
