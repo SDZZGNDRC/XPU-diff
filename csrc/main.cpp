@@ -117,7 +117,7 @@ int main(int argc, char** argv, char** env)
 		step_one_cycle(&dut, &icache, &dcache);
 		if(!update_state(iter++, logparser_t, &state_t)) // ecall
 		{
-			count == 1000;
+			count = 1000;
 		}
 		difftest.check_pc();
 		count += 1;

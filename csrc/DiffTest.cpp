@@ -12,8 +12,7 @@ DiffTest::~DiffTest()
 
 bool DiffTest::check_pc()
 {
-    printf("DIFF: dut_pc=0x%016lx\n", dut_p->diff_mem_wb_pc_o);
-    std::cout << *(state_p) << std::endl;
+    printf("DIFF: dut_pc=0x%016lx\tspike_pc=0x%016lx\n", dut_p->diff_mem_wb_pc_o, state_p->pc);
     return true;
 }
 
