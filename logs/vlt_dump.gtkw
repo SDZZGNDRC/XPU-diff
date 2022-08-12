@@ -1,0 +1,223 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Aug  6 05:59:48 2022
+[*]
+[dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
+[dumpfile_mtime] "Sat Aug  6 05:52:20 2022"
+[dumpfile_size] 5033872
+[savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
+[timestart] 175
+[size] 1848 1016
+[pos] -1 -1
+*-0.659639 177 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.top.
+[treeopen] TOP.top.ctrl0.
+[treeopen] TOP.top.ex0.
+[treeopen] TOP.top.id0.
+[sst_width] 317
+[signals_width] 546
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+TOP.top.clk
+TOP.top.rst
+TOP.top.if_id0.ctrl_signal_i[1:0]
+@22
+TOP.top.if_id0.pc_i[63:0]
+TOP.top.if_id0.pc_o[63:0]
+TOP.top.icache_data_i[31:0]
+@28
+TOP.top.icache_data_valid_i
+@22
+TOP.top.icache_addr_o[63:0]
+@28
+TOP.icache_req_valid_o
+@22
+TOP.top.dcache_addr_o[63:0]
+TOP.top.dcache_data_i[63:0]
+@28
+TOP.top.dcache_data_valid_i
+TOP.top.dcache_ready_i
+TOP.top.dcache_req_valid_o
+@22
+TOP.top.dcache_wdata_o[63:0]
+@28
+TOP.top.dcache_wlen_o[1:0]
+TOP.top.dcache_wen_o
+@200
+-=================PC
+@28
+TOP.top.pc0.icache_req_valid_o
+TOP.top.pc0.icache_req_valid_wen
+@24
+TOP.top.pc0.ctrl_signal_i[1:0]
+@22
+TOP.top.pc0.pc_new_i[63:0]
+TOP.top.pc0.pc_ram_t[63:0]
+TOP.top.pc0.pc_ram_o[63:0]
+TOP.top.pc0.pc_pipeline_o[63:0]
+@200
+-=================IF_ID
+@28
+TOP.top.if_id0.ctrl_signal_i[1:0]
+@22
+TOP.top.if_id0.pc_i[63:0]
+TOP.top.if_id0.if_inst_i[31:0]
+TOP.top.if_id0.pc_o[63:0]
+TOP.top.if_id0.if_inst_o[31:0]
+@200
+-=================ID
+@22
+TOP.top.id0.pc_i[63:0]
+TOP.top.id0.inst_i[31:0]
+@28
+TOP.top.id0.opcode_o[6:0]
+@22
+TOP.top.id0.pc_o[63:0]
+TOP.top.id0.dcache_addr_o[63:0]
+@28
+TOP.top.id0.dcache_req_valid_o
+@22
+TOP.top.id0.dcache_wdata_o[63:0]
+@28
+TOP.top.id0.dcache_wen_o
+TOP.top.id0.dcache_wlen_o[1:0]
+@22
+TOP.top.id0.rs1_data_o[63:0]
+@23
+TOP.top.id0.rs2_data_o[63:0]
+@200
+-=================ID_EX
+@28
+TOP.top.id_ex0.ctrl_signal_i[1:0]
+@22
+TOP.top.id_ex0.pc_i[63:0]
+@c00028
+TOP.top.id_ex0.opcode_i[6:0]
+@28
+(0)TOP.top.id_ex0.opcode_i[6:0]
+(1)TOP.top.id_ex0.opcode_i[6:0]
+(2)TOP.top.id_ex0.opcode_i[6:0]
+(3)TOP.top.id_ex0.opcode_i[6:0]
+(4)TOP.top.id_ex0.opcode_i[6:0]
+(5)TOP.top.id_ex0.opcode_i[6:0]
+(6)TOP.top.id_ex0.opcode_i[6:0]
+@1401200
+-group_end
+@22
+TOP.top.id_ex0.pc_o[63:0]
+@28
+TOP.top.id_ex0.opcode_o[6:0]
+@200
+-=================EX
+@22
+TOP.top.ex0.csr_data_i[63:0]
+TOP.top.ex0.pc_i[63:0]
+@28
+TOP.top.ex0.opcode_i[6:0]
+TOP.top.ex0.funct3_i[2:0]
+TOP.top.ex0.funct7_i[6:0]
+@22
+TOP.top.ex0.imm_i[19:0]
+@28
+TOP.top.ex0.branch_flag_o
+@22
+TOP.top.ex0.pc_new_o[63:0]
+TOP.top.ex0.rd_addr_o[4:0]
+TOP.top.ex0.wdata_o[63:0]
+@28
+TOP.top.ex0.wreg_o
+TOP.top.ex0.csr_wreg_o
+@22
+TOP.top.ex0.csr_waddr_o[11:0]
+TOP.top.ex0.csr_wdata_o[63:0]
+@200
+-=================EX_MEM
+@28
+TOP.top.ex_mem0.clk
+@22
+TOP.top.ex_mem0.wdata_i[63:0]
+@28
+TOP.top.ex_mem0.wreg_i
+@22
+TOP.top.ex_mem0.rd_addr_i[4:0]
+TOP.top.ex_mem0.rd_addr_o[4:0]
+TOP.top.ex_mem0.wdata_o[63:0]
+@28
+TOP.top.ex_mem0.wreg_o
+@200
+-=================MEM
+@22
+TOP.top.mem0.dcache_data_i[63:0]
+@28
+TOP.top.mem0.dcache_data_valid_i
+TOP.top.mem0.wreg_o
+@22
+TOP.top.mem0.rd_addr_o[4:0]
+TOP.top.mem0.wdata_o[63:0]
+@200
+-=================CTRL
+@28
+TOP.top.ctrl0.mem_block_flag_i
+@22
+TOP.top.ctrl0.FSM_pre_state_t[3:0]
+TOP.top.ctrl0.FSM_next_state[3:0]
+@28
+TOP.top.ctrl0.icache_data_valid_i
+@22
+TOP.top.ctrl0.ctrl_to_pc_new_o[63:0]
+@24
+TOP.top.ctrl0.ctrl_signal_pc_o[1:0]
+TOP.top.ctrl0.ctrl_signal_if_id_o[1:0]
+TOP.top.ctrl0.ctrl_signal_id_ex_o[1:0]
+TOP.top.ctrl0.ctrl_signal_ex_mem_o[1:0]
+TOP.top.ctrl0.ctrl_signal_mem_wb_o[1:0]
+@200
+-=================Regfiles
+@22
+TOP.top.regfile0.out_x1[63:0]
+TOP.top.regfile0.out_x2[63:0]
+TOP.top.regfile0.out_x3[63:0]
+TOP.top.regfile0.out_x4[63:0]
+TOP.top.regfile0.out_x5[63:0]
+TOP.top.regfile0.out_x6[63:0]
+TOP.top.regfile0.out_x7[63:0]
+TOP.top.regfile0.out_x8[63:0]
+TOP.top.regfile0.out_x9[63:0]
+TOP.top.regfile0.out_x10[63:0]
+TOP.top.regfile0.out_x11[63:0]
+TOP.top.regfile0.out_x12[63:0]
+TOP.top.regfile0.out_x13[63:0]
+TOP.top.regfile0.out_x14[63:0]
+TOP.top.regfile0.out_x15[63:0]
+TOP.top.regfile0.out_x16[63:0]
+TOP.top.regfile0.out_x17[63:0]
+TOP.top.regfile0.out_x18[63:0]
+TOP.top.regfile0.out_x19[63:0]
+TOP.top.regfile0.out_x20[63:0]
+TOP.top.regfile0.out_x21[63:0]
+TOP.top.regfile0.out_x22[63:0]
+TOP.top.regfile0.out_x23[63:0]
+TOP.top.regfile0.out_x24[63:0]
+TOP.top.regfile0.out_x25[63:0]
+TOP.top.regfile0.out_x26[63:0]
+TOP.top.regfile0.out_x27[63:0]
+TOP.top.regfile0.out_x28[63:0]
+TOP.top.regfile0.out_x29[63:0]
+TOP.top.regfile0.out_x30[63:0]
+TOP.top.regfile0.out_x31[63:0]
+TOP.top.regfile0.out_x18[63:0]
+@200
+-=================CSR
+@28
+TOP.top.csr0.clk
+@22
+TOP.top.csr0.out_mcause[63:0]
+TOP.top.csr0.out_mepc[63:0]
+TOP.top.csr0.out_mie[63:0]
+TOP.top.csr0.out_mip[63:0]
+TOP.top.csr0.out_mstatus[63:0]
+TOP.top.csr0.out_mtval[63:0]
+[pattern_trace] 1
+[pattern_trace] 0
