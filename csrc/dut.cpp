@@ -5,12 +5,12 @@ Dut::Dut(VerilatedContext* _contextp_t, Vtop* _top_t, mif* _mif_t)
     contextp_t = _contextp_t;
     top_t = _top_t;
     mif_t = _mif_t;
-    diff_regs_o = new reg_t(32);
+    diff_regs_o = new reg_t[32]();
 }
 
 Dut::~Dut()
 {
-    delete diff_regs_o;
+    delete [] diff_regs_o;
 }
 
 void Dut::update_inputs()
@@ -39,7 +39,7 @@ void Dut::update_outputs()
     diff_ex_mem_to_mem_pc_o = top_t->diff_ex_mem_to_mem_pc_o;
     diff_mem_to_mem_wb_pc_o = top_t->diff_mem_to_mem_wb_pc_o;
     diff_mem_wb_pc_o = top_t->diff_mem_wb_pc_o;
-    memcpy(diff_regs_o, top_t->diff_regs_o, sizeof(diff_regs_o));
+    memcpy(diff_regs_o, top_t->diff_regs_o, 32*sizeof(reg_t));
 }
 
 

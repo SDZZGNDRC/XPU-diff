@@ -19,7 +19,23 @@ bool DiffTest::check_pc()
     }else
     {
         printf("DIFF: dut_pc=0x%016lx    spike_pc=0x%016lx\n", dut_p->diff_mem_wb_pc_o, state_p->pc);
-            return true;
+        return true;
     }
+}
+
+bool DiffTest::check_regfiles()
+{
+    bool flag = true;
+    for(int i = 0; i < 32; i++)
+    {
+        if(*(dut_p->diff_regs_o+i)!=state_p->XPR[i])
+        {
+            printf("\033[47;31mDIFF: dut_x%02d=0x%016lx    spike_x%02d=0x%016lx\033[0m\n", \
+            i, *(dut_p->diff_regs_o+i), i, state_p->XPR[i]);
+            flag = false;
+        }
+    }
+    /* std::cout << state_p << std::endl; */
+    return flag;
 }
 
