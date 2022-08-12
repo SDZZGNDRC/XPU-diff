@@ -5,16 +5,18 @@
 #define NXPR 32
 #define DEFAULT_RESET_PC 0x80000000
 
-template <class T, size_t N, bool zero_reg>
 class regfile_t
 {
 public:
-    void write(size_t i, T value)
+    void write(size_t i, reg_t value)
     {
-        if (!zero_reg || i != 0)
-        data[i] = value;
+        if ((int)i>0)
+        {
+            data[i] = value;
+        }
+        
     }
-    const T& operator [] (size_t i) const
+    const reg_t& operator [] (size_t i) const
     {
         return data[i];
     }
@@ -27,13 +29,13 @@ public:
         memset(data, 0, sizeof(data));
     }
 private:
-    T data[N];
+    reg_t data[32];
 };
 
 struct state
 {
     reg_t pc;
-    regfile_t<reg_t, NXPR, true> XPR;
+    regfile_t XPR;
     bool mem_update_valid;
     reg_t mem_update_addr;
     reg_t mem_update_value;

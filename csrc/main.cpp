@@ -36,30 +36,25 @@ bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logpars
 		state_p->pc = boost::get<commonInst>(iter->second).pc;
 		rd = boost::get<commonInst>(iter->second).rd;
 		rd_new_value = boost::get<commonInst>(iter->second).rd_new_value;
-		if(rd>=0)
-		{
-			state_p->XPR.write(rd, rd_new_value);
-		}
+		state_p->XPR.write(rd, rd_new_value);
 		state_p->mem_update_valid = false;
 		break;
 	case BRANCHINST:
 		state_p->pc = boost::get<branchInst>(iter->second).pc;
+		printf("1:state_p->pc=0x%016lx\n", state_p->pc);
 		rd = boost::get<branchInst>(iter->second).rd;
 		rd_new_value = boost::get<branchInst>(iter->second).rd_new_value;
-		if(rd>=0)
-		{
-			state_p->XPR.write(rd, rd_new_value);
-		}
+		printf("2:state_p->pc=0x%016lx\n", state_p->pc);
+		printf("rd=%ld, rd_new_value=%ld\n", rd, rd_new_value);
+		state_p->XPR.write(rd, rd_new_value);
+		printf("3:state_p->pc=0x%016lx\n", state_p->pc);
 		state_p->mem_update_valid = false;
 		break;
 	case LOADINST:
 		state_p->pc = boost::get<loadInst>(iter->second).pc;
 		rd = boost::get<loadInst>(iter->second).rd;
 		rd_new_value = boost::get<loadInst>(iter->second).rd_new_value;
-		if(rd>=0)
-		{
-			state_p->XPR.write(rd, rd_new_value);
-		}
+		state_p->XPR.write(rd, rd_new_value);
 		state_p->mem_update_valid = false;
 		break;
 	case STOREINST:
