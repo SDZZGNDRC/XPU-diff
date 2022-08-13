@@ -28,6 +28,9 @@ public:
     reg_t diff_ex_mem_to_mem_pc_o;
     reg_t diff_mem_to_mem_wb_pc_o;
     reg_t diff_mem_wb_pc_o;
+    uint8_t diff_mem_wb_back_rd_addr_o;
+    uint8_t diff_mem_wb_back_wreg_o;
+    reg_t diff_mem_wb_back_wdata_o;
     reg_t *diff_regs_o;
 
     uint8_t dcache_ready_i;

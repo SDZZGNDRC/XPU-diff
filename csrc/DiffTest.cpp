@@ -29,7 +29,21 @@ bool DiffTest::check_regfiles()
     std::cout << *state_p << std::endl;
     for(int i = 0; i < 32; i++)
     {
-        if(*(dut_p->diff_regs_o+i)!=state_p->XPR[i])
+        if(i==(int)dut_p->diff_mem_wb_back_rd_addr_o \
+            && dut_p->diff_mem_wb_back_wreg_o==1)
+        {
+            if(dut_p->diff_mem_wb_back_wdata_o != state_p->XPR[i] && i != 0)
+            {
+                printf("\033[47;31mDIFF: dut_x%02d=0x%016lx    spike_x%02d=0x%016lx\033[0m\n", \
+                i, dut_p->diff_mem_wb_back_wdata_o, i, state_p->XPR[i]);
+                flag = false;
+            }
+            else
+            {
+                continue;
+            }
+        }
+        else if(*(dut_p->diff_regs_o+i)!=state_p->XPR[i])
         {
             printf("\033[47;31mDIFF: dut_x%02d=0x%016lx    spike_x%02d=0x%016lx\033[0m\n", \
             i, *(dut_p->diff_regs_o+i), i, state_p->XPR[i]);

@@ -25,6 +25,9 @@ module top(
 	output wire [`AddrBus]		diff_ex_mem_to_mem_pc_o,
 	output wire [`AddrBus]		diff_mem_to_mem_wb_pc_o,
 	output wire [`AddrBus]		diff_mem_wb_pc_o,
+	output wire [`RegAddrBus]	diff_mem_wb_back_rd_addr_o,
+	output wire 				diff_mem_wb_back_wreg_o,
+	output wire	[`RegBus]		diff_mem_wb_back_wdata_o,
 	output wire [`RegBus]		diff_regs_o [0:`RegNum-1]
 
 );
@@ -44,6 +47,9 @@ module top(
 	assign diff_ex_to_ex_mem_pc_o = ex_to_ex_mem_pc;
 	assign diff_ex_mem_to_mem_pc_o = ex_mem_to_mem_pc;
 	assign diff_mem_to_mem_wb_pc_o = mem_to_mem_wb_pc;
+	assign diff_mem_wb_back_rd_addr_o = mem_wb_to_id_back_rd_addr;
+	assign diff_mem_wb_back_wreg_o = mem_wb_to_id_back_wreg;
+	assign diff_mem_wb_back_wdata_o = mem_wb_to_id_back_wdata;
 
 	wire[`RegBus] regfile_to_id_rs1_data;
 	wire[`RegBus] regfile_to_id_rs2_data;

@@ -39,6 +39,9 @@ void Dut::update_outputs()
     diff_ex_mem_to_mem_pc_o = top_t->diff_ex_mem_to_mem_pc_o;
     diff_mem_to_mem_wb_pc_o = top_t->diff_mem_to_mem_wb_pc_o;
     diff_mem_wb_pc_o = top_t->diff_mem_wb_pc_o;
+    diff_mem_wb_back_rd_addr_o = top_t->diff_mem_wb_back_rd_addr_o;
+    diff_mem_wb_back_wreg_o = top_t->diff_mem_wb_back_wreg_o;
+    diff_mem_wb_back_wdata_o = top_t->diff_mem_wb_back_wdata_o;
     memcpy(diff_regs_o, top_t->diff_regs_o, 32*sizeof(reg_t));
 }
 
