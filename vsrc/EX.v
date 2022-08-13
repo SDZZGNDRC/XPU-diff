@@ -79,7 +79,7 @@ module EX(
 	wire[`RegBus] wdata_sraiw;
 	wire[`RegBus] wdata_srliw; */
 
-	assign wdata_addiw = {rs1_data + { {52{imm_i[11]}}, imm_i[11:0] }}[63:32];
+	assign wdata_addiw = {rs1_data + { {52{imm_i[11]}}, imm_i[11:0] }}[31:0];
 /* 	assign wdata_slliw = rs1_data << shamt_i;
 	assign wdata_sraiw = ($signed(rs1_data)) >>> shamt_i;
 	assign wdata_srliw = rs1_data >> shamt_i; */
@@ -142,8 +142,8 @@ module EX(
 	wire [`RegBus] wdata_opcode_I_csr;
 	wire [`RegBus] wdata_opcode_J;
 	wire [`RegBus] wdata_opcode_R;
-/* 	wire [`RegBus] wdata_opcode_R_imm;
-	wire [`RegBus] wdata_opcode_I_word; */
+/* 	wire [`RegBus] wdata_opcode_R_imm; */
+	wire [`RegBus] wdata_opcode_I_word;
 	wire [`RegBus] wdata_opcode_U_auipc;
 	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
@@ -152,13 +152,12 @@ module EX(
 	assign wdata_opcode_J = pc_i + 64'h4;
 	assign wdata_opcode_U_auipc = wdata_t_auipc;
 	assign wdata_opcode_U_lui = wdata_t_lui;
-	MuxKeyWithDefault #(6, 7, 64) mux_t (wdata_t, opcode_i, 64'b0, {
+	MuxKeyWithDefault #(7, 7, 64) mux_t (wdata_t, opcode_i, 64'b0, {
 		`Opcode_I_type_imm,			wdata_opcode_I_imm,
+		`Opcode_I_type_word,		wdata_opcode_I_word,
 		`Opcode_I_type_prv,			wdata_opcode_I_csr,
 		`Opcode_J_type,				wdata_opcode_J,
 		`Opcode_R_type, 			wdata_opcode_R,
-/* 		`Opcode_R_type_imm, 		wdata_opcode_R_imm,
-		`Opcode_I_type_word, 		wdata_opcode_I_word, */
 		`Opcode_U_type_auipc, 		wdata_opcode_U_auipc,
 		`Opcode_U_type_lui, 		wdata_opcode_U_lui
 	});
@@ -167,9 +166,12 @@ module EX(
 		`funct3_addi,				wdata_t_addi
 	});
 
-	MuxKeyWithDefault #(2, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
-		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
-		`funct3_addiw, 				wdata_t_addiw
+	MuxKeyWithDefault #(1, 3, 64) mux_I_word (wdata_opcode_I_word, funct3_i, 64'b0, {
+		`funct3_addi,				wdata_t_addiw
+	});
+
+	MuxKeyWithDefault #(1, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
+		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul
 	});
 
 	MuxKeyWithDefault #(2, 7, 64) mux_funct3_asm (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
