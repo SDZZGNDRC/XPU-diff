@@ -26,6 +26,7 @@ bool DiffTest::check_pc()
 bool DiffTest::check_regfiles()
 {
     bool flag = true;
+    std::cout << *state_p << std::endl;
     for(int i = 0; i < 32; i++)
     {
         if(*(dut_p->diff_regs_o+i)!=state_p->XPR[i])
