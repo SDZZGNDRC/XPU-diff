@@ -54,6 +54,7 @@ module EX(
 	output wire[`AddrBus] ex_to_ex_mem_pc_o,
 	output wire[`AddrBus] pc_new_o
 );
+	wire[`ShamtBus] shamt;
 /* 	wire[`RegAddrBus] rd_addr;  //目标寄存器地址 */
 	wire[`RegBus] rs1_data;  //源寄存器1数据输入
 	wire[`RegBus] rs2_data;  //源寄存器2数据输入
@@ -79,6 +80,7 @@ module EX(
 	wire[`RegBus] wdata_sraiw;
 	wire[`RegBus] wdata_srliw; */
 
+	assign shamt = imm_i[5:0];
 	assign wdata_addiw = {rs1_data + { {52{imm_i[11]}}, imm_i[11:0] }}[31:0];
 /* 	assign wdata_slliw = rs1_data << shamt_i;
 	assign wdata_sraiw = ($signed(rs1_data)) >>> shamt_i;
@@ -127,6 +129,7 @@ module EX(
 	wire [`RegBus] wdata_t_addiw;
 	wire [`RegBus] wdata_t_auipc;
 	wire [`RegBus] wdata_t_lui;
+	wire [`RegBus] wdata_t_slli;
 	wire [`RegBus] wdata_t_sub;
 	wire [`RegBus] wdata_t_csr;
 
@@ -135,6 +138,7 @@ module EX(
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
+	assign wdata_t_slli = rs1_data << shamt;
 	assign wdata_t_sub = rs1_data - rs2_data;
 	assign wdata_t_csr = csr_data;
 
@@ -162,8 +166,9 @@ module EX(
 		`Opcode_U_type_lui, 		wdata_opcode_U_lui
 	});
 
-	MuxKeyWithDefault #(1, 3, 64) mux_I_imm (wdata_opcode_I_imm, funct3_i, 64'b0, {
-		`funct3_addi,				wdata_t_addi
+	MuxKeyWithDefault #(2, 3, 64) mux_I_imm (wdata_opcode_I_imm, funct3_i, 64'b0, {
+		`funct3_addi,				wdata_t_addi,
+		`funct3_slli,				wdata_t_slli
 	});
 
 	MuxKeyWithDefault #(1, 3, 64) mux_I_word (wdata_opcode_I_word, funct3_i, 64'b0, {
