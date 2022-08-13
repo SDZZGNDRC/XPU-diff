@@ -34,6 +34,11 @@ void Dut::update_outputs()
     dcache_wlen_o = top_t->dcache_wlen_o;
     diff_if_id_to_id_pc_o = top_t->diff_if_id_to_id_pc_o;
     diff_id_to_id_ex_pc_o = top_t->diff_id_to_id_ex_pc_o;
+    diff_dcache_addr_o = top_t->diff_dcache_addr_o;
+    diff_dcache_req_valid_o = top_t->diff_dcache_req_valid_o;
+    diff_dcache_wen_o = top_t->diff_dcache_wen_o;
+    diff_dcache_wdata_o = top_t->diff_dcache_wdata_o;
+    diff_dcache_wlen_o = top_t->diff_dcache_wlen_o;
     diff_id_ex_to_ex_pc_o = top_t->diff_id_ex_to_ex_pc_o;
     diff_ex_to_ex_mem_pc_o = top_t->diff_ex_to_ex_mem_pc_o;
     diff_ex_mem_to_mem_pc_o = top_t->diff_ex_mem_to_mem_pc_o;

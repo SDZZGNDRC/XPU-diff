@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sat Aug 13 06:09:28 2022
+[*] Sat Aug 13 12:44:18 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Sat Aug 13 06:07:00 2022"
-[dumpfile_size] 2354165
+[dumpfile_mtime] "Sat Aug 13 12:41:03 2022"
+[dumpfile_size] 2413374
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 91
+[timestart] 165
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 93 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 167 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [sst_width] 317
@@ -42,6 +42,9 @@ TOP.top.dcache_wdata_o[63:0]
 @28
 TOP.top.dcache_wlen_o[1:0]
 TOP.top.dcache_wen_o
+TOP.top.diff_dcache_req_valid_o
+@22
+TOP.top.diff_dcache_addr_o[63:0]
 @200
 -=================PC
 @28
@@ -123,9 +126,7 @@ TOP.top.ex0.branch_flag_o
 TOP.top.ex0.pc_new_o[63:0]
 TOP.top.ex0.rd_addr_o[4:0]
 TOP.top.ex0.wdata_t_addi[63:0]
-@23
 TOP.top.ex0.wdata_t_addiw[63:0]
-@22
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
@@ -152,12 +153,14 @@ TOP.top.ex_mem0.wreg_o
 @200
 -=================MEM
 @22
+TOP.top.mem0.ex_mem_to_mem_pc_i[63:0]
 TOP.top.mem0.dcache_data_i[63:0]
 @28
 TOP.top.mem0.dcache_data_valid_i
 TOP.top.mem0.wreg_o
-@22
+@24
 TOP.top.mem0.rd_addr_o[4:0]
+@23
 TOP.top.mem0.wdata_o[63:0]
 @200
 -=================MEM_WB

@@ -20,6 +20,11 @@ module top(
 
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
+	output wire	[`AddrBus]		diff_dcache_addr_o,
+	output wire					diff_dcache_req_valid_o,
+	output wire					diff_dcache_wen_o,
+	output wire	[`RegBus]		diff_dcache_wdata_o,
+	output wire	[1:0]			diff_dcache_wlen_o,
 	output wire [`AddrBus]		diff_id_ex_to_ex_pc_o,
 	output wire [`AddrBus]		diff_ex_to_ex_mem_pc_o,
 	output wire [`AddrBus]		diff_ex_mem_to_mem_pc_o,
@@ -43,6 +48,11 @@ module top(
 /* diff-test */
 	assign diff_if_id_to_id_pc_o = if_id_to_id_pc;
 	assign diff_id_to_id_ex_pc_o = id_to_id_ex_pc;
+	assign diff_dcache_addr_o = dcache_addr_o;
+	assign diff_dcache_req_valid_o = dcache_req_valid_o;
+	assign diff_dcache_wen_o = dcache_wen_o;
+	assign diff_dcache_wdata_o = dcache_wdata_o;
+	assign diff_dcache_wlen_o = dcache_wlen_o;
 	assign diff_id_ex_to_ex_pc_o = id_ex_to_ex_pc;
 	assign diff_ex_to_ex_mem_pc_o = ex_to_ex_mem_pc;
 	assign diff_ex_mem_to_mem_pc_o = ex_mem_to_mem_pc;

@@ -121,8 +121,7 @@ int main(int argc, char** argv, char** env)
 		}
 		update_state(iter++, logparser_t, &state_t);
 	}
-	difftest.check_pc();
-	difftest.check_regfiles();
+	difftest.check_all();
 	while (count <= 1000 && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
@@ -137,7 +136,7 @@ int main(int argc, char** argv, char** env)
 		{
 			count = 1000;
 		}
-		if(!difftest.check_pc() or !difftest.check_regfiles())
+		if(!difftest.check_all())
 		{
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */

@@ -23,6 +23,11 @@ public:
     uint8_t dcache_wlen_o;
     reg_t diff_if_id_to_id_pc_o;
     reg_t diff_id_to_id_ex_pc_o;
+    reg_t diff_dcache_addr_o;
+    uint8_t diff_dcache_req_valid_o;
+    uint8_t diff_dcache_wen_o;
+    reg_t diff_dcache_wdata_o;
+    uint8_t diff_dcache_wlen_o;
     reg_t diff_id_ex_to_ex_pc_o;
     reg_t diff_ex_to_ex_mem_pc_o;
     reg_t diff_ex_mem_to_mem_pc_o;

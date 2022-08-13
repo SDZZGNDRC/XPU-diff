@@ -54,3 +54,36 @@ bool DiffTest::check_regfiles()
     return flag;
 }
 
+bool DiffTest::check_mems()
+{
+    bool flag = true;
+    if(state_p->mem_update_valid == true)
+    {
+        if(mem_store.rbegin()->first == state_p->mem_update_addr\
+            && mem_store.rbegin()->second == state_p->mem_update_value)
+        {
+            ;
+        }
+        else
+        {
+            printf("\033[47;31mDIFF: dut_mem_addr: 0x%016lx    dut_mem_value: 0x%016lx\033[0m\n", \
+            mem_store.rbegin()->first, mem_store.rbegin()->second);
+            printf("\033[47;31mDIFF: spk_mem_addr: 0x%016lx    spk_mem_value: 0x%016lx\033[0m\n", \
+            state_p->mem_update_addr, state_p->mem_update_value);
+            flag = false;
+        }
+        mem_store.pop_back();
+    }
+    if(dut_p->diff_dcache_req_valid_o == 1 && \
+        dut_p->diff_dcache_wen_o == 1)
+    {
+        mem_store.emplace_back(std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
+    }
+    return flag;
+}
+
+bool DiffTest::check_all()
+{
+    return check_pc() && check_regfiles() && check_mems();
+}
+
