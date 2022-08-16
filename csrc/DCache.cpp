@@ -5,6 +5,7 @@ DCache::DCache(mif *_mif_p)
     /* srand((unsigned int)(time(NULL))); */
     mif_p = _mif_p;
     state = Default;
+    flag = true;
 }
 
 DCache::~DCache()
@@ -32,8 +33,12 @@ void DCache::posedge()
         {
             reload_flag = false;
             reload_delay_cycle = 0;
+            flag = false;
         }
-        return;
+        else
+        {
+            return;
+        }
     }
     if (state==Block)
     {
@@ -41,17 +46,20 @@ void DCache::posedge()
     }
     
     /* Get the input for the sequential circuit */
-    dcache_addr_i_t2 = dcache_addr_i_t1;
-    dcache_req_valid_i_t2 = dcache_req_valid_i_t1;
-    dcache_wen_i_t2 = dcache_wen_i_t1;
-    dcache_wlen_i_t2 = dcache_wlen_i_t1;
-    dcache_wdata_i_t2 = dcache_wdata_i_t1;
+    if(flag)
+    {
+        dcache_addr_i_t2 = dcache_addr_i_t1;
+        dcache_req_valid_i_t2 = dcache_req_valid_i_t1;
+        dcache_wen_i_t2 = dcache_wen_i_t1;
+        dcache_wlen_i_t2 = dcache_wlen_i_t1;
+        dcache_wdata_i_t2 = dcache_wdata_i_t1;
 
-    dcache_addr_i_t1 = dcache_addr_i;
-    dcache_req_valid_i_t1 = dcache_req_valid_i;
-    dcache_wen_i_t1 = dcache_wen_i;
-    dcache_wlen_i_t1 = dcache_wlen_i;
-    dcache_wdata_i_t1 = dcache_wdata_i;
+        dcache_addr_i_t1 = dcache_addr_i;
+        dcache_req_valid_i_t1 = dcache_req_valid_i;
+        dcache_wen_i_t1 = dcache_wen_i;
+        dcache_wlen_i_t1 = dcache_wlen_i;
+        dcache_wdata_i_t1 = dcache_wdata_i;
+    }
 
     if(!dcache_req_valid_i_t2)
     {
@@ -62,7 +70,7 @@ void DCache::posedge()
     /* Drive the output */
     if(dcache_wen_i_t2 == 0)
     {
-        if(rand()%100<=((int)(DCache_Miss_Rate*100)))
+        if(rand()%100<=((int)(DCache_Miss_Rate*100)) && flag)
         {
             reload_delay_cycle = 0;
             reload_flag = true;
@@ -76,6 +84,10 @@ void DCache::posedge()
             dcache_data_valid_o = 1;
             dcache_ready_o = 1;
             printf("\033[36mDCache: Load 0x%016lx: 0x%016lx\033[0m\n", dcache_addr_i_t2, dcache_data_o);
+        }
+        if(!flag)
+        {
+            flag = true;
         }
     }else
     {

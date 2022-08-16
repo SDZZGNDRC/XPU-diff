@@ -128,10 +128,10 @@ module CTRL (
     wire [`CTRL_Wire_Bus] ctrl_signal_dcache_t_1;
     MuxKeyWithDefault #(4, 4, 2) mux_ctrl_signal_dcache (ctrl_signal_dcache_o, FSM_pre_state_t, `CTRL_STATE_Default, {
         `FSM_STATE_Default, ctrl_signal_dcache_t_1,
-        `FSM_STATE_Block_1, `CTRL_STATE_Block,
+        `FSM_STATE_Block_1, `CTRL_STATE_Default,
         `FSM_STATE_Block_2, `CTRL_STATE_Default,
         `FSM_STATE_Branch_1, `CTRL_STATE_Default
     });
-    assign ctrl_signal_dcache_t_1 = (mem_block_flag_i==1'b1) ? `CTRL_STATE_Block : `CTRL_STATE_Default;
+    assign ctrl_signal_dcache_t_1 = `CTRL_STATE_Default;
 
 endmodule

@@ -7,6 +7,7 @@ class DCache
 {
 private:
     mif *mif_p;
+    bool flag;
 
     reg_t dcache_addr_i_t1;
     reg_t dcache_addr_i_t2;
