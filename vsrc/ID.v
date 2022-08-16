@@ -164,7 +164,7 @@ module ID
 /* wreg_o */
 	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_o, opcode_o, 1'b1, {
 		`Opcode_B_type, 1'b0,
-		`Opcode_S_type, 1'b1
+		`Opcode_S_type, 1'b0
 	});
 
 /* csr_wreg_o */
