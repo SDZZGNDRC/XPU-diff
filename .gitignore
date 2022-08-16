@@ -2,3 +2,4 @@
 build
 logs/*.vcd
 .*
+log.txt
