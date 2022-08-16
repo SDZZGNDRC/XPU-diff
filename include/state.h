@@ -69,7 +69,7 @@ struct state
         }
         if(t.mem_update_valid)
         {
-            std::cout << "\033[33m" << "mem_addr: 0x" << std::hex << std::setw(16) << std::setfill('0') << t.mem_update_addr << ": ";
+            std::cout << "\033[33m" << "Update spike_mem: addr 0x" << std::hex << std::setw(16) << std::setfill('0') << t.mem_update_addr << " to ";
             std::cout << std::hex << std::setw(16) << std::setfill('0') << t.mem_update_value << "\033[0m" << std::endl;
         }
         return os;

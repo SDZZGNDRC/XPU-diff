@@ -21,7 +21,6 @@ void DCache::posedge()
     {
         state = Default;
     }
-
     if(reload_flag)
     {
         reload_delay_cycle += 1;
@@ -39,11 +38,17 @@ void DCache::posedge()
     /* Get the input for the sequential circuit */
     dcache_addr_i_t2 = dcache_addr_i_t1;
     dcache_req_valid_i_t2 = dcache_req_valid_i_t1;
+    dcache_wen_i_t2 = dcache_wen_i_t1;
+    dcache_wlen_i_t2 = dcache_wlen_i_t1;
+    dcache_wdata_i_t2 = dcache_wdata_i_t1;
 
     dcache_addr_i_t1 = dcache_addr_i;
     dcache_req_valid_i_t1 = dcache_req_valid_i;
+    dcache_wen_i_t1 = dcache_wen_i;
+    dcache_wlen_i_t1 = dcache_wlen_i;
+    dcache_wdata_i_t1 = dcache_wdata_i;
 
-    if(~dcache_req_valid_i_t2)
+    if(!dcache_req_valid_i_t2)
     {
         dcache_data_valid_o = 1;
         dcache_ready_o = 1;
@@ -65,12 +70,14 @@ void DCache::posedge()
             mif_p->load(dcache_addr_i_t2, 8, (uint8_t*)(&dcache_data_o));
             dcache_data_valid_o = 1;
             dcache_ready_o = 1;
+            printf("\033[36mDCache: Load 0x%016lx: 0x%016lx\033[0m\n", dcache_addr_i_t2, dcache_data_o);
         }
     }else
     {
+        printf("\033[36mDCache:Store 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;
-        mif_p->store(dcache_addr_i_t2, (size_t)dcache_wlen_i_t2, (uint8_t*)dcache_wdata_i_t2);
+        mif_p->store(dcache_addr_i_t2, 1<<(size_t)dcache_wlen_i_t2, (uint8_t*)&dcache_wdata_i_t2);
     }
 }
 
