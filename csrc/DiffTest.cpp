@@ -84,6 +84,20 @@ bool DiffTest::check_mems()
 
 bool DiffTest::check_all()
 {
-    return check_pc() && check_regfiles() && check_mems();
+    int sum = 0;
+    bool ret;
+    sum += check_pc();
+    sum += check_regfiles();
+    sum += check_mems();
+    if(sum != 3)
+    {
+        printf("sum=%d\n", sum);
+        ret = false;
+    }
+    else
+    {
+        ret = true;
+    }
+    return  ret;
 }
 

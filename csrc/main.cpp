@@ -149,7 +149,6 @@ int main(int argc, char** argv, char** env)
 		{
 			pass_flag = false;
 			count = MOSTINST;
-			assert(0);
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */
 		}
