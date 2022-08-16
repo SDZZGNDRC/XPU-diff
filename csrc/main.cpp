@@ -14,6 +14,7 @@
 #include "DCache.h"
 #include "DiffTest.h"
 
+#define MOSTINST 10000
 
 uint64_t icache_addr_t = 0x7ffffffc; // The address received last cycle.
 uint64_t icache_addr = 0x7ffffffc; // The address received last cycle.
@@ -65,6 +66,7 @@ bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logpars
 		state_p->mem_update_valid = false;
 		if(boost::get<specialInst>(iter->second).name == "ecall")
 		{
+			printf("\033[34mUpdate state of spike: get ECALL\033[0m\n");
 			return false;
 		}
 		break;
@@ -102,6 +104,7 @@ int main(int argc, char** argv, char** env)
 	DCache dcache(_mif);
 	DiffTest difftest(&state_t, &dut);
 	int count = 1;
+	bool pass_flag = false;
 	reg_t pc_t = 0;
 	init(top, &dut, &icache, &dcache);
 	/* Synchronize the dut and the spike */
@@ -122,7 +125,7 @@ int main(int argc, char** argv, char** env)
 		update_state(iter++, logparser_t, &state_t);
 	}
 	difftest.check_all();
-	while (count <= 1000 && !contextp->gotFinish())
+	while (count <= MOSTINST && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
 		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t)
@@ -134,7 +137,8 @@ int main(int argc, char** argv, char** env)
 		}
 		if(!update_state(iter++, logparser_t, &state_t)) // ecall
 		{
-			count = 1000;
+			pass_flag = true;
+			count = MOSTINST;
 		}
 		if(!difftest.check_all())
 		{
@@ -143,6 +147,15 @@ int main(int argc, char** argv, char** env)
 		}
 		count += 1;
 	}
+	if(pass_flag)
+	{
+		printf("\033[32mPASS!!!\033[0m\n");
+	}
+	else
+	{
+		printf("\033[31mFAIL!!!\033[0m\n");
+	}
+	printf("\033[34mDIFF-TEST FINISHED!!!\033[0m\n");
     delete _mif;
 	delete top;
 	delete contextp;

@@ -21,6 +21,8 @@ public:
     uint8_t dcache_wen_o;
     reg_t dcache_wdata_o;
     uint8_t dcache_wlen_o;
+    uint8_t icache_ctrl_signal_o;
+    uint8_t dcache_ctrl_signal_o;
     reg_t diff_if_id_to_id_pc_o;
     reg_t diff_id_to_id_ex_pc_o;
     reg_t diff_dcache_addr_o;

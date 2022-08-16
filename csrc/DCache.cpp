@@ -35,6 +35,11 @@ void DCache::posedge()
         }
         return;
     }
+    if (state==Block)
+    {
+        return;
+    }
+    
     /* Get the input for the sequential circuit */
     dcache_addr_i_t2 = dcache_addr_i_t1;
     dcache_req_valid_i_t2 = dcache_req_valid_i_t1;

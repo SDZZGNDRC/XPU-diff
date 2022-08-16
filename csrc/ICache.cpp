@@ -39,6 +39,11 @@ void ICache::posedge()
         }
         return;
     }
+    if (state == Block)
+    {
+        return;
+    }
+    
     /* Get the input for the sequential circuit */
     icache_addr_i_t2 = icache_addr_i_t1;
     icache_req_valid_i_t2 = icache_req_valid_i_t1;
@@ -48,7 +53,7 @@ void ICache::posedge()
 
     /* Drive the output */
 
-    if(rand()%100<=((int)(ICache_Miss_Rate*100)))
+    if(rand()%100<((int)(ICache_Miss_Rate*100)))
     {
         reload_delay_cycle = 0;
         reload_flag = true;

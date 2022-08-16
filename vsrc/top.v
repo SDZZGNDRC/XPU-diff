@@ -17,6 +17,8 @@ module top(
 	output wire 				dcache_wen_o,
 	output wire	[`DataBus]		dcache_wdata_o,
 	output wire [1:0]			dcache_wlen_o,
+	output wire[`CTRL_Wire_Bus]	icache_ctrl_signal_o,
+	output wire[`CTRL_Wire_Bus]	dcache_ctrl_signal_o,
 
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
@@ -466,7 +468,9 @@ module top(
 		.ctrl_signal_id_ex_o(ctrl_to_id_ex_ctrl_signal),
 		.ctrl_signal_ex_mem_o(ctrl_to_ex_mem_ctrl_signal),
 		.ctrl_signal_mem_wb_o(ctrl_to_mem_wb_ctrl_signal),
-		.ctrl_to_pc_new_o(ctrl_to_pc_pc_new)
+		.ctrl_to_pc_new_o(ctrl_to_pc_pc_new),
+		.ctrl_signal_icache_o(icache_ctrl_signal_o),
+		.ctrl_signal_dcache_o(dcache_ctrl_signal_o)
 	);
 
 

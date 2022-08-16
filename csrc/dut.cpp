@@ -32,6 +32,8 @@ void Dut::update_outputs()
     dcache_wen_o = top_t->dcache_wen_o;
     dcache_wdata_o = top_t->dcache_wdata_o;
     dcache_wlen_o = top_t->dcache_wlen_o;
+    icache_ctrl_signal_o = top_t->icache_ctrl_signal_o;
+    dcache_ctrl_signal_o = top_t->dcache_ctrl_signal_o;
     diff_if_id_to_id_pc_o = top_t->diff_if_id_to_id_pc_o;
     diff_id_to_id_ex_pc_o = top_t->diff_id_to_id_ex_pc_o;
     diff_dcache_addr_o = top_t->diff_dcache_addr_o;

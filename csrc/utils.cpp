@@ -71,13 +71,15 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     /* ICache */
 	icache_p->icache_addr_i = dut_p->icache_addr_o;
     icache_p->icache_req_valid_i = dut_p->icache_req_valid_o;
-    
+    icache_p->ctrl_signal_i = dut_p->icache_ctrl_signal_o;
+
     /* DCache */
     dcache_p->dcache_addr_i = dut_p->dcache_addr_o;
     dcache_p->dcache_req_valid_i = dut_p->dcache_req_valid_o;
     dcache_p->dcache_wen_i = dut_p->dcache_wen_o;
     dcache_p->dcache_wdata_i = dut_p->dcache_wdata_o;
     dcache_p->dcache_wlen_i = dut_p->dcache_wlen_o;
+    dcache_p->ctrl_signal_i = dut_p->dcache_ctrl_signal_o;
 
     /* DUT */
     dut_p->icache_data_valid_i = icache_p->icache_data_valid_o;

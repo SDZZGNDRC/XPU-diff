@@ -227,8 +227,8 @@
 `define FSM_Wire_Bus                3:0
 `define FSM_STATE_Default           4'd0
 `define FSM_STATE_Block_1           4'd1
-`define FSM_STATE_Branch_1          4'd2
-`define FSM_STATE_Restart_1         4'd3
+`define FSM_STATE_Block_2           4'd2
+`define FSM_STATE_Branch_1          4'd3
 
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0

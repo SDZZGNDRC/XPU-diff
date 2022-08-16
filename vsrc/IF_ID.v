@@ -29,6 +29,7 @@ module IF_ID
     Reg #(2, 2'b0) reg2 (clk, rst, ctrl_signal_i, state, state_wen);
     assign state_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
     assign if_inst_o = ({32{(ctrl_signal_i==`CTRL_STATE_Default)}} & if_inst_t)
+                    |  ({32{(ctrl_signal_i==`CTRL_STATE_Block)}} & if_inst_t)
                     |  ({32{(ctrl_signal_i==`CTRL_STATE_Bubble)}} & `NOP);
     assign if_inst_t = (state == `CTRL_STATE_Bubble) ? `NOP : if_inst_i;
 

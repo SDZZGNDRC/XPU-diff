@@ -19,9 +19,10 @@ module PC
     wire pc_ram_wen;
     Reg #(64, `Init_pc-64'h4) pc_ram (clk, rst, pc_ram_o, pc_ram_t, pc_ram_wen);
     assign pc_ram_wen = ~{1{(ctrl_signal_i == `CTRL_STATE_Block)}};
-    MuxKeyWithDefault #(2, 2, 64) mux1 (pc_ram_o, ctrl_signal_i, 64'b0, {
+    MuxKeyWithDefault #(3, 2, 64) mux1 (pc_ram_o, ctrl_signal_i, 64'b0, {
         `CTRL_STATE_Default,    pc_ram_t + 64'h4,
-        `CTRL_STATE_Branch,     pc_new_i
+        `CTRL_STATE_Branch,     pc_new_i,
+        `CTRL_STATE_Block,      pc_ram_t + 64'h4
     });
 
     /* pc_pipeline_o */
