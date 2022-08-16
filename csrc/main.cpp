@@ -15,6 +15,7 @@
 #include "DiffTest.h"
 
 #define MOSTINST 10000
+#define OMITINST 13
 
 uint64_t icache_addr_t = 0x7ffffffc; // The address received last cycle.
 uint64_t icache_addr = 0x7ffffffc; // The address received last cycle.
@@ -124,15 +125,19 @@ int main(int argc, char** argv, char** env)
 		}
 		update_state(iter++, logparser_t, &state_t);
 	}
-	difftest.check_all();
+	if(!difftest.check_pc())
+	{
+		assert(0);
+	}
 	while (count <= MOSTINST && !contextp->gotFinish())
 	{
 		step_one_cycle(&dut, &icache, &dcache);
-		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t)
+		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t) // omit this step when dut is blocking or bubbling.
 		{
 			continue;
 		}else
 		{
+			// recode the pc_t of this step, it will be uesed next step.
 			pc_t = dut.diff_mem_wb_pc_o;
 		}
 		if(!update_state(iter++, logparser_t, &state_t)) // ecall
@@ -140,8 +145,11 @@ int main(int argc, char** argv, char** env)
 			pass_flag = true;
 			count = MOSTINST;
 		}
-		if(!difftest.check_all())
+		if( count > OMITINST &&  !difftest.check_all())
 		{
+			pass_flag = false;
+			count = MOSTINST;
+			assert(0);
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */
 		}
