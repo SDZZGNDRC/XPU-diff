@@ -15,6 +15,7 @@ Dut::~Dut()
 
 void Dut::update_inputs()
 {
+    top_t->icache_ready_i = icache_ready_i;
     top_t->dcache_ready_i = dcache_ready_i;
     top_t->icache_data_valid_i = icache_data_valid_i;
     top_t->dcache_data_valid_i = dcache_data_valid_i;

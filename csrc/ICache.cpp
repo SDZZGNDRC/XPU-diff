@@ -1,11 +1,11 @@
 #include "ICache.h"
 
-
 ICache::ICache(mif *_mif_p)
 {
     /* srand((unsigned int)(time(NULL))); */
     mif_p = _mif_p;
     state = Default;
+    flag = true;
 }
 
 ICache::~ICache()
@@ -36,8 +36,12 @@ void ICache::posedge()
         {
             reload_flag = false;
             reload_delay_cycle = 0;
+            flag = false;
         }
-        return;
+        else
+        {
+            return;
+        }
     }
     if (state == Block)
     {
@@ -45,11 +49,14 @@ void ICache::posedge()
     }
     
     /* Get the input for the sequential circuit */
-    icache_addr_i_t2 = icache_addr_i_t1;
-    icache_req_valid_i_t2 = icache_req_valid_i_t1;
+    if(flag)
+    {
+        icache_addr_i_t2 = icache_addr_i_t1;
+        icache_req_valid_i_t2 = icache_req_valid_i_t1;
 
-    icache_addr_i_t1 = icache_addr_i;
-    icache_req_valid_i_t1 = icache_req_valid_i;
+        icache_addr_i_t1 = icache_addr_i;
+        icache_req_valid_i_t1 = icache_req_valid_i;
+    }
 
     /* Drive the output */
 
@@ -60,12 +67,17 @@ void ICache::posedge()
         icache_data_o = 0;
         icache_data_valid_o = 0;
         icache_ready_o = 0;
+        printf("\033[34mICache: Load Missing\033[0m\n");
     }else
     {
         mif_p->load(icache_addr_i_t2, 4, (uint8_t*)(&icache_data_o));
         /* printf("ICache: Load 0x%016lx\n", icache_addr_i_t2); */
         icache_data_valid_o = 1;
         icache_ready_o = 1;
+    }
+    if(!flag)
+    {
+        flag = true;
     }
 /*     printf("Debug: icache_addr_i=0x%016lx\ticache_addr_i_t1=0x%016lx\ticache_addr_i_t2=0x%016lx\n", \
             icache_addr_i, icache_addr_i_t1, icache_addr_i_t2); */

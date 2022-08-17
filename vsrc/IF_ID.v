@@ -4,10 +4,12 @@ module IF_ID
 (
 	input wire clk,
 	input wire rst,
+    input wire  icache_data_valid_i,
 	input wire [`InstBus] if_inst_i,
 	input wire [`CTRL_Wire_Bus] ctrl_signal_i,
 	input wire [`AddrBus] pc_i,
 
+    output wire            block_flag_o,
 	output wire [`InstBus] if_inst_o,
 	output wire [`AddrBus] pc_o
 );
@@ -21,6 +23,9 @@ module IF_ID
         `CTRL_STATE_Default,    pc_i,
         `CTRL_STATE_Bubble,     `Invalid_pc
     });
+
+/* block_flag_o */
+    assign block_flag_o = ~icache_data_valid_i;
 
 /* if_inst_o */
     wire [`InstBus] if_inst_t;

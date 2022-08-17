@@ -4,6 +4,7 @@ module top(
 	input clk,
 	input rst,
 
+	input						icache_ready_i,
 	input						dcache_ready_i,
 	input			 			icache_data_valid_i,	
 	input			 			dcache_data_valid_i,
@@ -157,6 +158,7 @@ module top(
 	wire[`RegBus] mem_wb_to_id_back_wdata;
 	wire[`RegBus] mem_wb_to_id_back_csr_wdata;
 
+	wire if_id_block_flag;
 	wire ex_branch_flag;
 	wire mem_to_ctrl_block_flag;
 
@@ -184,9 +186,11 @@ module top(
 	IF_ID if_id0(
 		.clk(clk),
 		.rst(rst),
+		.icache_data_valid_i(icache_data_valid_i),
 		.if_inst_i(icache_data_i),
 		.ctrl_signal_i(ctrl_to_if_id_ctrl_signal),
 		.pc_i(pc_to_if_id_pc),
+		.block_flag_o(if_id_block_flag),
 		.if_inst_o(if_id_to_id_inst),
 		.pc_o(if_id_to_id_pc)
 	);
@@ -455,11 +459,10 @@ module top(
 		.clk(clk),
 		.rst(rst),
 
+		.icache_ready_i(icache_ready_i),
 		.dcache_ready_i(dcache_ready_i),
-		.icache_data_valid_i(icache_data_valid_i),
-/* 		.ex_opcode_i(id_ex_to_ex_opcode),
-		.ex_funct3_i(id_ex_to_ex_funct3), */
 		.ex_pc_new_i(ex_to_ctrl_pc_new),
+		.if_id_block_flag_i(if_id_block_flag),
 		.ex_branch_flag_i(ex_branch_flag),
 		.mem_block_flag_i(mem_to_ctrl_block_flag),
 

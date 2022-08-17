@@ -1,5 +1,5 @@
 #pragma once
-#define ICache_Miss_Rate 0
+#define ICache_Miss_Rate 0.01
 #define DCache_Miss_Rate 0.01
 #define ICache_Reload_Cycle 10
 #define DCache_Reload_Cycle 10

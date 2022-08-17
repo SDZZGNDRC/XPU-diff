@@ -82,6 +82,7 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dcache_p->ctrl_signal_i = dut_p->dcache_ctrl_signal_o;
 
     /* DUT */
+    dut_p->icache_ready_i = icache_p->icache_ready_o;
     dut_p->icache_data_valid_i = icache_p->icache_data_valid_o;
     dut_p->icache_data_i = icache_p->icache_data_o;
     dut_p->dcache_ready_i = dcache_p->dcache_ready_o;

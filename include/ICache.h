@@ -3,12 +3,11 @@
 #include "encode.h"
 #include <stdlib.h>
 
-
-
 class ICache
 {
 private:
     mif *mif_p;
+    bool flag;
 
     reg_t icache_addr_i_t1 = 0;
     reg_t icache_addr_i_t2 = 0;

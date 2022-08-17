@@ -18,6 +18,7 @@ void DCache::posedge()
     if(ctrl_signal_i == CTRL_STATE_Block)
     {
         state = Block;
+        printf("DCache: Block\n");
     }else if(ctrl_signal_i == CTRL_STATE_Default)
     {
         state = Default;
