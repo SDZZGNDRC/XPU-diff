@@ -20,6 +20,7 @@ void ICache::posedge()
     {
         state = Block;
         printf("ICache: Block\n");
+        return;
     }else if(ctrl_signal_i == CTRL_STATE_Default)
     {
         state = Default;
@@ -43,10 +44,10 @@ void ICache::posedge()
             return;
         }
     }
-    if (state == Block)
+/*     if (state == Block)
     {
         return;
-    }
+    } */
     
     /* Get the input for the sequential circuit */
     if(flag)
