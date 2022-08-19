@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Aug 17 11:43:43 2022
+[*] Fri Aug 19 08:22:42 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Wed Aug 17 09:10:39 2022"
-[dumpfile_size] 3013603
+[dumpfile_mtime] "Fri Aug 19 08:17:36 2022"
+[dumpfile_size] 5378852
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 401
+[timestart] 951
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 403 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 933 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [sst_width] 317
@@ -97,7 +97,7 @@ TOP.top.id0.rd_addr_o[4:0]
 TOP.top.id0.wreg_o
 @200
 -=================ID_EX
-@25
+@24
 TOP.top.id_ex0.ctrl_signal_i[1:0]
 @22
 TOP.top.id_ex0.pc_i[63:0]
@@ -190,9 +190,9 @@ TOP.top.ctrl0.dcache_ready_i
 TOP.top.ctrl0.if_id_block_flag_i
 TOP.top.ctrl0.ex_branch_flag_i
 TOP.top.ctrl0.mem_block_flag_i
+@23
+TOP.top.ctrl0.FSM_pre_state[3:0]
 @22
-TOP.top.ctrl0.FSM_pre_state_t[3:0]
-TOP.top.ctrl0.FSM_next_state_t[3:0]
 TOP.top.ctrl0.FSM_next_state[3:0]
 TOP.top.ctrl0.ctrl_to_pc_new_o[63:0]
 @24

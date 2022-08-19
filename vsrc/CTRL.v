@@ -7,9 +7,6 @@ module CTRL (
     input wire                  icache_ready_i,
     input wire                  muldiv_ready_i,
     input wire                  dcache_ready_i,
-/*     input wire[`OpcodeBus]      ex_opcode_i,
-    input wire[`FunctBus3]      ex_funct3_i, */
-/*     input wire[`FunctBus7]      ex_funct7_i, */
     input wire[`AddrBus]        ex_pc_new_i,
     input wire                  if_id_block_flag_i,
     input wire                  ex_branch_flag_i,

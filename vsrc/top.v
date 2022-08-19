@@ -167,10 +167,26 @@ module top(
 	wire[`CTRL_Wire_Bus] ctrl_to_pc_ctrl_signal;
 	wire[`CTRL_Wire_Bus] ctrl_to_if_id_ctrl_signal;
 	wire[`CTRL_Wire_Bus] ctrl_to_id_ex_ctrl_signal;
+	wire[`CTRL_Wire_Bus] ctrl_to_muldiv_ctrl_signal;
 	wire[`CTRL_Wire_Bus] ctrl_to_ex_mem_ctrl_signal;
 	wire[`CTRL_Wire_Bus] ctrl_to_mem_wb_ctrl_signal;
 	wire[`AddrBus] ctrl_to_pc_pc_new;
 	wire[`AddrBus] pc_to_if_id_pc;
+
+	wire muldiv_to_ctrl_muldiv_ready;
+	wire muldiv_valid;
+	wire ex_to_ctrl_ex_block_flag;
+	wire[`RegBus] mulidv_result;
+	assign ex_to_ctrl_ex_block_flag = ~muldiv_valid;
+	reg[`RegBus] reg_muldiv_result;
+	always @(posedge clk) begin
+		if(rst) begin
+			reg_muldiv_result <= 64'h0;
+		end
+		else begin
+			reg_muldiv_result <= reg_muldiv_result + mulidv_result;
+		end
+	end
 
 	PC pc0(
 		.clk(clk),
@@ -368,6 +384,20 @@ module top(
 		.pc_new_o(ex_to_ctrl_pc_new)
 	);
 
+	MULDIV muldiv0(
+		.clk(clk),
+		.rst(rst),
+
+		.mul_en_i(1'b1),
+		.rs1_data_i(64'h0),
+		.rs2_data_i(64'h0),
+		.ctrl_signal_muldiv_i(ctrl_to_muldiv_ctrl_signal),
+
+		.ready_o(muldiv_to_ctrl_muldiv_ready),
+		.valid_o(muldiv_valid),
+		.result_o(mulidv_result)
+	);
+
 	EX_MEM ex_mem0(
 		.clk(clk),
 		.rst(rst),
@@ -460,15 +490,18 @@ module top(
 		.rst(rst),
 
 		.icache_ready_i(icache_ready_i),
+		.muldiv_ready_i(muldiv_to_ctrl_muldiv_ready),
 		.dcache_ready_i(dcache_ready_i),
 		.ex_pc_new_i(ex_to_ctrl_pc_new),
 		.if_id_block_flag_i(if_id_block_flag),
 		.ex_branch_flag_i(ex_branch_flag),
+		.ex_block_flag_i(ex_to_ctrl_ex_block_flag),
 		.mem_block_flag_i(mem_to_ctrl_block_flag),
 
 		.ctrl_signal_pc_o(ctrl_to_pc_ctrl_signal),
 		.ctrl_signal_if_id_o(ctrl_to_if_id_ctrl_signal),
 		.ctrl_signal_id_ex_o(ctrl_to_id_ex_ctrl_signal),
+		.ctrl_signal_muldiv_o(ctrl_to_muldiv_ctrl_signal),
 		.ctrl_signal_ex_mem_o(ctrl_to_ex_mem_ctrl_signal),
 		.ctrl_signal_mem_wb_o(ctrl_to_mem_wb_ctrl_signal),
 		.ctrl_to_pc_new_o(ctrl_to_pc_pc_new),
