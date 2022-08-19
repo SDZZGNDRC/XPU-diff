@@ -77,7 +77,7 @@ bool DiffTest::check_mems()
     if(dut_p->diff_dcache_req_valid_o == 1 && \
         dut_p->diff_dcache_wen_o == 1)
     {
-        mem_store.emplace_back(std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
+        mem_store.insert(mem_store.begin(), std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
     }
     return flag;
 }
