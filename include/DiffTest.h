@@ -17,6 +17,7 @@ public:
     bool check_regfiles();
     bool check_mems();
     bool check_all();
+    void update_mem_store();
 };
 
 

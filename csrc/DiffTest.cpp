@@ -74,11 +74,7 @@ bool DiffTest::check_mems()
         }
         mem_store.pop_back();
     }
-    if(dut_p->diff_dcache_req_valid_o == 1 && \
-        dut_p->diff_dcache_wen_o == 1)
-    {
-        mem_store.insert(mem_store.begin(), std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
-    }
+    update_mem_store();
     return flag;
 }
 
@@ -99,5 +95,16 @@ bool DiffTest::check_all()
         ret = true;
     }
     return  ret;
+}
+
+void DiffTest::update_mem_store()
+{
+/*     printf("diff_dcache_addr_o=0x%016lx, diff_dcache_wdata_o=0x%016lx\n", dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o);
+    printf("diff_dcache_req_valid_o=%d, diff_dcache_wen_o=%d\n", dut_p->diff_dcache_req_valid_o, dut_p->diff_dcache_wen_o); */
+    if(dut_p->diff_dcache_req_valid_o == 1 && \
+        dut_p->diff_dcache_wen_o == 1)
+    {
+        mem_store.insert(mem_store.begin(), std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
+    }
 }
 

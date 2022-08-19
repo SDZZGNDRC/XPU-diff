@@ -232,6 +232,12 @@
 `define FSM_STATE_Branch_IBlock     4'd4
 `define FSM_STATE_EXBlock           4'd5
 
+`define CTRL_Wire_Bus 1:0
+`define CTRL_STATE_Default 2'd0
+`define CTRL_STATE_Block 2'd1
+`define CTRL_STATE_Bubble 2'd2
+`define CTRL_STATE_Branch 2'd3
+
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0
 `define IRAM_Wdata_Field  31:0
@@ -256,11 +262,6 @@
 `define ADDR_uart_field     12'h0_00
 `define ADDR_gpio_field     12'h0_04
 
-`define CTRL_Wire_Bus 1:0
-`define CTRL_STATE_Default 2'd0
-`define CTRL_STATE_Block 2'd1
-`define CTRL_STATE_Bubble 2'd2
-`define CTRL_STATE_Branch 2'd3
 
 `define DEBUG_reg1_value 64'h11
 `define DEBUG_reg2_value 64'h22

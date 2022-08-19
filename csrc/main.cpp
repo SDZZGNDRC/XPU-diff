@@ -134,6 +134,7 @@ int main(int argc, char** argv, char** env)
 		step_one_cycle(&dut, &icache, &dcache);
 		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t) // omit this step when dut is blocking or bubbling.
 		{
+			difftest.update_mem_store(); // if do not update the mem_store, it will miss the mem_store when I/DCache coming.
 			continue;
 		}else
 		{

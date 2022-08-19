@@ -41,7 +41,7 @@ module CTRL (
     assign FSM_next_state_t_IBlock = (icache_ready_i==1'b1) ? `FSM_STATE_Default : `FSM_STATE_IBlock;
     assign FSM_next_state_t_Branch = (if_id_block_flag_i==1'b1) ? `FSM_STATE_Branch_IBlock : `FSM_STATE_Default;
     assign FSM_next_state_t_EXBlock = (muldiv_ready_i==1'b1) ? `FSM_STATE_Default : `FSM_STATE_EXBlock;
-    assign FSM_next_state_t_Branch_IBlock = (if_id_block_flag_i==1'b1) ? `FSM_STATE_Branch : `FSM_STATE_Branch_IBlock;
+    assign FSM_next_state_t_Branch_IBlock = (icache_ready_i==1'b1) ? `FSM_STATE_Branch : `FSM_STATE_Branch_IBlock;
     Reg #(4, `FSM_STATE_Default) reg_FSM_pre_state (clk, rst, FSM_next_state, FSM_pre_state, 1'b1);
     MuxKeyWithDefault #(6, 4, 4) mux_FSM_next_state (FSM_next_state, FSM_pre_state, `FSM_STATE_Default, {
         `FSM_STATE_Default, FSM_next_state_t_Default,
