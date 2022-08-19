@@ -6,6 +6,7 @@ DCache::DCache(mif *_mif_p)
     mif_p = _mif_p;
     state = Default;
     flag = true;
+    count = 0;
 }
 
 DCache::~DCache()
@@ -70,9 +71,13 @@ void DCache::posedge()
         return;
     }
     /* Drive the output */
+    if(count <= DCache_Miss_Delay)
+    {
+        count++;
+    }
     if(dcache_wen_i_t2 == 0)
     {
-        if(rand()%100<=((int)(DCache_Miss_Rate*100)) && flag)
+        if(rand()%100<=((int)(DCache_Miss_Rate*100)) && flag && count > DCache_Miss_Delay)
         {
             reload_delay_cycle = 0;
             reload_flag = true;

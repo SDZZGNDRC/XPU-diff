@@ -15,6 +15,7 @@ private:
     uint8_t icache_req_valid_i_t2 = 0;
 
     CacheState state;
+    reg_t count;
 
     size_t reload_delay_cycle = 0;
     bool reload_flag = false;

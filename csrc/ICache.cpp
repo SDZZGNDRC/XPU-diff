@@ -6,6 +6,7 @@ ICache::ICache(mif *_mif_p)
     mif_p = _mif_p;
     state = Default;
     flag = true;
+    count = 0;
 }
 
 ICache::~ICache()
@@ -60,8 +61,11 @@ void ICache::posedge()
     }
 
     /* Drive the output */
-
-    if(rand()%100<((int)(ICache_Miss_Rate*100)))
+    if(count <= ICache_Miss_Delay)
+    {
+        count++;
+    }
+    if(rand()%100<((int)(ICache_Miss_Rate*100)) && flag && count > ICache_Miss_Delay)
     {
         reload_delay_cycle = 0;
         reload_flag = true;

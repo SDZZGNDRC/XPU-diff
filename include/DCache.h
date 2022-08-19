@@ -21,6 +21,7 @@ private:
     uint8_t dcache_wlen_i_t2;
 
     CacheState state;
+    reg_t count;
 
 
     size_t reload_delay_cycle = 0;
