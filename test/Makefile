@@ -1,8 +1,8 @@
-#RISCV_GCC := /root/riscv/bin/riscv64-unknown-linux-gnu-gcc
-RISCV_GCC := /root/riscv/bin/riscv-none-embed-gcc
+#RISCV_GCC := /home/sdzz/riscv/bin/riscv64-unknown-linux-gnu-gcc
+RISCV_GCC := /home/sdzz/riscv/bin/riscv-none-embed-gcc
 RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles
-RISCV_OBJDUMP := /root/riscv/bin/riscv-none-embed-objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
-RISCV_SIM := /root/project/riscv-isa-sim/build/spike
+RISCV_OBJDUMP := /home/sdzz/riscv/bin/riscv-none-embed-objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
+RISCV_SIM := /home/sdzz/project/riscv-isa-sim/build/spike
 OBJ_DIR = ./obj
 objs := $(addprefix $(OBJ_DIR)/, $(patsubst %.S, %, $(notdir $(wildcard ./isa/rv64ui/*.S))))
 RUN_TARGET ?= add
