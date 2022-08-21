@@ -1,13 +1,13 @@
-module top (
+module Multiplier (
     input wire                  clk,
     input wire                  rst,
 
     input wire                  req_valid_i,
-    input wire                  block_i,
     input wire[63:0]            op_1_i,
     input wire[63:0]            op_2_i,
     input wire                  sign_op_1_i,
     input wire                  sign_op_2_i,
+    input wire[`CTRL_Wire_Bus]  ctrl_signal_i,
 
     output wire[63:0]           result_l_o,
     output wire[63:0]           result_h_o,
@@ -15,7 +15,7 @@ module top (
     output wire                 valid_o
 );
     wire reg_wen;
-    assign reg_wen = ~block_i;
+    assign reg_wen = (ctrl_signal_i==`CTRL_STATE_Block) ? 1'b0 : 1'b1;
 
     /* convert 64-bits op to 65-bits */
     wire[64:0] op_1;
@@ -283,7 +283,7 @@ module top (
     wire[3:0]   next_state;
 
     Reg #(4, 4'd0) reg_pre_state (clk, rst, next_state, pre_state, 1'b1);
-    assign next_state = (block_i==1'b1) ? 4'd0 : 
+    assign next_state = (ctrl_signal_i==`CTRL_STATE_Block) ? 4'd0 : 
                         (pre_state==4'd0) ? (req_valid_i==1'b1) ? 4'd1 : 4'd0 : 
                         (pre_state==4'd9) ? 4'd0 : pre_state + 4'd1;
 
@@ -295,10 +295,5 @@ module top (
 /* valid_o */
     assign valid_o = (pre_state==4'd0) ? (req_valid_i==1'b1) ? 1'b0 : 1'b1 : 
                      (pre_state==4'd9) ? 1'b1 : 1'b0;
-
-	initial begin
-		$dumpfile("logs/vlt_dump.vcd");
-		$dumpvars();
-	end
 
 endmodule

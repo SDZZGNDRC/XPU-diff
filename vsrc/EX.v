@@ -26,6 +26,8 @@ module EX(
 	input wire[`Offset20Bus] 	offset20_i, */
 /* 	input wire 					offset_sel_i, */
 	input wire[`AddrBus] 		pc_i,
+	input wire[`RegBus]			muldiv_result_l_i,
+	input wire[`RegBus]			muldiv_result_h_i,
 
 	input wire[`RegBus] mem_back_wdata_i,                   //数据前推
 	input wire[`RegAddrBus] mem_back_rd_addr_i,             //数据前推
@@ -35,6 +37,11 @@ module EX(
 	input wire[`CSRAddrBus] mem_back_csr_waddr_i,               //数据前推
 	input wire mem_back_csr_wreg_i,                             //数据前推
 
+	output wire[`RegBus] muldiv_rs1_data_o,
+	output wire[`RegBus] muldiv_rs2_data_o,
+	output wire			 muldiv_rs1_sign_o,
+	output wire			 muldiv_rs2_sign_o,
+	output wire			 muldiv_req_valid_o,
 	output wire[`RegAddrBus] rd_addr_o,          //目标寄存器 rd 的地址
 	output wire[`CSRAddrBus] csr_waddr_o,
 	output wire wreg_o,                          //标志位: 是否使用目标寄存器 rd
@@ -93,15 +100,37 @@ module EX(
 	assign rs1_data = ((rs1_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs1_data_i;
 	assign rs2_data = ((rs2_addr_i == mem_back_rd_addr_i) && (mem_back_wreg_i == `WriteEnable) && (rs1_addr_i != `reg_zero)) ? mem_back_wdata_i : rs2_data_i;
 	assign csr_data = ((csr_raddr_i == mem_back_csr_waddr_i ) && (mem_back_csr_wreg_i == `WriteEnable)) ? mem_back_csr_wdata_i : csr_data_i;
-/* 	assign opcode = opcode_i;
-	assign funct3 = funct3_i;
-	assign funct7 = funct7_i;
-	assign imm = imm_i; */
-/* 	assign memory_addr = rs1_data + $signed({{52{offset12_i[11]}},offset12_i}); */
 
 /* ============================================================ */
 	wire [`RegBus] wdata_t;
 	wire [`RegBus] csr_wdata_t;
+/* muldiv_rs1_data_o muldiv_rs2_data_o */
+	assign muldiv_rs1_data_o = rs1_data;
+	assign muldiv_rs2_data_o = rs2_data;
+
+/* muldiv_rs1_sign_o */
+	MuxKeyWithDefault #(6, 3, 1) mux_muldiv_rs1_sign (muldiv_rs1_sign_o, funct3_i, `MULDIV_SIGN, {
+		`funct3_div,		`MULDIV_SIGN, 
+		`funct3_divu,		`MULDIV_UNSIGN, 
+		`funct3_mul,		`MULDIV_SIGN, 
+		`funct3_mulh,		`MULDIV_SIGN, 
+		`funct3_mulhsu,		`MULDIV_SIGN, 
+		`funct3_mulhu,		`MULDIV_UNSIGN
+	});
+
+/* muldiv_rs2_sign_o */
+	MuxKeyWithDefault #(6, 3, 1) mux_muldiv_rs2_sign (muldiv_rs2_sign_o, funct3_i, `MULDIV_SIGN, {
+		`funct3_div,		`MULDIV_SIGN, 
+		`funct3_divu,		`MULDIV_UNSIGN, 
+		`funct3_mul,		`MULDIV_SIGN, 
+		`funct3_mulh,		`MULDIV_SIGN, 
+		`funct3_mulhsu,		`MULDIV_UNSIGN, 
+		`funct3_mulhu,		`MULDIV_UNSIGN
+	});
+
+/* muldiv_req_valid_o */
+	assign muldiv_req_valid_o = ((opcode_i==`Opcode_R_type || opcode_i==`Opcode_R_type_word) && funct7_i==`funct7_MULDIV) ? 1'b1 : 1'b0;
+
 /* rd_addr_o wreg_o opcode_o funct3_o funct7_o ex_back_rd_addr_o ex_back_wreg_o ex_back_wdata_o */
 	assign rd_addr_o = rd_addr_i;
 	assign csr_waddr_o = csr_waddr_i;
@@ -129,6 +158,8 @@ module EX(
 	wire [`RegBus] wdata_t_addiw;
 	wire [`RegBus] wdata_t_auipc;
 	wire [`RegBus] wdata_t_lui;
+	wire [`RegBus] wdata_t_muldiv_l;
+	wire [`RegBus] wdata_t_muldiv_h;
 	wire [`RegBus] wdata_t_slli;
 	wire [`RegBus] wdata_t_sub;
 	wire [`RegBus] wdata_t_csr;
@@ -138,6 +169,8 @@ module EX(
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
+	assign wdata_t_muldiv_l = muldiv_result_l_i;
+	assign wdata_t_muldiv_h = muldiv_result_h_i;
 	assign wdata_t_slli = rs1_data << shamt;
 	assign wdata_t_sub = rs1_data - rs2_data;
 	assign wdata_t_csr = csr_data;
@@ -151,6 +184,7 @@ module EX(
 	wire [`RegBus] wdata_opcode_U_auipc;
 	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
+	wire [`RegBus] wdata_funct3_sll_mulh;
 /* 	wire [`RegBus] wdata_funct7; */
 	assign wdata_opcode_I_csr = wdata_t_csr;
 	assign wdata_opcode_J = pc_i + 64'h4;
@@ -175,13 +209,19 @@ module EX(
 		`funct3_addi,				wdata_t_addiw
 	});
 
-	MuxKeyWithDefault #(1, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
-		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul
+	MuxKeyWithDefault #(2, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
+		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
+		`funct3_sll_mulh,			wdata_funct3_sll_mulh
 	});
 
-	MuxKeyWithDefault #(2, 7, 64) mux_funct3_asm (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
+	MuxKeyWithDefault #(3, 7, 64) mux_funct3_asm (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
 		`funct7_add, 				wdata_t_add,
+		`funct7_mul,				wdata_t_muldiv_l,
 		`funct7_sub, 				wdata_t_sub
+	});
+
+	MuxKeyWithDefault #(1, 7, 64) mux_funct3_sm (wdata_funct3_sll_mulh, funct7_i, 64'b0, {
+		`funct7_mulh,				wdata_t_muldiv_h
 	});
 
 /* csr_wdata_o */

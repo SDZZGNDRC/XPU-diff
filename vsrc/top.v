@@ -173,20 +173,17 @@ module top(
 	wire[`AddrBus] ctrl_to_pc_pc_new;
 	wire[`AddrBus] pc_to_if_id_pc;
 
+	wire[`RegBus] ex_to_muldiv_rs1_data;
+	wire[`RegBus] ex_to_muldiv_rs2_data;
+	wire ex_to_muldiv_rs1_sign;
+	wire ex_to_muldiv_rs2_sign;
+	wire ex_to_muldiv_req_valid;
+	wire[`RegBus] muldiv_to_ex_result_l;
+	wire[`RegBus] muldiv_to_ex_result_h;
 	wire muldiv_to_ctrl_muldiv_ready;
 	wire muldiv_valid;
 	wire ex_to_ctrl_ex_block_flag;
-	wire[`RegBus] mulidv_result;
 	assign ex_to_ctrl_ex_block_flag = ~muldiv_valid;
-	reg[`RegBus] reg_muldiv_result;
-	always @(posedge clk) begin
-		if(rst) begin
-			reg_muldiv_result <= 64'h0;
-		end
-		else begin
-			reg_muldiv_result <= reg_muldiv_result + mulidv_result;
-		end
-	end
 
 	PC pc0(
 		.clk(clk),
@@ -354,6 +351,8 @@ module top(
 /* 		.offset12_i(id_ex_to_ex_offset12),
 		.offset20_i(id_ex_to_ex_offset20), */
 		.pc_i(id_ex_to_ex_pc),
+		.muldiv_result_l_i(muldiv_to_ex_result_l),
+		.muldiv_result_h_i(muldiv_to_ex_result_h),
 		.mem_back_wdata_i(mem_to_id_back_wdata),
 		.mem_back_rd_addr_i(mem_to_id_back_rd_addr),
 		.mem_back_wreg_i(mem_to_id_back_wreg),
@@ -362,6 +361,11 @@ module top(
 		.mem_back_csr_waddr_i(mem_to_id_back_csr_waddr),
 		.mem_back_csr_wreg_i(mem_to_id_back_csr_wreg),
 
+		.muldiv_rs1_data_o(ex_to_muldiv_rs1_data),
+		.muldiv_rs2_data_o(ex_to_muldiv_rs2_data),
+		.muldiv_rs1_sign_o(ex_to_muldiv_rs1_sign),
+		.muldiv_rs2_sign_o(ex_to_muldiv_rs2_sign),
+		.muldiv_req_valid_o(ex_to_muldiv_req_valid),
 		.rd_addr_o(ex_to_ex_mem_rd_addr),
 		.csr_waddr_o(ex_to_ex_mem_csr_waddr),
 		.wreg_o(ex_to_ex_mem_wreg),
@@ -384,18 +388,21 @@ module top(
 		.pc_new_o(ex_to_ctrl_pc_new)
 	);
 
-	MULDIV muldiv0(
+	Multiplier multiplier0 (
 		.clk(clk),
 		.rst(rst),
 
-		.mul_en_i(1'b1),
-		.rs1_data_i(64'h0),
-		.rs2_data_i(64'h0),
-		.ctrl_signal_muldiv_i(ctrl_to_muldiv_ctrl_signal),
+		.req_valid_i(ex_to_muldiv_req_valid),
+		.op_1_i(ex_to_muldiv_rs1_data),
+		.op_2_i(ex_to_muldiv_rs2_data),
+		.sign_op_1_i(ex_to_muldiv_rs1_sign),
+		.sign_op_2_i(ex_to_muldiv_rs2_sign),
+		.ctrl_signal_i(ctrl_to_muldiv_ctrl_signal),
 
+		.result_l_o(muldiv_to_ex_result_l),
+		.result_h_o(muldiv_to_ex_result_h),
 		.ready_o(muldiv_to_ctrl_muldiv_ready),
-		.valid_o(muldiv_valid),
-		.result_o(mulidv_result)
+		.valid_o(muldiv_valid)
 	);
 
 	EX_MEM ex_mem0(

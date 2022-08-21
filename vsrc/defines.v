@@ -76,6 +76,10 @@
 `define funct3_csrrsi 3'b110
 `define funct3_csrrw 3'b001
 `define funct3_csrrwi 3'b101
+`define funct3_div 3'b100  // signed; signed
+`define funct3_divu 3'b101  // unsigned; unsigned
+`define funct3_divuw 3'b101  // unsigned; unsigned
+`define funct3_divw 3'b100  // signed; signed
 `define funct3_jalr 3'b000
 `define funct3_lb 3'b000
 `define funct3_lbu 3'b100
@@ -84,8 +88,11 @@
 `define funct3_lhu 3'b101
 `define funct3_lw 3'b010
 `define funct3_lwu 3'b110
-`define funct3_mul 3'b000
-`define funct3_mulh 3'b001
+`define funct3_mul 3'b000  // signed; signed
+`define funct3_mulh 3'b001  // signed; signed
+`define funct3_mulhsu 3'b010  // signed; unsigned
+`define funct3_mulhu 3'b011  // unsigned; unsigned
+`define funct3_mulw 3'b000  // signed; signed
 `define funct3_or 3'b110
 `define funct3_ori 3'b110
 `define funct3_sb 3'b000
@@ -119,11 +126,9 @@
 `define funct7_add 7'b000_0000
 `define funct7_addw 7'b000_0000
 `define funct7_and 7'b000_0000
+`define funct7_MULDIV 7'b000_0001
 `define funct7_mul 7'b000_0001
 `define funct7_mulh 7'b000_0001
-`define funct7_mulhsu 7'b000_0001
-`define funct7_mulhu 7'b000_0001
-`define funct7_mulw 7'b000_0001
 `define funct7_or 7'b000_0000
 `define funct7_sll 7'b000_0000
 `define funct7_sllw 7'b000_0000
@@ -237,6 +242,9 @@
 `define CTRL_STATE_Block 2'd1
 `define CTRL_STATE_Bubble 2'd2
 `define CTRL_STATE_Branch 2'd3
+
+`define MULDIV_SIGN 1'b1
+`define MULDIV_UNSIGN 1'b1
 
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0
