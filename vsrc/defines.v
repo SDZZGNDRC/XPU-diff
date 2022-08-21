@@ -129,6 +129,7 @@
 `define funct7_MULDIV 7'b000_0001
 `define funct7_mul 7'b000_0001
 `define funct7_mulh 7'b000_0001
+`define funct7_mulhsu 7'b000_0001
 `define funct7_or 7'b000_0000
 `define funct7_sll 7'b000_0000
 `define funct7_sllw 7'b000_0000
@@ -244,7 +245,7 @@
 `define CTRL_STATE_Branch 2'd3
 
 `define MULDIV_SIGN 1'b1
-`define MULDIV_UNSIGN 1'b1
+`define MULDIV_UNSIGN 1'b0
 
 `define IRAM_Wdata_Bus  31:0
 `define IRAM_Addr_Bus   9:0

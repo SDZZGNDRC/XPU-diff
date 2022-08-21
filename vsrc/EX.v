@@ -185,6 +185,7 @@ module EX(
 	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
 	wire [`RegBus] wdata_funct3_sll_mulh;
+	wire [`RegBus] wdata_funct3_slt_mulhsu;
 /* 	wire [`RegBus] wdata_funct7; */
 	assign wdata_opcode_I_csr = wdata_t_csr;
 	assign wdata_opcode_J = pc_i + 64'h4;
@@ -209,19 +210,24 @@ module EX(
 		`funct3_addi,				wdata_t_addiw
 	});
 
-	MuxKeyWithDefault #(2, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
+	MuxKeyWithDefault #(3, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
 		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
-		`funct3_sll_mulh,			wdata_funct3_sll_mulh
+		`funct3_sll_mulh,			wdata_funct3_sll_mulh,
+		`funct3_slt_mulhsu,			wdata_funct3_slt_mulhsu
 	});
 
-	MuxKeyWithDefault #(3, 7, 64) mux_funct3_asm (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
+	MuxKeyWithDefault #(3, 7, 64) mux_funct3_add_sub_mul (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
 		`funct7_add, 				wdata_t_add,
 		`funct7_mul,				wdata_t_muldiv_l,
 		`funct7_sub, 				wdata_t_sub
 	});
 
-	MuxKeyWithDefault #(1, 7, 64) mux_funct3_sm (wdata_funct3_sll_mulh, funct7_i, 64'b0, {
+	MuxKeyWithDefault #(1, 7, 64) mux_funct3_sll_mulh (wdata_funct3_sll_mulh, funct7_i, 64'b0, {
 		`funct7_mulh,				wdata_t_muldiv_h
+	});
+
+	MuxKeyWithDefault #(1, 7, 64) mux_funct3_slt_mulhsu (wdata_funct3_slt_mulhsu, funct7_i, 64'b0, {
+		`funct7_mulhsu,				wdata_t_muldiv_h
 	});
 
 /* csr_wdata_o */
