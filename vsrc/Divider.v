@@ -3,11 +3,11 @@ module Divider (
     input wire              rst,
 
     input wire              req_valid_i,
-    input wire              block_i,
     input wire[63:0]        op_1_i,
     input wire[63:0]        op_2_i,
     input wire              sign_op_1_i,
     input wire              sign_op_2_i,
+    input wire[`CTRL_Wire_Bus]  ctrl_signal_i,
 
     output wire[63:0]       quotient_o,
     output wire[63:0]       remainder_o,
@@ -15,7 +15,7 @@ module Divider (
     output wire             valid_o
 );
     wire reg_wen;
-    assign reg_wen = ~block_i;
+    assign reg_wen = (ctrl_signal_i==`CTRL_STATE_Block) ? 1'b0 : 1'b1;
 
     wire[6:0]   pre_state;
     wire[6:0]   next_state;
