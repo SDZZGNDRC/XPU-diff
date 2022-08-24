@@ -30,7 +30,7 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS +=  -DTOP_NAME="\"V$(TOPNAME)\"" $(INCFLAGS)
 
 $(BIN): $(VSRCS) $(CSRCS)
-	@rm -rf $(OBJ_DIR)
+	# @rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(addprefix -CFLAGS , $(CFLAGS)) \

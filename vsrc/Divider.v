@@ -97,13 +97,15 @@ module Divider (
     assign quotient_t_bit = (remainder_t[129]==1'b1) ? 65'h0 : mask;
 
 /* quotient_o */
-    assign quotient_o = (~sign_op_1^sign_op_2 == 1'b1) ? quotient[63:0] : {~quotient+64'h1}[63:0];
+    assign quotient_o = (op_2_i==64'b0) ? ~64'b0 : 
+                        (~sign_op_1^sign_op_2 == 1'b1) ? quotient[63:0] : {~quotient+64'h1}[63:0];
 
 /* remainder_o */
 /* verilator lint_off UNUSED */
     wire[129:0] remainder_r;
     assign remainder_r = (remainder[129]==1'b1) ? remainder+divider_recovery : remainder;
-    assign remainder_o = (sign_op_1==1'b0) ? remainder_r[63:0] : {~remainder_r[63:0]+64'h1}[63:0];
+    assign remainder_o = (op_2_i==64'b0) ? op_1_i : 
+                         (sign_op_1==1'b0) ? remainder_r[63:0] : {~remainder_r[63:0]+64'h1}[63:0];
 /* verilator lint_on UNUSED */
 /* 	initial begin
 		$dumpfile("logs/vlt_dump.vcd");
