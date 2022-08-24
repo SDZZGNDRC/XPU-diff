@@ -1,4 +1,4 @@
-module top (
+module Divider (
     input wire              clk,
     input wire              rst,
 
