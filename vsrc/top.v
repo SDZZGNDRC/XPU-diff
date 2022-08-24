@@ -178,8 +178,9 @@ module top(
 	wire ex_to_muldiv_rs1_sign;
 	wire ex_to_muldiv_rs2_sign;
 	wire ex_to_muldiv_req_valid;
-	wire[`RegBus] muldiv_to_ex_result_l;
-	wire[`RegBus] muldiv_to_ex_result_h;
+	wire ex_to_muldiv_mul_en;
+	wire[`RegBus] muldiv_to_ex_data_1;
+	wire[`RegBus] muldiv_to_ex_data_2;
 	wire muldiv_to_ctrl_muldiv_ready;
 	wire muldiv_valid;
 	wire ex_to_ctrl_ex_block_flag;
@@ -351,8 +352,8 @@ module top(
 /* 		.offset12_i(id_ex_to_ex_offset12),
 		.offset20_i(id_ex_to_ex_offset20), */
 		.pc_i(id_ex_to_ex_pc),
-		.muldiv_result_l_i(muldiv_to_ex_result_l),
-		.muldiv_result_h_i(muldiv_to_ex_result_h),
+		.muldiv_data_1_i(muldiv_to_ex_data_1),
+		.muldiv_data_2_i(muldiv_to_ex_data_2),
 		.mem_back_wdata_i(mem_to_id_back_wdata),
 		.mem_back_rd_addr_i(mem_to_id_back_rd_addr),
 		.mem_back_wreg_i(mem_to_id_back_wreg),
@@ -366,6 +367,7 @@ module top(
 		.muldiv_rs1_sign_o(ex_to_muldiv_rs1_sign),
 		.muldiv_rs2_sign_o(ex_to_muldiv_rs2_sign),
 		.muldiv_req_valid_o(ex_to_muldiv_req_valid),
+		.muldiv_mul_en_o(ex_to_muldiv_mul_en), 
 		.rd_addr_o(ex_to_ex_mem_rd_addr),
 		.csr_waddr_o(ex_to_ex_mem_csr_waddr),
 		.wreg_o(ex_to_ex_mem_wreg),
@@ -388,10 +390,11 @@ module top(
 		.pc_new_o(ex_to_ctrl_pc_new)
 	);
 
-	Multiplier multiplier0 (
-		.clk(clk),
-		.rst(rst),
+	MULDIV muldiv0(
+		.clk(clk), 
+		.rst(rst), 
 
+		.mul_en(ex_to_muldiv_mul_en), 
 		.req_valid_i(ex_to_muldiv_req_valid),
 		.op_1_i(ex_to_muldiv_rs1_data),
 		.op_2_i(ex_to_muldiv_rs2_data),
@@ -399,9 +402,9 @@ module top(
 		.sign_op_2_i(ex_to_muldiv_rs2_sign),
 		.ctrl_signal_i(ctrl_to_muldiv_ctrl_signal),
 
-		.result_l_o(muldiv_to_ex_result_l),
-		.result_h_o(muldiv_to_ex_result_h),
-		.ready_o(muldiv_to_ctrl_muldiv_ready),
+		.data_1_o(muldiv_to_ex_data_1), 
+		.data_2_o(muldiv_to_ex_data_2), 
+		.ready_o(muldiv_to_ctrl_muldiv_ready), 
 		.valid_o(muldiv_valid)
 	);
 

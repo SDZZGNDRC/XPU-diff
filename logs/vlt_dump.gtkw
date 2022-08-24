@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun Aug 21 01:20:35 2022
+[*] Wed Aug 24 12:16:57 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Sun Aug 21 01:07:28 2022"
-[dumpfile_size] 2398819
+[dumpfile_mtime] "Wed Aug 24 12:15:03 2022"
+[dumpfile_size] 4185558
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
 [timestart] 2461
 [size] 1920 1016
@@ -12,6 +12,7 @@
 *-0.659639 2463 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
+[treeopen] TOP.top.muldiv0.
 [sst_width] 317
 [signals_width] 548
 [sst_expanded] 1
@@ -145,7 +146,6 @@ TOP.top.ex0.csr_waddr_o[11:0]
 TOP.top.ex0.csr_wdata_o[63:0]
 @28
 TOP.top.ex0.muldiv_rs1_sign_o
-@29
 TOP.top.ex0.muldiv_rs2_sign_o
 @22
 TOP.top.ex0.muldiv_rs1_data_o[63:0]
@@ -153,28 +153,27 @@ TOP.top.ex0.muldiv_rs2_data_o[63:0]
 @28
 TOP.top.ex0.muldiv_req_valid_o
 @200
--=================Multiplier
+-=================MULDIV
 @28
-TOP.top.multiplier0.ctrl_signal_i[1:0]
+TOP.top.muldiv0.mul_en
+TOP.top.muldiv0.req_valid_i
 @22
-TOP.top.multiplier0.pre_state[3:0]
-TOP.top.multiplier0.next_state[3:0]
+TOP.top.muldiv0.op_1_i[63:0]
+TOP.top.muldiv0.op_2_i[63:0]
 @28
-TOP.top.multiplier0.req_valid_i
-TOP.top.multiplier0.sign_op_1_i
-TOP.top.multiplier0.sign_op_2_i
+TOP.top.muldiv0.sign_op_1_i
+TOP.top.muldiv0.sign_op_2_i
+TOP.top.muldiv0.ctrl_signal_i[1:0]
 @22
-TOP.top.multiplier0.op_1_i[63:0]
-TOP.top.multiplier0.op_1[64:0]
-TOP.top.multiplier0.op_2_i[63:0]
-TOP.top.multiplier0.op_2[64:0]
+TOP.top.muldiv0.data_1_o[63:0]
+TOP.top.muldiv0.data_2_o[63:0]
 @28
-TOP.top.multiplier0.valid_o
-TOP.top.multiplier0.ready_o
-@22
-TOP.top.multiplier0.result_l_o[63:0]
-TOP.top.multiplier0.result_h_o[63:0]
+TOP.top.muldiv0.valid_o
+@29
+TOP.top.muldiv0.ready_o
 @200
+-=================Multiplier
+-=================Divider
 -=================EX_MEM
 @28
 TOP.top.ex_mem0.clk

@@ -1,3 +1,4 @@
+`include "defines.v"
 module MULDIV (
     input wire                  clk,
     input wire                  rst,
@@ -11,7 +12,7 @@ module MULDIV (
     input wire[`CTRL_Wire_Bus]  ctrl_signal_i,
 
     output wire[`RegBus]        data_1_o,
-    output wire[`RegBus]        data_1_o,
+    output wire[`RegBus]        data_2_o,
     output wire                 ready_o,
     output wire                 valid_o
 );
@@ -33,7 +34,7 @@ module MULDIV (
         .result_l_o(mul_result_l), 
         .result_h_o(mul_result_h),
         .ready_o(mul_ready), 
-        .ready_o(mul_valid)
+        .valid_o(mul_valid)
     );
 
     wire[`RegBus] div_quotient;

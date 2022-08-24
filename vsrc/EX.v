@@ -26,8 +26,8 @@ module EX(
 	input wire[`Offset20Bus] 	offset20_i, */
 /* 	input wire 					offset_sel_i, */
 	input wire[`AddrBus] 		pc_i,
-	input wire[`RegBus]			muldiv_result_l_i,
-	input wire[`RegBus]			muldiv_result_h_i,
+	input wire[`RegBus]			muldiv_data_1_i,
+	input wire[`RegBus]			muldiv_data_2_i,
 
 	input wire[`RegBus] mem_back_wdata_i,                   //数据前推
 	input wire[`RegAddrBus] mem_back_rd_addr_i,             //数据前推
@@ -42,6 +42,7 @@ module EX(
 	output wire			 muldiv_rs1_sign_o,
 	output wire			 muldiv_rs2_sign_o,
 	output wire			 muldiv_req_valid_o,
+	output wire			 muldiv_mul_en_o,
 	output wire[`RegAddrBus] rd_addr_o,          //目标寄存器 rd 的地址
 	output wire[`CSRAddrBus] csr_waddr_o,
 	output wire wreg_o,                          //标志位: 是否使用目标寄存器 rd
@@ -131,6 +132,9 @@ module EX(
 /* muldiv_req_valid_o */
 	assign muldiv_req_valid_o = ((opcode_i==`Opcode_R_type || opcode_i==`Opcode_R_type_word) && funct7_i==`funct7_MULDIV) ? 1'b1 : 1'b0;
 
+/* muldiv_mul_en_o */
+	assign muldiv_mul_en_o = ~funct3_i[2];
+
 /* rd_addr_o wreg_o opcode_o funct3_o funct7_o ex_back_rd_addr_o ex_back_wreg_o ex_back_wdata_o */
 	assign rd_addr_o = rd_addr_i;
 	assign csr_waddr_o = csr_waddr_i;
@@ -157,23 +161,31 @@ module EX(
 	wire [`RegBus] wdata_t_addi;
 	wire [`RegBus] wdata_t_addiw;
 	wire [`RegBus] wdata_t_auipc;
+	wire [`RegBus] wdata_t_div;
 	wire [`RegBus] wdata_t_lui;
-	wire [`RegBus] wdata_t_muldiv_l;
-	wire [`RegBus] wdata_t_muldiv_h;
+	wire [`RegBus] wdata_t_mul;
+	wire [`RegBus] wdata_t_mulh;
+	wire [`RegBus] wdata_t_or;
+	wire [`RegBus] wdata_t_rem;
 	wire [`RegBus] wdata_t_slli;
 	wire [`RegBus] wdata_t_sub;
 	wire [`RegBus] wdata_t_csr;
+	wire [`RegBus] wdata_t_xor;
 
 	assign wdata_t_add = rs1_data + rs2_data;
 	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
+	assign wdata_t_div = muldiv_data_1_i;
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
-	assign wdata_t_muldiv_l = muldiv_result_l_i;
-	assign wdata_t_muldiv_h = muldiv_result_h_i;
+	assign wdata_t_mul = muldiv_data_1_i;
+	assign wdata_t_mulh = muldiv_data_2_i;
+	assign wdata_t_or = rs1_data | rs2_data;
+	assign wdata_t_rem = muldiv_data_2_i;
 	assign wdata_t_slli = rs1_data << shamt;
 	assign wdata_t_sub = rs1_data - rs2_data;
 	assign wdata_t_csr = csr_data;
+	assign wdata_t_xor = rs1_data ^ rs2_data;
 
 	wire [`RegBus] wdata_opcode_I_imm;
 	wire [`RegBus] wdata_opcode_I_csr;
@@ -184,8 +196,10 @@ module EX(
 	wire [`RegBus] wdata_opcode_U_auipc;
 	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
+	wire [`RegBus] wdata_funct3_or_rem;
 	wire [`RegBus] wdata_funct3_sll_mulh;
 	wire [`RegBus] wdata_funct3_slt_mulhsu;
+	wire [`RegBus] wdata_funct3_xor_div;
 /* 	wire [`RegBus] wdata_funct7; */
 	assign wdata_opcode_I_csr = wdata_t_csr;
 	assign wdata_opcode_J = pc_i + 64'h4;
@@ -210,24 +224,36 @@ module EX(
 		`funct3_addi,				wdata_t_addiw
 	});
 
-	MuxKeyWithDefault #(3, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
+	MuxKeyWithDefault #(5, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
 		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
+		`funct3_or_rem,				wdata_funct3_or_rem, 
 		`funct3_sll_mulh,			wdata_funct3_sll_mulh,
-		`funct3_slt_mulhsu,			wdata_funct3_slt_mulhsu
+		`funct3_slt_mulhsu,			wdata_funct3_slt_mulhsu,
+		`funct3_xor_div,			wdata_funct3_xor_div
 	});
 
 	MuxKeyWithDefault #(3, 7, 64) mux_funct3_add_sub_mul (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
 		`funct7_add, 				wdata_t_add,
-		`funct7_mul,				wdata_t_muldiv_l,
+		`funct7_mul,				wdata_t_mul,
 		`funct7_sub, 				wdata_t_sub
 	});
 
+	MuxKeyWithDefault #(2, 7, 64) mux_funct3_or_rem (wdata_funct3_or_rem, funct7_i, 64'b0, {
+		`funct7_or, 				wdata_t_or, 
+		`funct7_rem,				wdata_t_rem
+	});
+
 	MuxKeyWithDefault #(1, 7, 64) mux_funct3_sll_mulh (wdata_funct3_sll_mulh, funct7_i, 64'b0, {
-		`funct7_mulh,				wdata_t_muldiv_h
+		`funct7_mulh,				wdata_t_mulh
 	});
 
 	MuxKeyWithDefault #(1, 7, 64) mux_funct3_slt_mulhsu (wdata_funct3_slt_mulhsu, funct7_i, 64'b0, {
-		`funct7_mulhsu,				wdata_t_muldiv_h
+		`funct7_mulhsu,				wdata_t_mulh
+	});
+
+	MuxKeyWithDefault #(2, 7, 64) mux_funct3_xor_div (wdata_funct3_xor_div, funct7_i, 64'b0, {
+		`funct7_div, 				wdata_t_div, 
+		`funct7_xor,				wdata_t_xor
 	});
 
 /* csr_wdata_o */

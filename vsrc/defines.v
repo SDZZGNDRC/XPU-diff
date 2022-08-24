@@ -93,8 +93,13 @@
 `define funct3_mulhsu 3'b010  // signed; unsigned
 `define funct3_mulhu 3'b011  // unsigned; unsigned
 `define funct3_mulw 3'b000  // signed; signed
+`define funct3_or_rem 3'b110
 `define funct3_or 3'b110
 `define funct3_ori 3'b110
+`define funct3_rem 3'b110
+`define funct3_remu 3'b111
+`define funct3_remuw 3'b111
+`define funct3_remw 3'b110
 `define funct3_sb 3'b000
 `define funct3_sd 3'b011
 `define funct3_sh 3'b001
@@ -116,6 +121,7 @@
 `define funct3_sra 3'b101
 `define funct3_sra_srl 3'b101
 `define funct3_sraw_srlw 3'b101
+`define funct3_xor_div 3'b100
 `define funct3_xor 3'b100
 `define funct3_xori 3'b100
 
@@ -126,11 +132,13 @@
 `define funct7_add 7'b000_0000
 `define funct7_addw 7'b000_0000
 `define funct7_and 7'b000_0000
+`define funct7_div 7'b000_0001
 `define funct7_MULDIV 7'b000_0001
 `define funct7_mul 7'b000_0001
 `define funct7_mulh 7'b000_0001
 `define funct7_mulhsu 7'b000_0001
 `define funct7_or 7'b000_0000
+`define funct7_rem 7'b000_0001
 `define funct7_sll 7'b000_0000
 `define funct7_sllw 7'b000_0000
 `define funct7_slt 7'b000_0000
