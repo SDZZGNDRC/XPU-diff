@@ -12,16 +12,14 @@ module CSR
 
 /* Write port mepc */
 	input wire we_mepc_i,
-	input wire [`CSRAddrBus] waddr_mepc_i,
 	input wire [`RegBus] wdata_mepc_i,
 
 /* Write port mcause */
 	input wire we_mcause_i,
-	input wire [`CSRAddrBus] waddr_mcause_i,
 	input wire [`RegBus] wdata_mcause_i,
 
-/* Disable MIE */
-    input wire disable_mie_req_i,
+/* exception MIE */
+    input wire exception_mie_req_i,
 
     //Read ports
     input [`CSRAddrBus] raddr_i,
@@ -53,8 +51,6 @@ module CSR
     wire  wen_mip;
     wire  wen_mscratch;
     wire  wen_mstatus;
-/*     wire  wen_mtime;
-    wire  wen_mtimecmp; */
 
 /* marchid */
     assign out_marchid = `CSR_Hardwire_marchid;
@@ -66,19 +62,24 @@ module CSR
 /* mcause */
     wire out_mcause_interrupt;
     wire [4:0] out_mcause_code;
-    Reg #(1, `CSR_Reset_mcause_interrupt) reg_mcause_interrupt (clk, rst, wdata_i[63], out_mcause_interrupt, wen_mcause);
-    Reg #(5, `CSR_Reset_mcause_code) reg_mcause_code (clk, rst, wdata_i[4:0], out_mcause_code, wen_mcause);
+    wire in_mcause_interrupt;
+    wire[4:0] in_mcause_code;
+    assign in_mcause_interrupt = (we_mcause_i==1'b1) ? we_mcause_i[63] : wdata_i[63];
+    assign in_mcause_code = (we_mcause_i==1'b1) ? we_mcause_i[4:0] : wdata_i[4:0]; 
+    Reg #(1, `CSR_Reset_mcause_interrupt) reg_mcause_interrupt (clk, rst, in_mcause_interrupt, out_mcause_interrupt, wen_mcause);
+    Reg #(5, `CSR_Reset_mcause_code) reg_mcause_code (clk, rst, in_mcause_code, out_mcause_code, wen_mcause);
     assign out_mcause = {out_mcause_interrupt, 58'h0, out_mcause_code};
-    assign wen_mcause = we_i & {1{(waddr_i == `CSR_Addr_mcause)}};
+    assign wen_mcause = (we_i & {1{(waddr_i == `CSR_Addr_mcause)}}) | we_mcause_i;
 
 /* mcpuid */
     assign out_mcpuid = `CSR_Hardwire_mcpuid;
 
 /* mepc */
     wire[61:0] out_mepc_H62;
-    Reg #(62, `CSR_Reset_mepc_H62) reg_mepc_H62 (clk, rst, wdata_i[63:2], out_mepc_H62, wen_mepc);
+    wire[61:0] wdata_mepc_t = (we_mepc_i==1'b1) ? wdata_mepc_i[63:2] : wdata_i[63:2];
+    Reg #(62, `CSR_Reset_mepc_H62) reg_mepc_H62 (clk, rst, wdata_mepc_t, out_mepc_H62, wen_mepc);
     assign out_mepc = {out_mepc_H62, 2'b00};
-    assign wen_mepc = we_i & {1{(waddr_i == `CSR_Addr_mepc)}};
+    assign wen_mepc = (we_i & {1{(waddr_i == `CSR_Addr_mepc)}}) | we_mepc_i;
 
 /* mhartid */
     assign out_mhartid = `CSR_Hardwire_mhartid;
@@ -112,10 +113,14 @@ module CSR
 /* mstatus */
     wire out_mstatus_ie1;
     wire out_mstatus_ie;
-    Reg #(1, `CSR_Reset_mstatus_ie1) reg_mstatus_ie1 (clk, rst, wdata_i[3], out_mstatus_ie1, wen_mstatus);
-    Reg #(1, `CSR_Reset_mstatus_ie) reg_mstatus_ie (clk, rst, wdata_i[0], out_mstatus_ie, wen_mstatus);
-    assign out_mstatus = {58'h0, 2'h0, out_mstatus_ie1, 2'h0, out_mstatus_ie};
-    assign wen_mstatus = we_i & {1{(waddr_i == `CSR_Addr_mstatus)}};
+    wire in_mstatus_ie1;
+    wire in_mstatus_ie;
+    assign in_mstatus_ie1 = (exception_mie_req_i==1'b1) ? out_mstatus_ie : wdata_i[7];
+    assign in_mstatus_ie = (exception_mie_req_i==1'b1) ? 1'b0 : wdata_i[3];
+    Reg #(1, `CSR_Reset_mstatus_ie1) reg_mstatus_ie1 (clk, rst, in_mstatus_ie1, out_mstatus_ie1, wen_mstatus);
+    Reg #(1, `CSR_Reset_mstatus_ie) reg_mstatus_ie (clk, rst, in_mstatus_ie, out_mstatus_ie, wen_mstatus);
+    assign out_mstatus = {56'h0, out_mstatus_ie1, 3'h0, out_mstatus_ie, 3'h0};
+    assign wen_mstatus = (we_i & {1{(waddr_i == `CSR_Addr_mstatus)}}) | exception_mie_req_i;
 
 /* mtime */
 /*     Reg #(64, `CSR_Reset_mtime) reg_mtime (clk, rst, wdata_i, out_mtime, wen_mtime);
