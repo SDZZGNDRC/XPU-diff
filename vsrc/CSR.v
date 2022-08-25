@@ -10,6 +10,19 @@ module CSR
 	input wire [`CSRAddrBus] waddr_i,
 	input wire [`RegBus] wdata_i,
 
+/* Write port mepc */
+	input wire we_mepc_i,
+	input wire [`CSRAddrBus] waddr_mepc_i,
+	input wire [`RegBus] wdata_mepc_i,
+
+/* Write port mcause */
+	input wire we_mcause_i,
+	input wire [`CSRAddrBus] waddr_mcause_i,
+	input wire [`RegBus] wdata_mcause_i,
+
+/* Disable MIE */
+    input wire disable_mie_req_i,
+
     //Read ports
     input [`CSRAddrBus] raddr_i,
     output  wire [`RegBus]  rdata_o/* ,
