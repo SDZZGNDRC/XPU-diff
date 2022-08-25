@@ -9,6 +9,7 @@ module ID
 	input wire[`RegBus] rs1_data_i,  //源寄存器1的数据输入
 	input wire[`RegBus] rs2_data_i,  //源寄存器2的数据输入
 	input wire[`RegBus] csr_data_i,  //CSR Regfile
+	input wire[`OpcodeBus] ex_back_opcode_i, 
 	input wire[`RegBus] ex_back_wdata_i,                    //数据前推
 	input wire[`RegAddrBus] ex_back_rd_addr_i,              //数据前推
 	input wire ex_back_wreg_i,                              //数据前推
@@ -62,18 +63,35 @@ module ID
 
 );
 
+/* id_conflict_flag */
+	wire id_conflict_flag;
+	assign id_conflict_flag = (ex_back_opcode_i==`Opcode_I_type_load&&
+							  dcache_req_valid_ot==1'b1&&
+							  (ex_back_rd_addr_i==rs1_addr_o||ex_back_rd_addr_i==rs2_addr_o))
+							  ? 1'b1 : 1'b0;
+
+/* id_change_flag */
+	wire id_change_flag;
+	assign id_change_flag = id_conflict_flag;
+
 /* dcache_req_valid_o */
-	MuxKeyWithDefault #(2, 7, 1) mux_dcache_req_valid (dcache_req_valid_o, opcode_o, 1'h0, {
+	wire dcache_req_valid_ot;
+	assign dcache_req_valid_o = (id_change_flag==1'b1) ? 1'b0 : dcache_req_valid_ot;
+	MuxKeyWithDefault #(2, 7, 1) mux_dcache_req_valid (dcache_req_valid_ot, opcode_ot, 1'h0, {
 		`Opcode_S_type, 1'b1,
 		`Opcode_I_type_load, 1'b1
 	});
 
 /* rs1_addr_o rs2_addr_o opcode_o funct3_o funct7_o */
+	wire[`OpcodeBus] opcode_ot;
+	wire[`funct3Bus] funct3_ot;
 	assign rs1_addr_o = inst_i[19:15];
 	assign rs2_addr_o = inst_i[24:20];
-	assign opcode_o = inst_i[6:0];
-	assign funct3_o = inst_i[14:12];
+	assign opcode_ot = inst_i[6:0];
+	assign funct3_ot = inst_i[14:12];
 	assign funct7_o = inst_i[31:25];
+	assign opcode_o = (id_change_flag==1'b1) ? `Opcode_I_type_jalr : opcode_ot;
+	assign funct3_o = (id_change_flag==1'b1) ? `funct3_jalr : funct3_ot;
 
 /* dcache_wen_o */
 	assign dcache_wen_o = (opcode_o == `Opcode_S_type) ? 1'b1 : 1'b0;
@@ -133,11 +151,13 @@ module ID
 	assign dcache_wlen_o = (opcode_o == `Opcode_S_type) ? dcache_wlen_t_store : dcache_wlen_t_load;
 
 /* rs1_data_o */
-	assign rs1_data_o = (rs1_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
+	wire[`RegBus] rs1_data_ot;
+	assign rs1_data_ot = (rs1_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
 						(rs1_addr_o == ex_back_rd_addr_i && ex_back_wreg_i == `WriteEnable) ? ex_back_wdata_i : 
 						(rs1_addr_o == mem_back_rd_addr_i && mem_back_wreg_i == `WriteEnable) ? mem_back_wdata_i : 
 						(rs1_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
 						(rs1_data_i);
+	assign rs1_data_o = (id_conflict_flag==1'b1) ? pc_i : rs1_data_ot;
 
 /* rs2_data_o */
 	assign rs2_data_o = (rs2_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
@@ -153,7 +173,9 @@ module ID
 						 (csr_data_i);
 
 /* rd_addr_o */
-	assign rd_addr_o = inst_i[11:7];
+	wire[`RegAddrBus] rd_addr_ot;
+	assign rd_addr_ot = inst_i[11:7];
+	assign rd_addr_o = (id_change_flag==1'b1) ? `reg_zero : rd_addr_ot;
 
 /* csr_raddr_o */
 	assign csr_raddr_o = inst_i[31:20];
@@ -162,10 +184,12 @@ module ID
 	assign csr_waddr_o = inst_i[31:20];
 
 /* wreg_o */
-	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_o, opcode_o, 1'b1, {
+	wire wreg_ot;
+	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_ot, opcode_o, 1'b1, {
 		`Opcode_B_type, 1'b0,
 		`Opcode_S_type, 1'b0
 	});
+	assign wreg_o = (id_change_flag==1'b1) ? 1'b0 : wreg_ot;
 
 /* csr_wreg_o */
 	assign csr_wreg_o = {1{(opcode_o == `Opcode_I_type_prv)}};
@@ -178,28 +202,12 @@ module ID
 		`Opcode_U_type_lui, inst_i[31:12]
 	});
 
-/* csr_ */
 
 /* imm_sel_o */
 	assign imm_sel_o = ({1{(opcode_o == `Opcode_J_type)}} & 1'b1)
 					|  ({1{(opcode_o == `Opcode_U_type_auipc) & 1'b1}})
 					|  ({1{(opcode_o == `Opcode_U_type_lui) & 1'b1}})
 					|  (1'b0);
-
-/* offset12_o */
-/* 	MuxKeyWithDefault #(2, 7, 12) mux3 (offset12_o, opcode_o, inst_i[31:20], {
-		`Opcode_B_type,		{inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]},
-		`Opcode_S_type, 	{inst_i[31:25], inst_i[11:7]}
-	}); */
-
-/* offset20_o */
-/* 	MuxKeyWithDefault #(2, 7, 20) mux4 (offset20_o, opcode_o, inst_i[31:12], {
-		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
-		`Opcode_B_type,		{inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]}
-	}); */
-
-/* offset_sel_o */
-	
 
 /* pc_o */
 	assign pc_o = pc_i;

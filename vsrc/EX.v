@@ -52,6 +52,7 @@ module EX(
 	output wire[`OpcodeBus] opcode_o,            //操作码, 传输到访存阶段, 确定加载/存储指令类型
 	output wire[`FunctBus3] funct3_o,            //3位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型
 /* 	output wire[`FunctBus7] funct7_o,            //7位宽操作码附加段, 传输到访存阶段, 进一步确定指令类型 */
+	output wire[`OpcodeBus] ex_back_opcode_o, 
 	output wire[`RegAddrBus] ex_back_rd_addr_o,
 	output wire ex_back_wreg_o,
 	output wire[`RegBus] ex_back_wdata_o,
@@ -135,14 +136,12 @@ module EX(
 /* muldiv_mul_en_o */
 	assign muldiv_mul_en_o = ~funct3_i[2];
 
-/* rd_addr_o wreg_o opcode_o funct3_o funct7_o ex_back_rd_addr_o ex_back_wreg_o ex_back_wdata_o */
+/* rd_addr_o wreg_o opcode_o funct3_o funct7_o ex_back_opcode_o ex_back_rd_addr_o ex_back_wreg_o ex_back_wdata_o */
 	assign rd_addr_o = rd_addr_i;
 	assign csr_waddr_o = csr_waddr_i;
 	assign wreg_o = wreg_i;
 	assign csr_wreg_o = csr_wreg_i;
-/* 	assign opcode_o = opcode_i; */
-/* 	assign funct3_o = funct3_i;
-	assign funct7_o = funct7_i; */
+	assign ex_back_opcode_o = opcode_i;
 	assign ex_back_rd_addr_o = rd_addr_i;
 	assign ex_back_wreg_o = wreg_i;
 	assign ex_back_wdata_o = wdata_t;
@@ -304,7 +303,7 @@ module EX(
 	assign branch_flag_t = ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_beq)}} & branch_flag_t_beq)
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bge)}} & branch_flag_t_bge)
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bne)}} & branch_flag_t_bne)
-					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1)
+					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1) 
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);
 
 /* ex_to_ex_mem_pc_o */
