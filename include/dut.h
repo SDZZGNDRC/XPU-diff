@@ -23,6 +23,13 @@ public:
     uint8_t dcache_wlen_o;
     uint8_t icache_ctrl_signal_o;
     uint8_t dcache_ctrl_signal_o;
+    uint8_t vga_clk_o;
+    uint8_t vga_hsync_o;
+    uint8_t vga_vsync_o;
+    uint8_t vga_blank_n_o;
+    uint8_t vga_r_o;
+    uint8_t vga_g_o;
+    uint8_t vga_b_o;
     reg_t diff_if_id_to_id_pc_o;
     reg_t diff_id_to_id_ex_pc_o;
     reg_t diff_dcache_addr_o;
@@ -46,6 +53,10 @@ public:
     uint8_t dcache_data_valid_i;
     reg_t icache_data_i;
     reg_t dcache_data_i;
+    uint16_t vga_waddr_h_i;
+    uint16_t vga_waddr_v_i;
+    uint8_t vga_we_i;
+    uint32_t vga_wdata_i;
 public:
     Dut(VerilatedContext* _contextp_t, Vtop* _top_t, mif* _mif_t);
     ~Dut();

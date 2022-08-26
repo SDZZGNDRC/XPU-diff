@@ -24,13 +24,13 @@ module top(
 	output wire [1:0]			dcache_wlen_o,
 	output wire[`CTRL_Wire_Bus]	icache_ctrl_signal_o,
 	output wire[`CTRL_Wire_Bus]	dcache_ctrl_signal_o,
-	output wire					vga_clk,
-	output wire					vga_hsync, 
-	output wire					vga_vsync, 
-	output wire					vga_blank_n,
-	output wire[`Byte]			vga_r, 
-	output wire[`Byte]			vga_g, 
-	output wire[`Byte]			vga_b, 
+	output wire					vga_clk_o,
+	output wire					vga_hsync_o, 
+	output wire					vga_vsync_o, 
+	output wire					vga_blank_n_o,
+	output wire[`Byte]			vga_r_o, 
+	output wire[`Byte]			vga_g_o, 
+	output wire[`Byte]			vga_b_o, 
 
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
@@ -176,10 +176,10 @@ module top(
 	wire ex_to_ctrl_ex_block_flag;
 	assign ex_to_ctrl_ex_block_flag = ~muldiv_valid;
 
-	wire[23:0] vga_rdata;
-	wire[9:0]  vga_raddr_h;
-	wire[8:0]  vga_raddr_v;
-	assign vga_clk = clk;
+	wire[23:0] vga_r_odata;
+	wire[9:0]  vga_r_oaddr_h;
+	wire[8:0]  vga_r_oaddr_v;
+	assign vga_clk_o = clk;
 
 	PC pc0(
 		.clk(clk),
@@ -477,30 +477,30 @@ module top(
 	VGA_CTRL vga_ctrl0 (
 		.pclk(clk), 
 		.reset(rst), 
-		.vga_data_i(vga_rdata), 
+		.vga_data_i(vga_r_odata), 
 
-		.h_addr_o(vga_raddr_h), 
-		.v_addr_o(vga_raddr_v), 
-		.hsync_o(vga_hsync), 
-		.vsync_o(vga_vsync), 
-		.valid_o(vga_blank_n), 
-		.vga_r_o(vga_r), 
-		.vga_g_o(vga_g), 
-		.vga_b_o(vga_b)
+		.h_addr_o(vga_r_oaddr_h), 
+		.v_addr_o(vga_r_oaddr_v), 
+		.hsync_o(vga_hsync_o), 
+		.vsync_o(vga_vsync_o), 
+		.valid_o(vga_blank_n_o), 
+		.vga_r_o_o(vga_r_o), 
+		.vga_g_o_o(vga_g_o), 
+		.vga_b_o(vga_b_o)
 
 	);
 
 	VMEM vmem0 (
 		.clk(clk), 
 		
-		.raddr_h_i(vga_raddr_h), 
-		.raddr_v_i(vga_raddr_v), 
+		.raddr_h_i(vga_r_oaddr_h), 
+		.raddr_v_i(vga_r_oaddr_v), 
 		.waddr_h_i(vga_waddr_h_i), 
 		.waddr_v_i(vga_waddr_v_i), 
 		.we_i(vga_we_i), 
 		.vga_wdata_i(vga_wdata_i),
 
-		.vga_rdata_o(vga_rdata)
+		.vga_r_odata_o(vga_r_odata)
 	);
 
 /* The following code only for simulating */
