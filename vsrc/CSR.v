@@ -10,13 +10,21 @@ module CSR
 	input wire [`CSRAddrBus] waddr_i,
 	input wire [`RegBus] wdata_i,
 
+/* Write port mtval */
+    input wire we_mtval_i, 
+    input wire [`RegBus] wdata_mtval_i, 
+
 /* Write port mepc */
 	input wire we_mepc_i,
+/* verilator lint_off UNUSED */
 	input wire [`RegBus] wdata_mepc_i,
+/* verilator lint_on UNUSED */
 
 /* Write port mcause */
 	input wire we_mcause_i,
+/* verilator lint_off UNUSED */
 	input wire [`RegBus] wdata_mcause_i,
+/* verilator lint_on UNUSED */
 
 /* exception MIE */
     input wire exception_mie_req_i,
@@ -56,16 +64,18 @@ module CSR
     assign out_marchid = `CSR_Hardwire_marchid;
 
 /* mtval */
-    Reg #(64, `CSR_Reset_mtval) reg_mtval (clk, rst, wdata_i, out_mtval, wen_mtval);
-    assign wen_mtval = we_i & {1{(waddr_i == `CSR_Addr_mtval)}};
+    wire[`RegBus] wdata_mtval_t;
+    assign wdata_mtval_t = (we_mtval_i==1'b1) ? wdata_mtval_i : wdata_i;
+    Reg #(64, `CSR_Reset_mtval) reg_mtval (clk, rst, wdata_mtval_t, out_mtval, wen_mtval);
+    assign wen_mtval = (we_i & {1{(waddr_i == `CSR_Addr_mtval)}}) | we_mtval_i;
 
 /* mcause */
     wire out_mcause_interrupt;
     wire [4:0] out_mcause_code;
     wire in_mcause_interrupt;
     wire[4:0] in_mcause_code;
-    assign in_mcause_interrupt = (we_mcause_i==1'b1) ? we_mcause_i[63] : wdata_i[63];
-    assign in_mcause_code = (we_mcause_i==1'b1) ? we_mcause_i[4:0] : wdata_i[4:0]; 
+    assign in_mcause_interrupt = (we_mcause_i==1'b1) ? wdata_mcause_i[63] : wdata_i[63];
+    assign in_mcause_code = (we_mcause_i==1'b1) ? wdata_mcause_i[4:0] : wdata_i[4:0]; 
     Reg #(1, `CSR_Reset_mcause_interrupt) reg_mcause_interrupt (clk, rst, in_mcause_interrupt, out_mcause_interrupt, wen_mcause);
     Reg #(5, `CSR_Reset_mcause_code) reg_mcause_code (clk, rst, in_mcause_code, out_mcause_code, wen_mcause);
     assign out_mcause = {out_mcause_interrupt, 58'h0, out_mcause_code};

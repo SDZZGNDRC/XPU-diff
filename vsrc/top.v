@@ -69,36 +69,35 @@ module top(
 	wire[`RegBus] csr_to_id_csr_data;
 	wire[`RegBus] id_to_id_ex_rs1_data;
 	wire[`RegBus] id_ex_to_ex_rs1_data;
-	wire[`RegBus] id_to_id_ex_csr_data;
 	wire[`RegBus] id_to_id_ex_rs2_data;
 	wire[`RegBus] id_ex_to_ex_rs2_data;
-	wire[`RegBus] id_ex_to_ex_csr_data;
 	wire[`RegAddrBus] id_to_regfile_rs1_addr;
 	wire[`RegAddrBus] id_to_regfile_rs2_addr;
 	wire[`CSRAddrBus] id_to_csr_raddr;
+	wire[`CSRAddrBus] id_to_csr_waddr;
+	wire[`RegBus]	  id_to_csr_wdata;
+	wire			  id_to_csr_wreg;
 	wire[`RegAddrBus] id_ex_to_ex_rs1_addr;
 	wire[`RegAddrBus] id_ex_to_ex_rs2_addr;
-	wire[`CSRAddrBus] id_ex_to_ex_csr_raddr;
 	wire[`RegAddrBus] id_to_id_ex_rd_addr;
-	wire[`CSRAddrBus] id_to_id_ex_csr_waddr;
+	wire			  id_to_csr_we_mtval;
+	wire[`RegBus]	  id_to_csr_wdata_mtval;
+	wire			  id_to_csr_we_mepc;
+	wire[`RegBus]	  id_to_csr_wdata_mepc;
+	wire			  id_to_csr_we_mcause;
+	wire[`RegBus]	  id_to_csr_wdata_mcause;
+	wire			  id_to_csr_exception_mie_req;
+
 
 	wire[`RegAddrBus] id_ex_to_ex_rd_addr;
-	wire[`CSRAddrBus] id_ex_to_ex_csr_waddr;
 	wire[`RegAddrBus] ex_to_ex_mem_rd_addr;
-	wire[`CSRAddrBus] ex_to_ex_mem_csr_waddr;
 	wire[`RegAddrBus] ex_mem_to_mem_rd_addr;
-	wire[`CSRAddrBus] ex_mem_to_mem_csr_waddr;
 	wire[`RegAddrBus] mem_to_mem_wb_rd_addr;
-	wire[`CSRAddrBus] mem_to_mem_wb_csr_waddr;
 
 	wire[`RegBus] mem_wb_to_regfile_wdata;
-	wire[`RegBus] mem_wb_to_csr_wdata;
 	wire[`RegBus] ex_to_ex_mem_wdata;
-	wire[`RegBus] ex_to_ex_mem_csr_wdata;
 	wire[`RegBus] ex_mem_to_mem_wdata;
-	wire[`RegBus] ex_mem_to_mem_csr_wdata;
 	wire[`RegBus] mem_to_mem_wb_wdata;
-	wire[`RegBus] mem_to_mem_wb_csr_wdata;
 
 	wire[`OpcodeBus] id_to_id_ex_opcode;
 	wire[`OpcodeBus] id_ex_to_ex_opcode;
@@ -114,15 +113,10 @@ module top(
 	wire[`funct3Bus] ex_mem_to_mem_funct3;
 
 	wire id_to_id_ex_wreg;
-	wire id_to_id_ex_csr_wreg;
 	wire id_ex_to_ex_wreg;
-	wire id_ex_to_ex_csr_wreg;
 	wire ex_to_ex_mem_wreg;
-	wire ex_to_ex_mem_csr_wreg;
 	wire ex_mem_to_mem_wreg;
-	wire ex_mem_to_mem_csr_wreg;
 	wire mem_to_mem_wb_wreg;
-	wire mem_to_mem_wb_csr_wreg;
 
 	wire[`ImmBus] id_to_id_ex_imm;
 	wire[`ImmBus] id_ex_to_ex_imm;
@@ -136,28 +130,17 @@ module top(
 
 	wire mem_wb_to_regfile_we;
 	wire[`RegAddrBus] mem_wb_to_regfile_waddr;
-	wire mem_wb_to_csr_we;
-	wire[`CSRAddrBus] mem_wb_to_csr_waddr;
 
 	wire[`RegAddrBus] ex_to_id_back_rd_addr;
-	wire[`CSRAddrBus] ex_to_id_back_csr_waddr;
 	wire ex_to_id_back_wreg;
-	wire ex_to_id_back_csr_wreg;
 	wire[`OpcodeBus] ex_to_id_back_opcode;
 	wire[`RegBus] ex_to_id_back_wdata;
-	wire[`RegBus] ex_to_id_back_csr_wdata;
 	wire[`RegAddrBus] mem_to_id_back_rd_addr;
-	wire[`CSRAddrBus] mem_to_id_back_csr_waddr;
 	wire mem_to_id_back_wreg;
-	wire mem_to_id_back_csr_wreg;
 	wire[`RegBus] mem_to_id_back_wdata;
-	wire[`RegBus] mem_to_id_back_csr_wdata;
 	wire[`RegAddrBus] mem_wb_to_id_back_rd_addr;
-	wire[`CSRAddrBus] mem_wb_to_id_back_csr_waddr;
 	wire mem_wb_to_id_back_wreg;
-	wire mem_wb_to_id_back_csr_wreg;
 	wire[`RegBus] mem_wb_to_id_back_wdata;
-	wire[`RegBus] mem_wb_to_id_back_csr_wdata;
 
 	wire if_id_block_flag;
 	wire ex_branch_flag;
@@ -227,15 +210,6 @@ module top(
 		.mem_wb_back_wdata_i(mem_wb_to_id_back_wdata),
 		.mem_wb_back_rd_addr_i(mem_wb_to_id_back_rd_addr),
 		.mem_wb_back_wreg_i(mem_wb_to_id_back_wreg),
-		.ex_back_csr_wdata_i(ex_to_id_back_csr_wdata),
-		.ex_back_csr_waddr_i(ex_to_id_back_csr_waddr),
-		.ex_back_csr_wreg_i(ex_to_id_back_csr_wreg),
-		.mem_back_csr_wdata_i(mem_to_id_back_csr_wdata),
-		.mem_back_csr_waddr_i(mem_to_id_back_csr_waddr),
-		.mem_back_csr_wreg_i(mem_to_id_back_csr_wreg),
-		.mem_wb_back_csr_wdata_i(mem_wb_to_id_back_csr_wdata),
-		.mem_wb_back_csr_waddr_i(mem_wb_to_id_back_csr_waddr),
-		.mem_wb_back_csr_wreg_i(mem_wb_to_id_back_csr_wreg),
 		.pc_i(if_id_to_id_pc),
 
 		.dcache_req_valid_o(dcache_req_valid_o),
@@ -251,11 +225,18 @@ module top(
 		.funct7_o(id_to_id_ex_funct7),
 		.rs1_data_o(id_to_id_ex_rs1_data),
 		.rs2_data_o(id_to_id_ex_rs2_data),
-		.csr_data_o(id_to_id_ex_csr_data),
 		.rd_addr_o(id_to_id_ex_rd_addr),
-		.csr_waddr_o(id_to_id_ex_csr_waddr),
+		.csr_waddr_o(id_to_csr_waddr),
+		.csr_wdata_o(id_to_csr_wdata),
+		.we_mtval_o(id_to_csr_we_mtval), 
+		.wdata_mtval_o(id_to_csr_wdata_mtval), 
+		.we_mepc_o(id_to_csr_we_mepc), 
+		.wdata_mepc_o(id_to_csr_wdata_mepc), 
+		.we_mcause_o(id_to_csr_we_mcause), 
+		.wdata_mcause_o(id_to_csr_wdata_mcause), 
+		.exception_mie_req_o(id_to_csr_exception_mie_req), 
 		.wreg_o(id_to_id_ex_wreg),
-		.csr_wreg_o(id_to_id_ex_csr_wreg),
+		.csr_wreg_o(id_to_csr_wreg),
 		.imm_o(id_to_id_ex_imm),
 		.imm_sel_o(id_to_id_ex_imm_sel),
 /* 		.offset12_o(id_to_id_ex_offset12),
@@ -281,9 +262,16 @@ module top(
 		.clk(clk),
 		.rst(rst),
 
-		.we_i	(mem_wb_to_csr_we),
-		.waddr_i (mem_wb_to_csr_waddr),
-		.wdata_i (mem_wb_to_csr_wdata),
+		.we_i	(id_to_csr_wreg),
+		.waddr_i (id_to_csr_waddr),
+		.wdata_i (id_to_csr_wdata),
+		.we_mtval_i(id_to_csr_we_mtval), 
+		.wdata_mtval_i(id_to_csr_wdata_mtval), 
+		.we_mepc_i(id_to_csr_we_mepc), 
+		.wdata_mepc_i(id_to_csr_wdata_mepc),
+		.we_mcause_i(id_to_csr_we_mcause),
+		.wdata_mcause_i(id_to_csr_wdata_mcause),
+		.exception_mie_req_i(id_to_csr_exception_mie_req),
 
 		.raddr_i (id_to_csr_raddr),
 		.rdata_o (csr_to_id_csr_data)
@@ -294,17 +282,13 @@ module top(
 		.rst(rst),
 		.rs1_addr_i(id_to_regfile_rs1_addr),
 		.rs2_addr_i(id_to_regfile_rs2_addr),
-		.csr_raddr_i(id_to_csr_raddr),
 		.opcode_i(id_to_id_ex_opcode),
 		.funct3_i(id_to_id_ex_funct3),
 		.funct7_i(id_to_id_ex_funct7),
 		.rs1_data_i(id_to_id_ex_rs1_data),
 		.rs2_data_i(id_to_id_ex_rs2_data),
-		.csr_data_i(id_to_id_ex_csr_data),
 		.rd_addr_i(id_to_id_ex_rd_addr),
-		.csr_waddr_i(id_to_id_ex_csr_waddr),
 		.wreg_i(id_to_id_ex_wreg),
-		.csr_wreg_i(id_to_id_ex_csr_wreg),
 		.imm_i(id_to_id_ex_imm),
 		.imm_sel_i(id_to_id_ex_imm_sel),
 /* 		.offset12_i(id_to_id_ex_offset12),
@@ -314,17 +298,13 @@ module top(
 
 		.rs1_addr_o(id_ex_to_ex_rs1_addr),
 		.rs2_addr_o(id_ex_to_ex_rs2_addr),
-		.csr_raddr_o(id_ex_to_ex_csr_raddr),
 		.opcode_o(id_ex_to_ex_opcode),
 		.funct3_o(id_ex_to_ex_funct3),
 		.funct7_o(id_ex_to_ex_funct7),
 		.rs1_data_o(id_ex_to_ex_rs1_data),
 		.rs2_data_o(id_ex_to_ex_rs2_data),
-		.csr_data_o(id_ex_to_ex_csr_data),
 		.rd_addr_o(id_ex_to_ex_rd_addr),
-		.csr_waddr_o(id_ex_to_ex_csr_waddr),
 		.wreg_o(id_ex_to_ex_wreg),
-		.csr_wreg_o(id_ex_to_ex_csr_wreg),
 		.imm_o(id_ex_to_ex_imm),
 		.imm_sel_o(id_ex_to_ex_imm_sel),
 /* 		.offset12_o(id_ex_to_ex_offset12),
@@ -338,17 +318,13 @@ module top(
 
 		.rs1_addr_i(id_ex_to_ex_rs1_addr),
 		.rs2_addr_i(id_ex_to_ex_rs2_addr),
-		.csr_raddr_i(id_ex_to_ex_csr_raddr),
 		.opcode_i(id_ex_to_ex_opcode),
 		.funct3_i(id_ex_to_ex_funct3),
 		.funct7_i(id_ex_to_ex_funct7),
 		.rs1_data_i(id_ex_to_ex_rs1_data),
 		.rs2_data_i(id_ex_to_ex_rs2_data),
-		.csr_data_i(id_ex_to_ex_csr_data),
 		.rd_addr_i(id_ex_to_ex_rd_addr),
-		.csr_waddr_i(id_ex_to_ex_csr_waddr),
 		.wreg_i(id_ex_to_ex_wreg),
-		.csr_wreg_i(id_ex_to_ex_csr_wreg),
 		.imm_i(id_ex_to_ex_imm),
 		.imm_sel_i(id_ex_to_ex_imm_sel),
 /* 		.offset12_i(id_ex_to_ex_offset12),
@@ -360,9 +336,6 @@ module top(
 		.mem_back_rd_addr_i(mem_to_id_back_rd_addr),
 		.mem_back_wreg_i(mem_to_id_back_wreg),
 
-		.mem_back_csr_wdata_i(mem_to_id_back_csr_wdata),
-		.mem_back_csr_waddr_i(mem_to_id_back_csr_waddr),
-		.mem_back_csr_wreg_i(mem_to_id_back_csr_wreg),
 
 		.muldiv_rs1_data_o(ex_to_muldiv_rs1_data),
 		.muldiv_rs2_data_o(ex_to_muldiv_rs2_data),
@@ -371,11 +344,8 @@ module top(
 		.muldiv_req_valid_o(ex_to_muldiv_req_valid),
 		.muldiv_mul_en_o(ex_to_muldiv_mul_en), 
 		.rd_addr_o(ex_to_ex_mem_rd_addr),
-		.csr_waddr_o(ex_to_ex_mem_csr_waddr),
 		.wreg_o(ex_to_ex_mem_wreg),
-		.csr_wreg_o(ex_to_ex_mem_csr_wreg),
 		.wdata_o(ex_to_ex_mem_wdata),
-		.csr_wdata_o(ex_to_ex_mem_csr_wdata),
 		.opcode_o(ex_to_ex_mem_opcode),
 		.funct3_o(ex_to_ex_mem_funct3),
 
@@ -384,9 +354,6 @@ module top(
 		.ex_back_wreg_o(ex_to_id_back_wreg),
 		.ex_back_wdata_o(ex_to_id_back_wdata),
 
-		.ex_back_csr_waddr_o(ex_to_id_back_csr_waddr),
-		.ex_back_csr_wreg_o(ex_to_id_back_csr_wreg),
-		.ex_back_csr_wdata_o(ex_to_id_back_csr_wdata),
 
 		.branch_flag_o(ex_branch_flag),
 		.ex_to_ex_mem_pc_o(ex_to_ex_mem_pc),
@@ -416,22 +383,16 @@ module top(
 		.rst(rst),
 
 		.rd_addr_i(ex_to_ex_mem_rd_addr),
-		.csr_waddr_i(ex_to_ex_mem_csr_waddr),
 		.wreg_i(ex_to_ex_mem_wreg),
-		.csr_wreg_i(ex_to_ex_mem_csr_wreg),
 		.wdata_i(ex_to_ex_mem_wdata),
-		.csr_wdata_i(ex_to_ex_mem_csr_wdata),
 		.ex_to_ex_mem_pc_i(ex_to_ex_mem_pc),
 		.opcode_i(ex_to_ex_mem_opcode),
 		.funct3_i(ex_to_ex_mem_funct3),
 		.ctrl_signal_i(ctrl_to_ex_mem_ctrl_signal),
 
 		.rd_addr_o(ex_mem_to_mem_rd_addr),
-		.csr_waddr_o(ex_mem_to_mem_csr_waddr),
 		.wreg_o(ex_mem_to_mem_wreg),
-		.csr_wreg_o(ex_mem_to_mem_csr_wreg),
 		.wdata_o(ex_mem_to_mem_wdata),
-		.csr_wdata_o(ex_mem_to_mem_csr_wdata),
 		.ex_mem_to_mem_pc_o(ex_mem_to_mem_pc),
 		.opcode_o(ex_mem_to_mem_opcode),
 		.funct3_o(ex_mem_to_mem_funct3)
@@ -440,11 +401,8 @@ module top(
 
 	MEM mem0(
 		.rd_addr_i(ex_mem_to_mem_rd_addr),
-		.csr_waddr_i(ex_mem_to_mem_csr_waddr),
 		.wreg_i(ex_mem_to_mem_wreg),
-		.csr_wreg_i(ex_mem_to_mem_csr_wreg),
 		.wdata_i(ex_mem_to_mem_wdata),
-		.csr_wdata_i(ex_mem_to_mem_csr_wdata),
 		.dcache_data_valid_i(dcache_data_valid_i),
 		.dcache_data_i(dcache_data_i),
 		.ex_mem_to_mem_pc_i(ex_mem_to_mem_pc),
@@ -453,19 +411,12 @@ module top(
 
 		.block_flag_o(mem_to_ctrl_block_flag),
 		.rd_addr_o(mem_to_mem_wb_rd_addr),
-		.csr_waddr_o(mem_to_mem_wb_csr_waddr),
 		.wreg_o(mem_to_mem_wb_wreg),
-		.csr_wreg_o(mem_to_mem_wb_csr_wreg),
 		.wdata_o(mem_to_mem_wb_wdata),
-		.csr_wdata_o(mem_to_mem_wb_csr_wdata),
 		.mem_to_mem_wb_pc_o(mem_to_mem_wb_pc),
 		.mem_back_rd_addr_o(mem_to_id_back_rd_addr),
 		.mem_back_wreg_o(mem_to_id_back_wreg),
-		.mem_back_wdata_o(mem_to_id_back_wdata),
-
-		.mem_back_csr_waddr_o(mem_to_id_back_csr_waddr),
-		.mem_back_csr_wreg_o(mem_to_id_back_csr_wreg),
-		.mem_back_csr_wdata_o(mem_to_id_back_csr_wdata)
+		.mem_back_wdata_o(mem_to_id_back_wdata)
 
 	);
 
@@ -474,28 +425,18 @@ module top(
 		.rst(rst),
 
 		.rd_addr_i(mem_to_mem_wb_rd_addr),
-		.csr_waddr_i(mem_to_mem_wb_csr_waddr),
 		.wreg_i(mem_to_mem_wb_wreg),
-		.csr_wreg_i(mem_to_mem_wb_csr_wreg),
 		.wdata_i(mem_to_mem_wb_wdata),
-		.csr_wdata_i(mem_to_mem_wb_csr_wdata),
 		.mem_to_mem_wb_pc_i(mem_to_mem_wb_pc),
 		.ctrl_signal_i(ctrl_to_mem_wb_ctrl_signal),
 	
 		.wdata_o(mem_wb_to_regfile_wdata),
-		.csr_wdata_o(mem_wb_to_csr_wdata),
 		.wreg_o(mem_wb_to_regfile_we),
-		.csr_wreg_o(mem_wb_to_csr_we),
 		.rd_addr_o(mem_wb_to_regfile_waddr),
-		.csr_waddr_o(mem_wb_to_csr_waddr),
 		.diff_mem_wb_pc_o(diff_mem_wb_pc_o),
 		.mem_wb_back_rd_addr_o(mem_wb_to_id_back_rd_addr),
 		.mem_wb_back_wreg_o(mem_wb_to_id_back_wreg),
-		.mem_wb_back_wdata_o(mem_wb_to_id_back_wdata),
-		
-		.mem_wb_back_csr_waddr_o(mem_wb_to_id_back_csr_waddr),
-		.mem_wb_back_csr_wreg_o(mem_wb_to_id_back_csr_wreg),
-		.mem_wb_back_csr_wdata_o(mem_wb_to_id_back_csr_wdata)
+		.mem_wb_back_wdata_o(mem_wb_to_id_back_wdata)
 	);
 
 	CTRL ctrl0(

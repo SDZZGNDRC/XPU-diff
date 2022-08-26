@@ -279,6 +279,13 @@
 `define ADDR_uart_field     12'h0_00
 `define ADDR_gpio_field     12'h0_04
 
+`define EHAddr_ICA_MISSALIGN 64'h00_00_00_00_00_00_00_00
+`define EHAddr_DCA_MISSALIGN 64'h00_00_00_00_00_00_00_00 
+`define EHAddr_InvalidINST 64'h00_00_00_00_00_04_00_00
+`define EHAddr_ECALL 64'h00_00_00_00_00_06_00_00
+
+`define MCAUSE_DCLA_MISSALIGN {1'b0, 63'd4}
+`define MCAUSE_DCSA_MISSALIGN {1'b0, 63'd6}
 
 `define DEBUG_reg1_value 64'h11
 `define DEBUG_reg2_value 64'h22

@@ -20,15 +20,6 @@ module ID
 	input wire[`RegAddrBus] mem_wb_back_rd_addr_i,          //数据前推
 	input wire mem_wb_back_wreg_i,                          //数据前推
 
-	input wire[`RegBus] ex_back_csr_wdata_i,                    //CSR数据前推
-	input wire[`CSRAddrBus] ex_back_csr_waddr_i,                //CSR数据前推
-	input wire ex_back_csr_wreg_i,                              //CSR数据前推
-	input wire[`RegBus] mem_back_csr_wdata_i,                   //CSR数据前推
-	input wire[`CSRAddrBus] mem_back_csr_waddr_i,               //CSR数据前推
-	input wire mem_back_csr_wreg_i,                             //CSR数据前推
-	input wire[`RegBus] mem_wb_back_csr_wdata_i,                //CSR数据前推
-	input wire[`CSRAddrBus] mem_wb_back_csr_waddr_i,            //CSR数据前推
-	input wire mem_wb_back_csr_wreg_i,                          //CSR数据前推
 
 	input wire[`AddrBus] pc_i,
 
@@ -48,17 +39,20 @@ module ID
 	output wire[`FunctBus7] funct7_o,               //译码结果: 7位宽操作码附加段
 	output wire[`RegBus] rs1_data_o,                //源寄存器1的数据输出
 	output wire[`RegBus] rs2_data_o,                //源寄存器2的数据输出
-	output wire[`RegBus] csr_data_o,
 	output wire[`RegAddrBus] rd_addr_o,             //目标寄存器 rd 的地址
 	output wire[`CSRAddrBus] csr_waddr_o,
+	output wire[`RegBus] csr_wdata_o,
+	output wire we_mtval_o, 
+	output wire[`RegBus] wdata_mtval_o, 
+	output wire we_mepc_o,
+	output wire[`RegBus] wdata_mepc_o,
+	output wire we_mcause_o,
+	output wire[`RegBus] wdata_mcause_o,
+	output wire exception_mie_req_o, 
 	output wire wreg_o,                             //标志位: 是否使用目标寄存器 rd
 	output wire csr_wreg_o,
 	output wire[`ImmBus] imm_o,                     //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
  	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
-/* 	output wire[`ShamtBus] shamt_o, */
-/* 	output wire[`Offset12Bus] offset12_o,
-	output wire[`Offset20Bus] offset20_o,
-	output wire offset_sel_o, */
 	output wire[`AddrBus] pc_o
 
 );
@@ -70,9 +64,22 @@ module ID
 							  (ex_back_rd_addr_i==rs1_addr_o||ex_back_rd_addr_i==rs2_addr_o))
 							  ? 1'b1 : 1'b0;
 
+/* id_exception_DCA_MISALIGN_flag */
+	wire id_exception_DCA_MISALIGN_flag;
+	wire id_exception_DCA_MISALIGN_t_2;
+	wire id_exception_DCA_MISALIGN_t_4;
+	wire id_exception_DCA_MISALIGN_t_8;
+	assign id_exception_DCA_MISALIGN_t_2 = (dcache_addr_o[0]==1'b0&&dcache_wlen_o==2'd1) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_t_4 = (dcache_addr_o[1:0]==2'b0&&dcache_wlen_o==2'd2) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_t_8 = (dcache_addr_o[2:0]==3'b0&&dcache_wlen_o==2'd3) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_flag = (id_exception_DCA_MISALIGN_t_2
+										|   id_exception_DCA_MISALIGN_t_4
+										|   id_exception_DCA_MISALIGN_t_8)&dcache_req_valid_ot;
+
 /* id_change_flag */
 	wire id_change_flag;
-	assign id_change_flag = id_conflict_flag;
+	assign id_change_flag = id_conflict_flag 
+						|   id_exception_DCA_MISALIGN_flag;
 
 /* dcache_req_valid_o */
 	wire dcache_req_valid_ot;
@@ -122,16 +129,16 @@ module ID
 
 	assign dcache_addr_offset_load = inst_i[31:20];
 	assign dcache_addr_offset_store = {inst_i[31:25], inst_i[11:7]};
-	assign dcache_addr_t_load = rs1_data_o + {{52{dcache_addr_offset_load[11]}}, dcache_addr_offset_load[11:0]};
-	assign dcache_addr_t_store = rs1_data_o + {{52{dcache_addr_offset_store[11]}}, dcache_addr_offset_store};
+	assign dcache_addr_t_load = rs1_data_ot + {{52{dcache_addr_offset_load[11]}}, dcache_addr_offset_load[11:0]};
+	assign dcache_addr_t_store = rs1_data_ot + {{52{dcache_addr_offset_store[11]}}, dcache_addr_offset_store};
 
-	assign dcache_addr_o = (opcode_o == `Opcode_S_type) ? dcache_addr_t_store : dcache_addr_t_load;
+	assign dcache_addr_o = (opcode_ot == `Opcode_S_type) ? dcache_addr_t_store : dcache_addr_t_load;
 
 /* dcache_wlen_o */
 	wire[1:0] dcache_wlen_t_load;
 	wire[1:0] dcache_wlen_t_store;
 	
-	MuxKeyWithDefault #(7, 3, 2) mux_dcache_wlen_t_load (dcache_wlen_t_load, funct3_o, 2'h0, {
+	MuxKeyWithDefault #(7, 3, 2) mux_dcache_wlen_t_load (dcache_wlen_t_load, funct3_ot, 2'h0, {
 		`funct3_lb, 2'h0,
 		`funct3_lbu, 2'h0,
 		`funct3_ld, 2'h3,
@@ -141,14 +148,14 @@ module ID
 		`funct3_lwu, 2'h2
 	});
 
-	MuxKeyWithDefault #(4, 3, 2) mux_dcache_wlen_t_store (dcache_wlen_t_store, funct3_o, 2'h0, {
+	MuxKeyWithDefault #(4, 3, 2) mux_dcache_wlen_t_store (dcache_wlen_t_store, funct3_ot, 2'h0, {
 		`funct3_sb, 2'h0,
 		`funct3_sh, 2'h1,
 		`funct3_sw, 2'h2,
 		`funct3_sd, 2'h3
 	});
 
-	assign dcache_wlen_o = (opcode_o == `Opcode_S_type) ? dcache_wlen_t_store : dcache_wlen_t_load;
+	assign dcache_wlen_o = (opcode_ot == `Opcode_S_type) ? dcache_wlen_t_store : dcache_wlen_t_load;
 
 /* rs1_data_o */
 	wire[`RegBus] rs1_data_ot;
@@ -157,7 +164,8 @@ module ID
 						(rs1_addr_o == mem_back_rd_addr_i && mem_back_wreg_i == `WriteEnable) ? mem_back_wdata_i : 
 						(rs1_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
 						(rs1_data_i);
-	assign rs1_data_o = (id_conflict_flag==1'b1) ? pc_i : rs1_data_ot;
+	assign rs1_data_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? csr_data_i : 
+						(id_conflict_flag==1'b1) ? pc_i : rs1_data_ot;
 
 /* rs2_data_o */
 	assign rs2_data_o = (rs2_addr_o == `reg_zero) ? `Doubel_Zero_Word : 
@@ -166,11 +174,6 @@ module ID
 						(rs2_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
 						(rs2_data_i);
 
-/* csr_data_o */
-	assign csr_data_o = (csr_raddr_o == ex_back_csr_waddr_i && ex_back_csr_wreg_i == `WriteEnable) ? ex_back_csr_wdata_i : 
-						 (csr_raddr_o == mem_back_csr_waddr_i && mem_back_csr_wreg_i == `WriteEnable) ? mem_back_csr_wdata_i : 
-						 (csr_raddr_o == mem_wb_back_csr_waddr_i && mem_wb_back_csr_wreg_i == `WriteEnable) ? mem_wb_back_csr_wdata_i : 
-						 (csr_data_i);
 
 /* rd_addr_o */
 	wire[`RegAddrBus] rd_addr_ot;
@@ -178,26 +181,78 @@ module ID
 	assign rd_addr_o = (id_change_flag==1'b1) ? `reg_zero : rd_addr_ot;
 
 /* csr_raddr_o */
-	assign csr_raddr_o = inst_i[31:20];
+	wire[`CSRAddrBus] csr_raddr_ot;
+	assign csr_raddr_ot = inst_i[31:20];
+	assign csr_raddr_o = (id_exception_DCA_MISALIGN_flag==1'b1)
+						 ? `CSR_Addr_mtvec : csr_raddr_ot;
 
 /* csr_waddr_o */
 	assign csr_waddr_o = inst_i[31:20];
 
+/* csr_wdata_o */
+	wire[`RegBus] csr_wdata_t;
+	assign csr_wdata_o = csr_wdata_t;
+	wire[`RegAddrBus] zimm;
+	wire[`RegBus] csr_wdata_t_csrrc;
+	wire[`RegBus] csr_wdata_t_csrrci;
+	wire[`RegBus] csr_wdata_t_csrrs;
+	wire[`RegBus] csr_wdata_t_csrrsi;
+	wire[`RegBus] csr_wdata_t_csrrw;
+	wire[`RegBus] csr_wdata_t_csrrwi;
+	assign zimm = inst_i[19:15];
+	assign csr_wdata_t_csrrc = csr_data_i & (~rs1_data_i);
+	assign csr_wdata_t_csrrci = csr_data_i & (~{59'h0, zimm});
+	assign csr_wdata_t_csrrs = csr_data_i | rs1_data_i;
+	assign csr_wdata_t_csrrsi = csr_data_i | {59'h0, zimm};
+	assign csr_wdata_t_csrrw = rs1_data_i;
+	assign csr_wdata_t_csrrwi = {59'h0, zimm};
+
+	MuxKeyWithDefault #(6, 3, 64) mux_csr_wdata (csr_wdata_t, funct3_ot, `Doubel_Zero_Word, {
+		`funct3_csrrc, csr_wdata_t_csrrc,
+		`funct3_csrrci, csr_wdata_t_csrrci,
+		`funct3_csrrs, csr_wdata_t_csrrs,
+		`funct3_csrrsi, csr_wdata_t_csrrsi,
+		`funct3_csrrw, csr_wdata_t_csrrw,
+		`funct3_csrrwi, csr_wdata_t_csrrwi
+	});
+
+/* we_mtval_o */
+	assign we_mtval_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+
+/* wdata_mtval_o */
+	assign wdata_mtval_o = dcache_addr_o;
+
+/* we_mepc_o */
+	assign we_mepc_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+
+/* wdata_mepc_o */
+	assign wdata_mepc_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? pc_i : 64'h0;
+
+/* we_mcause_o */
+	assign we_mcause_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+
+/* wdata_mcause_o */
+	assign wdata_mcause_o = (dcache_wen_o==1'b1) ? `MCAUSE_DCLA_MISSALIGN : `MCAUSE_DCSA_MISSALIGN;
+
+/* exception_mie_req_o */
+	assign exception_mie_req_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+
 /* wreg_o */
-	wire wreg_ot;
-	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_ot, opcode_o, 1'b1, {
+	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_o, opcode_o, 1'b1, {
 		`Opcode_B_type, 1'b0,
 		`Opcode_S_type, 1'b0
 	});
-	assign wreg_o = (id_change_flag==1'b1) ? 1'b0 : wreg_ot;
 
 /* csr_wreg_o */
 	assign csr_wreg_o = {1{(opcode_o == `Opcode_I_type_prv)}};
 
 /* imm_o */
-	MuxKeyWithDefault #(4, 7, 20) mux2 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
+	wire[`ImmBus] imm_t_jalr;
+	assign imm_t_jalr = (id_change_flag==1'b1) ? 20'b0 : {8'b0000_0000, inst_i[31:20]};
+	MuxKeyWithDefault #(5, 7, 20) mux2 (imm_o, opcode_o, {8'b0000_0000, inst_i[31:20]}, {
 		`Opcode_B_type, {8'h0, inst_i[31], inst_i[7], inst_i[30:25], inst_i[11:8]},
 		`Opcode_J_type_jal, {inst_i[31], inst_i[19:12], inst_i[20], inst_i[30:21]},
+		`Opcode_I_type_jalr, imm_t_jalr, 
 		`Opcode_U_type_auipc, inst_i[31:12],
 		`Opcode_U_type_lui, inst_i[31:12]
 	});
