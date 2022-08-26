@@ -64,6 +64,10 @@ module ID
 							  (ex_back_rd_addr_i==rs1_addr_o||ex_back_rd_addr_i==rs2_addr_o))
 							  ? 1'b1 : 1'b0;
 
+/* id_exception_ICA_MISALIGN_flag */
+	wire id_exception_ICA_MISALIGN_flag;
+	assign id_exception_ICA_MISALIGN_flag = (pc_i[1:0]==2'b0) ? 1'b0 : 1'b1;
+
 /* id_exception_DCA_MISALIGN_flag */
 	wire id_exception_DCA_MISALIGN_flag;
 	wire id_exception_DCA_MISALIGN_t_2;
@@ -76,10 +80,13 @@ module ID
 										|   id_exception_DCA_MISALIGN_t_4
 										|   id_exception_DCA_MISALIGN_t_8)&dcache_req_valid_ot;
 
+/* id_exception_AMISALIGN_flag */
+	wire id_exception_AMISALIGN_flag = id_exception_DCA_MISALIGN_flag|id_exception_ICA_MISALIGN_flag;
+
 /* id_change_flag */
 	wire id_change_flag;
 	assign id_change_flag = id_conflict_flag 
-						|   id_exception_DCA_MISALIGN_flag;
+						|	id_exception_AMISALIGN_flag;
 
 /* dcache_req_valid_o */
 	wire dcache_req_valid_ot;
@@ -164,7 +171,7 @@ module ID
 						(rs1_addr_o == mem_back_rd_addr_i && mem_back_wreg_i == `WriteEnable) ? mem_back_wdata_i : 
 						(rs1_addr_o == mem_wb_back_rd_addr_i && mem_wb_back_wreg_i == `WriteEnable) ? mem_wb_back_wdata_i : 
 						(rs1_data_i);
-	assign rs1_data_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? csr_data_i : 
+	assign rs1_data_o = (id_exception_AMISALIGN_flag==1'b1) ? csr_data_i : 
 						(id_conflict_flag==1'b1) ? pc_i : rs1_data_ot;
 
 /* rs2_data_o */
@@ -183,7 +190,7 @@ module ID
 /* csr_raddr_o */
 	wire[`CSRAddrBus] csr_raddr_ot;
 	assign csr_raddr_ot = inst_i[31:20];
-	assign csr_raddr_o = (id_exception_DCA_MISALIGN_flag==1'b1)
+	assign csr_raddr_o = (id_exception_AMISALIGN_flag==1'b1)
 						 ? `CSR_Addr_mtvec : csr_raddr_ot;
 
 /* csr_waddr_o */
@@ -217,25 +224,26 @@ module ID
 	});
 
 /* we_mtval_o */
-	assign we_mtval_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+	assign we_mtval_o = (id_exception_AMISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
 
 /* wdata_mtval_o */
-	assign wdata_mtval_o = dcache_addr_o;
+	assign wdata_mtval_o = (id_exception_ICA_MISALIGN_flag==1'b1) ? pc_i : dcache_addr_o;
 
 /* we_mepc_o */
-	assign we_mepc_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+	assign we_mepc_o = (id_exception_AMISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
 
 /* wdata_mepc_o */
-	assign wdata_mepc_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? pc_i : 64'h0;
+	assign wdata_mepc_o = (id_exception_AMISALIGN_flag==1'b1) ? pc_i : 64'h0;
 
 /* we_mcause_o */
-	assign we_mcause_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+	assign we_mcause_o = (id_exception_AMISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
 
 /* wdata_mcause_o */
-	assign wdata_mcause_o = (dcache_wen_o==1'b1) ? `MCAUSE_DCLA_MISSALIGN : `MCAUSE_DCSA_MISSALIGN;
+	assign wdata_mcause_o = (id_exception_ICA_MISALIGN_flag==1'b1) ? `MCAUSE_ICA_MISSALIGN : 
+							(dcache_wen_o==1'b1) ? `MCAUSE_DCLA_MISSALIGN : `MCAUSE_DCSA_MISSALIGN;
 
 /* exception_mie_req_o */
-	assign exception_mie_req_o = (id_exception_DCA_MISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
+	assign exception_mie_req_o = (id_exception_AMISALIGN_flag==1'b1) ? 1'b1 : 1'b0;
 
 /* wreg_o */
 	MuxKeyWithDefault #(2, 7, 1) mux1 (wreg_o, opcode_o, 1'b1, {

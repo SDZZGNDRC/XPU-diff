@@ -284,6 +284,7 @@
 `define EHAddr_InvalidINST 64'h00_00_00_00_00_04_00_00
 `define EHAddr_ECALL 64'h00_00_00_00_00_06_00_00
 
+`define MCAUSE_ICA_MISSALIGN {1'b0, 63'd0}
 `define MCAUSE_DCLA_MISSALIGN {1'b0, 63'd4}
 `define MCAUSE_DCSA_MISSALIGN {1'b0, 63'd6}
 
