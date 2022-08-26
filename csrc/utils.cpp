@@ -80,7 +80,10 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dcache_p->dcache_wdata_i = dut_p->dcache_wdata_o;
     dcache_p->dcache_wlen_i = dut_p->dcache_wlen_o;
     dcache_p->ctrl_signal_i = dut_p->dcache_ctrl_signal_o;
-
+/* NOTICE: Due to the existence of the VGA module, 
+            the update of the DCache input signals must before the update of the
+            Dut input signals.
+*/
     /* DUT */
     dut_p->icache_ready_i = icache_p->icache_ready_o;
     dut_p->icache_data_valid_i = icache_p->icache_data_valid_o;

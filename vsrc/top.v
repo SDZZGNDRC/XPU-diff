@@ -8,8 +8,12 @@ module top(
 	input						dcache_ready_i,
 	input			 			icache_data_valid_i,	
 	input			 			dcache_data_valid_i,
-	input wire [`InstBus]		icache_data_i,
-	input wire	[`DataBus]		dcache_data_i,
+	input wire[`InstBus]		icache_data_i,
+	input wire[`DataBus]		dcache_data_i,
+	input wire[9:0]				vga_waddr_h_i, 
+	input wire[8:0]				vga_waddr_v_i, 
+	input wire					vga_we_i, 
+	input wire[23:0]			vga_wdata_i, 
 	output [`AddrBus] 			icache_addr_o,
 	output [`AddrBus] 			dcache_addr_o,
 	output wire					icache_req_valid_o,
@@ -20,6 +24,13 @@ module top(
 	output wire [1:0]			dcache_wlen_o,
 	output wire[`CTRL_Wire_Bus]	icache_ctrl_signal_o,
 	output wire[`CTRL_Wire_Bus]	dcache_ctrl_signal_o,
+	output wire					vga_clk,
+	output wire					vga_hsync, 
+	output wire					vga_vsync, 
+	output wire					vga_blank_n,
+	output wire[`Byte]			vga_r, 
+	output wire[`Byte]			vga_g, 
+	output wire[`Byte]			vga_b, 
 
 	output wire [`AddrBus]		diff_if_id_to_id_pc_o,
 	output wire [`AddrBus]		diff_id_to_id_ex_pc_o,
@@ -123,11 +134,6 @@ module top(
 	wire id_to_id_ex_imm_sel;
 	wire id_ex_to_ex_imm_sel;
 
-/* 	wire[`Offset12Bus] id_to_id_ex_offset12;
-	wire[`Offset12Bus] id_ex_to_ex_offset12;
-	wire[`Offset20Bus] id_to_id_ex_offset20;
-	wire[`Offset20Bus] id_ex_to_ex_offset20; */
-
 	wire mem_wb_to_regfile_we;
 	wire[`RegAddrBus] mem_wb_to_regfile_waddr;
 
@@ -169,6 +175,11 @@ module top(
 	wire muldiv_valid;
 	wire ex_to_ctrl_ex_block_flag;
 	assign ex_to_ctrl_ex_block_flag = ~muldiv_valid;
+
+	wire[23:0] vga_rdata;
+	wire[9:0]  vga_raddr_h;
+	wire[8:0]  vga_raddr_v;
+	assign vga_clk = clk;
 
 	PC pc0(
 		.clk(clk),
@@ -463,6 +474,34 @@ module top(
 		.ctrl_signal_dcache_o(dcache_ctrl_signal_o)
 	);
 
+	VGA_CTRL vga_ctrl0 (
+		.pclk(clk), 
+		.reset(rst), 
+		.vga_data_i(vga_rdata), 
+
+		.h_addr_o(vga_raddr_h), 
+		.v_addr_o(vga_raddr_v), 
+		.hsync_o(vga_hsync), 
+		.vsync_o(vga_vsync), 
+		.valid_o(vga_blank_n), 
+		.vga_r_o(vga_r), 
+		.vga_g_o(vga_g), 
+		.vga_b_o(vga_b)
+
+	);
+
+	VMEM vmem0 (
+		.clk(clk), 
+		
+		.raddr_h_i(vga_raddr_h), 
+		.raddr_v_i(vga_raddr_v), 
+		.waddr_h_i(vga_waddr_h_i), 
+		.waddr_v_i(vga_waddr_v_i), 
+		.we_i(vga_we_i), 
+		.vga_wdata_i(vga_wdata_i),
+
+		.vga_rdata_o(vga_rdata)
+	);
 
 /* The following code only for simulating */
 
