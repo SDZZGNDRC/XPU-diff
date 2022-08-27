@@ -70,16 +70,20 @@ module ID
 
 /* id_exception_DCA_MISALIGN_flag */
 	wire id_exception_DCA_MISALIGN_flag;
+	wire id_exception_DCA_MISALIGN_flag_t;
 	wire id_exception_DCA_MISALIGN_t_2;
 	wire id_exception_DCA_MISALIGN_t_4;
 	wire id_exception_DCA_MISALIGN_t_8;
-	assign id_exception_DCA_MISALIGN_t_2 = (dcache_addr_o[0]==1'b0&&dcache_wlen_o==2'd1) ? 1'b0 : 1'b1;
-	assign id_exception_DCA_MISALIGN_t_4 = (dcache_addr_o[1:0]==2'b0&&dcache_wlen_o==2'd2) ? 1'b0 : 1'b1;
-	assign id_exception_DCA_MISALIGN_t_8 = (dcache_addr_o[2:0]==3'b0&&dcache_wlen_o==2'd3) ? 1'b0 : 1'b1;
-	assign id_exception_DCA_MISALIGN_flag = (id_exception_DCA_MISALIGN_t_2
-										|   id_exception_DCA_MISALIGN_t_4
-										|   id_exception_DCA_MISALIGN_t_8)&dcache_req_valid_ot;
-
+	assign id_exception_DCA_MISALIGN_t_2 = (dcache_addr_o[0]==1'b0) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_t_4 = (dcache_addr_o[1:0]==2'b0) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_t_8 = (dcache_addr_o[2:0]==3'b0) ? 1'b0 : 1'b1;
+	assign id_exception_DCA_MISALIGN_flag = id_exception_DCA_MISALIGN_flag_t&dcache_req_valid_ot;
+	MuxKeyWithDefault #(3, 2, 1) mux_id_exception_DCA_MISALIGN_flag 
+	(id_exception_DCA_MISALIGN_flag_t, dcache_wlen_o, 1'b1, {
+		2'd1, id_exception_DCA_MISALIGN_t_2, 
+		2'd2, id_exception_DCA_MISALIGN_t_4, 
+		2'd3, id_exception_DCA_MISALIGN_t_8
+	});
 /* id_exception_AMISALIGN_flag */
 	wire id_exception_AMISALIGN_flag = id_exception_DCA_MISALIGN_flag|id_exception_ICA_MISALIGN_flag;
 
