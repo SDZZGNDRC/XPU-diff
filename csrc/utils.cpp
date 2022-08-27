@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "nvboard.h"
 
 std::vector<std::string> split(const std::string& str, char delimiter)
 {
@@ -91,6 +92,13 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dut_p->dcache_ready_i = dcache_p->dcache_ready_o;
     dut_p->dcache_data_valid_i = dcache_p->dcache_data_valid_o;
     dut_p->dcache_data_i = dcache_p->dcache_data_o;
+    dut_p->vga_waddr_h_i = dcache_p->vga_waddr_h_o;
+    dut_p->vga_waddr_v_i = dcache_p->vga_waddr_v_o;
+    dut_p->vga_we_i = dcache_p->vga_we_o;
+    dut_p->vga_wdata_i = dcache_p->vga_wdata_o;
+
+/* NVBOARD */
+    nvboard_update();
 }
 
 void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)

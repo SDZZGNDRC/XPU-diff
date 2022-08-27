@@ -98,6 +98,17 @@ void DCache::posedge()
         }
     }else
     {
+        if(dcache_addr_i_t2>=VMEM_ADDR_BASE \
+            &&dcache_addr_i_t2<VMEM_ADDR_BASE+VMEM_ADDR_LENGTH)
+        {
+            vga_waddr_h_o = dcache_addr_i_t2 % 640;
+            vga_waddr_v_o = dcache_addr_i_t2 / 640;
+            vga_we_o = 1;
+            vga_wdata_o = dcache_wdata_i_t2 & 0xFFFFFF;
+        }else
+        {
+            vga_we_o = 0;
+        }
         printf("\033[36mDCache:Store 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;

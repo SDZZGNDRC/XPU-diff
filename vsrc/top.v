@@ -24,7 +24,6 @@ module top(
 	output wire [1:0]			dcache_wlen_o,
 	output wire[`CTRL_Wire_Bus]	icache_ctrl_signal_o,
 	output wire[`CTRL_Wire_Bus]	dcache_ctrl_signal_o,
-	output wire					vga_clk_o,
 	output wire					vga_hsync_o, 
 	output wire					vga_vsync_o, 
 	output wire					vga_blank_n_o,
@@ -179,7 +178,6 @@ module top(
 	wire[23:0] vga_rdata;
 	wire[9:0]  vga_raddr_h;
 	wire[8:0]  vga_raddr_v;
-	assign vga_clk_o = clk;
 
 	PC pc0(
 		.clk(clk),

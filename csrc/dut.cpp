@@ -39,7 +39,6 @@ void Dut::update_outputs()
     dcache_wlen_o = top_t->dcache_wlen_o;
     icache_ctrl_signal_o = top_t->icache_ctrl_signal_o;
     dcache_ctrl_signal_o = top_t->dcache_ctrl_signal_o;
-    vga_clk_o = top_t->vga_clk_o;
     vga_hsync_o = top_t->vga_hsync_o;
     vga_vsync_o = top_t->vga_vsync_o;
     vga_blank_n_o = top_t->vga_blank_n_o;

@@ -37,6 +37,10 @@ public:
     uint8_t dcache_ready_o;
     uint8_t dcache_data_valid_o;
     reg_t dcache_data_o;
+    uint16_t vga_waddr_h_o;
+    uint16_t vga_waddr_v_o;
+    uint8_t vga_we_o;
+    uint32_t vga_wdata_o;
 public:
     DCache(mif *_mif_p);
     ~DCache();

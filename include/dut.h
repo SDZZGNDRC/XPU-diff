@@ -23,7 +23,6 @@ public:
     uint8_t dcache_wlen_o;
     uint8_t icache_ctrl_signal_o;
     uint8_t dcache_ctrl_signal_o;
-    uint8_t vga_clk_o;
     uint8_t vga_hsync_o;
     uint8_t vga_vsync_o;
     uint8_t vga_blank_n_o;
