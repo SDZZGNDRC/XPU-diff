@@ -101,6 +101,7 @@ void DCache::posedge()
         if(dcache_addr_i_t2>=VMEM_ADDR_BASE \
             &&dcache_addr_i_t2<VMEM_ADDR_BASE+VMEM_ADDR_LENGTH)
         {
+            printf("\033[5mDCache:Write VMEM 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
             vga_waddr_h_o = dcache_addr_i_t2 % 640;
             vga_waddr_v_o = dcache_addr_i_t2 / 640;
             vga_we_o = 1;

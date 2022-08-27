@@ -1,0 +1,12 @@
+#include "riscv_test.h"
+
+RVTEST_RV64U
+RVTEST_CODE_BEGIN
+    li sp, 0x80100000;
+    call main;
+RVTEST_PASS
+RVTEST_CODE_END
+
+.data
+RVTEST_DATA_BEGIN
+RVTEST_DATA_END
