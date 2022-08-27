@@ -150,6 +150,7 @@ int main(int argc, char** argv, char** env)
 			pass_flag = true;
 			count = MOSTINST;
 		}
+#ifndef NODIFF
 		if( count > OMITINST &&  !difftest.check_all())
 		{
 			pass_flag = false;
@@ -157,6 +158,7 @@ int main(int argc, char** argv, char** env)
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */
 		}
+#endif
 		count += 1;
 	}
 	if(pass_flag)

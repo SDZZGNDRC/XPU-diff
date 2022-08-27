@@ -19,7 +19,7 @@ build : $(OBJ)
 
 $(OBJ): $(CSRCS)
 	$(RISCV_GCC) -march=rv64im -mabi=lp64 $(RISCV_GCC_OPTS) $(INCFLAGS) -c $(ININ_SRC) -o $(BUILD_DIR)/init.o
-	$(RISCV_GCC) -march=rv64im -mabi=lp64 $(RISCV_GCC_OPTS) \
+	$(RISCV_GCC) -march=rv64im -mabi=lp64 $(RISCV_GCC_OPTS) $(INCFLAGS) \
 	-T../scripts/linker.ld $< $(BUILD_DIR)/init.o -o $@
 	$(RISCV_OBJDUMP) $@ > $@.dump
 

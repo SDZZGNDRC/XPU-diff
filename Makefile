@@ -1,7 +1,7 @@
 HOME_DIR = /home/sdzz/project/XPU-diff
 TOPNAME = top
 NXDC_FILES = constr/top.nxdc
-INC_PATH ?=  $(HOME_DIR)/include  /home/sdzz/boost/ $(NVBOARD_HOME)/include
+INC_PATH ?=  $(HOME_DIR)/include  /home/sdzz/boost/ $(NVBOARD_HOME)/include $(HOME_DIR)/app/include
 
 VERILATOR = verilator
 VERILATOR_CFLAGS += -Wall --trace -MMD --build -cc  \

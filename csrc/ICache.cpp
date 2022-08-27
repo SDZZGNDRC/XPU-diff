@@ -20,7 +20,9 @@ void ICache::posedge()
     if(ctrl_signal_i == CTRL_STATE_Block)
     {
         state = Block;
+#ifndef NODIFF
         printf("ICache: Block\n");
+#endif
         return;
     }else if(ctrl_signal_i == CTRL_STATE_Default)
     {
@@ -72,7 +74,9 @@ void ICache::posedge()
         icache_data_o = 0;
         icache_data_valid_o = 0;
         icache_ready_o = 0;
+#ifndef NODIFF
         printf("\033[34mICache: Load Missing\033[0m\n");
+#endif
     }else
     {
         mif_p->load(icache_addr_i_t2, 4, (uint8_t*)(&icache_data_o));

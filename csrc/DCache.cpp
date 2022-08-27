@@ -19,7 +19,9 @@ void DCache::posedge()
     if(ctrl_signal_i == CTRL_STATE_Block)
     {
         state = Block;
+#ifndef NODIFF
         printf("DCache: Block\n");
+#endif
         return;
     }else if(ctrl_signal_i == CTRL_STATE_Default)
     {
@@ -84,13 +86,17 @@ void DCache::posedge()
             dcache_data_o = 0;
             dcache_data_valid_o = 0;
             dcache_ready_o = 0;
+#ifndef NODIFF
             printf("\033[34mDCache: Load Missing\033[0m\n");
+#endif
         }else
         {
             mif_p->load(dcache_addr_i_t2, 8, (uint8_t*)(&dcache_data_o));
             dcache_data_valid_o = 1;
             dcache_ready_o = 1;
+#ifndef NODIFF
             printf("\033[36mDCache: Load 0x%016lx: 0x%016lx\033[0m\n", dcache_addr_i_t2, dcache_data_o);
+#endif
         }
         if(!flag)
         {
@@ -101,16 +107,20 @@ void DCache::posedge()
         if(dcache_addr_i_t2>=VMEM_ADDR_BASE \
             &&dcache_addr_i_t2<VMEM_ADDR_BASE+VMEM_ADDR_LENGTH)
         {
+#ifndef NODIFF
             printf("\033[5mDCache:Write VMEM 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
-            vga_waddr_h_o = dcache_addr_i_t2 % 640;
-            vga_waddr_v_o = dcache_addr_i_t2 / 640;
+#endif
+            vga_waddr_h_o = ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2) % 640;
+            vga_waddr_v_o = ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2) / 640;
             vga_we_o = 1;
             vga_wdata_o = dcache_wdata_i_t2 & 0xFFFFFF;
         }else
         {
             vga_we_o = 0;
         }
+#ifndef NODIFF
         printf("\033[36mDCache:Store 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
+#endif
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;
         mif_p->store(dcache_addr_i_t2, 1<<(size_t)dcache_wlen_i_t2, (uint8_t*)&dcache_wdata_i_t2);

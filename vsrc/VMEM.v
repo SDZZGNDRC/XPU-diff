@@ -19,6 +19,11 @@ reg [23:0] vga_mem [640][480];
 /* initial begin
     $readmemh("./picture.hex", vga_mem);
 end */
+initial begin
+        for(integer index_x=0;index_x<640;index_x=index_x+1)
+            for(integer index_y=0;index_y<480;index_y=index_y+1)
+                vga_mem[index_x][index_y]=24'h56124e; //初始化
+end
 
 always @(posedge clk) begin
     if(we_i==1'b1) begin
