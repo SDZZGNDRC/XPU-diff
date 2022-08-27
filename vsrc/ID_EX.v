@@ -14,8 +14,7 @@ module ID_EX
 	input[`RegBus] rs2_data_i,  //源寄存器2的数据输出
 	input[`RegAddrBus] rd_addr_i,  //目标寄存器 rd 的地址
 	input wreg_i,  //标志位: 是否使用目标寄存器 rd
-	input[`ImmBus] imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
-	input imm_sel_i,
+	input[`ImmBus] imm_i,  //
 /* 	input [`Offset12Bus] offset12_i,
 	input [`Offset20Bus] offset20_i, */
 	input[`AddrBus] pc_i,
@@ -30,8 +29,7 @@ module ID_EX
 	output wire[`RegBus] rs2_data_o,  //源寄存器2的数据输出
 	output wire[`RegAddrBus] rd_addr_o,  //目标寄存器 rd 的地址
 	output wire wreg_o,  //标志位: 是否使用目标寄存器 rd
-	output wire[`ImmBus] imm_o,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
-	output wire imm_sel_o,
+	output wire[`ImmBus] imm_o,  //立即数
 /* 	output wire[`Offset12Bus] offset12_o,
 	output wire[`Offset20Bus] offset20_o, */
 	output wire[`AddrBus] pc_o
@@ -121,13 +119,6 @@ module ID_EX
     assign imm_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 20'b0000_0000_0000_0000_0000 : 
                         (ctrl_signal_i == `CTRL_STATE_Default) ? imm_i : 20'b0000_0000_0000_0000_0000;
 
-/* imm_sel_o */
-	wire imm_sel_t;
-	wire imm_sel_wen;
-	Reg #(1, 1'b0) reg_imm_sel (clk, rst, imm_sel_t, imm_sel_o, imm_sel_wen);
-	assign imm_sel_wen = (ctrl_signal_i == `CTRL_STATE_Block) ? 1'b0 : 1'b1;
-	assign imm_sel_t = (ctrl_signal_i == `CTRL_STATE_Bubble) ? 1'b0 : 
-							(ctrl_signal_i == `CTRL_STATE_Default) ? imm_sel_i : 1'b0;
 
 /* offset12_o */
 /* 	wire [`Offset12Bus] offset12_t;

@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Aug 24 12:27:24 2022
+[*] Sat Aug 27 12:23:33 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Wed Aug 24 12:15:03 2022"
-[dumpfile_size] 4185558
+[dumpfile_mtime] "Sat Aug 27 12:14:01 2022"
+[dumpfile_size] 2019051
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 3427
+[timestart] 1722
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 3429 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 1726 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
@@ -91,7 +91,9 @@ TOP.top.id0.dcache_wen_o
 @24
 TOP.top.id0.dcache_wlen_o[1:0]
 @22
+TOP.top.id0.rs1_addr_o[4:0]
 TOP.top.id0.rs1_data_o[63:0]
+TOP.top.id0.rs2_addr_o[4:0]
 TOP.top.id0.rs2_data_o[63:0]
 TOP.top.id0.rd_addr_o[4:0]
 @28
@@ -121,15 +123,87 @@ TOP.top.id_ex0.opcode_o[6:0]
 @200
 -=================EX
 @22
-TOP.top.ex0.csr_data_i[63:0]
-@23
 TOP.top.ex0.pc_i[63:0]
 @28
 TOP.top.ex0.opcode_i[6:0]
 TOP.top.ex0.funct3_i[2:0]
 TOP.top.ex0.funct7_i[6:0]
-@22
+@23
 TOP.top.ex0.imm_i[19:0]
+@22
+TOP.top.ex0.rs1_addr_i[4:0]
+@c00022
+TOP.top.ex0.rs1_data[63:0]
+@28
+(0)TOP.top.ex0.rs1_data[63:0]
+(1)TOP.top.ex0.rs1_data[63:0]
+(2)TOP.top.ex0.rs1_data[63:0]
+(3)TOP.top.ex0.rs1_data[63:0]
+(4)TOP.top.ex0.rs1_data[63:0]
+(5)TOP.top.ex0.rs1_data[63:0]
+(6)TOP.top.ex0.rs1_data[63:0]
+(7)TOP.top.ex0.rs1_data[63:0]
+(8)TOP.top.ex0.rs1_data[63:0]
+(9)TOP.top.ex0.rs1_data[63:0]
+(10)TOP.top.ex0.rs1_data[63:0]
+(11)TOP.top.ex0.rs1_data[63:0]
+(12)TOP.top.ex0.rs1_data[63:0]
+(13)TOP.top.ex0.rs1_data[63:0]
+(14)TOP.top.ex0.rs1_data[63:0]
+(15)TOP.top.ex0.rs1_data[63:0]
+(16)TOP.top.ex0.rs1_data[63:0]
+(17)TOP.top.ex0.rs1_data[63:0]
+(18)TOP.top.ex0.rs1_data[63:0]
+(19)TOP.top.ex0.rs1_data[63:0]
+(20)TOP.top.ex0.rs1_data[63:0]
+(21)TOP.top.ex0.rs1_data[63:0]
+(22)TOP.top.ex0.rs1_data[63:0]
+(23)TOP.top.ex0.rs1_data[63:0]
+(24)TOP.top.ex0.rs1_data[63:0]
+(25)TOP.top.ex0.rs1_data[63:0]
+(26)TOP.top.ex0.rs1_data[63:0]
+(27)TOP.top.ex0.rs1_data[63:0]
+(28)TOP.top.ex0.rs1_data[63:0]
+(29)TOP.top.ex0.rs1_data[63:0]
+(30)TOP.top.ex0.rs1_data[63:0]
+(31)TOP.top.ex0.rs1_data[63:0]
+(32)TOP.top.ex0.rs1_data[63:0]
+(33)TOP.top.ex0.rs1_data[63:0]
+(34)TOP.top.ex0.rs1_data[63:0]
+(35)TOP.top.ex0.rs1_data[63:0]
+(36)TOP.top.ex0.rs1_data[63:0]
+(37)TOP.top.ex0.rs1_data[63:0]
+(38)TOP.top.ex0.rs1_data[63:0]
+(39)TOP.top.ex0.rs1_data[63:0]
+(40)TOP.top.ex0.rs1_data[63:0]
+(41)TOP.top.ex0.rs1_data[63:0]
+(42)TOP.top.ex0.rs1_data[63:0]
+(43)TOP.top.ex0.rs1_data[63:0]
+(44)TOP.top.ex0.rs1_data[63:0]
+(45)TOP.top.ex0.rs1_data[63:0]
+(46)TOP.top.ex0.rs1_data[63:0]
+(47)TOP.top.ex0.rs1_data[63:0]
+(48)TOP.top.ex0.rs1_data[63:0]
+(49)TOP.top.ex0.rs1_data[63:0]
+(50)TOP.top.ex0.rs1_data[63:0]
+(51)TOP.top.ex0.rs1_data[63:0]
+(52)TOP.top.ex0.rs1_data[63:0]
+(53)TOP.top.ex0.rs1_data[63:0]
+(54)TOP.top.ex0.rs1_data[63:0]
+(55)TOP.top.ex0.rs1_data[63:0]
+(56)TOP.top.ex0.rs1_data[63:0]
+(57)TOP.top.ex0.rs1_data[63:0]
+(58)TOP.top.ex0.rs1_data[63:0]
+(59)TOP.top.ex0.rs1_data[63:0]
+(60)TOP.top.ex0.rs1_data[63:0]
+(61)TOP.top.ex0.rs1_data[63:0]
+(62)TOP.top.ex0.rs1_data[63:0]
+(63)TOP.top.ex0.rs1_data[63:0]
+@1401200
+-group_end
+@22
+TOP.top.ex0.rs2_addr_i[4:0]
+TOP.top.ex0.rs2_data[63:0]
 @28
 TOP.top.ex0.branch_flag_o
 @22
@@ -141,11 +215,6 @@ TOP.top.ex0.wdata_t_lui[63:0]
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
-TOP.top.ex0.csr_wreg_o
-@22
-TOP.top.ex0.csr_waddr_o[11:0]
-TOP.top.ex0.csr_wdata_o[63:0]
-@28
 TOP.top.ex0.muldiv_rs1_sign_o
 TOP.top.ex0.muldiv_rs2_sign_o
 @22

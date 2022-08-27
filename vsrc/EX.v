@@ -15,8 +15,7 @@ module EX(
 	input wire[`RegBus] 		rs2_data_i,  //源寄存器2的数据输出
 	input wire[`RegAddrBus] 	rd_addr_i,  //目标寄存器 rd 的地址
 	input wire 					wreg_i,  //标志位: 是否使用目标寄存器 rd
-	input wire[`ImmBus] 		imm_i,  //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
- 	input wire 					imm_sel_i,  //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 
+	input wire[`ImmBus] 		imm_i,  //立即数 
 /* 	input wire[`ShamtBus] 		shamt_i, */
 /* 	input wire[`Offset12Bus] 	offset12_i,
 	input wire[`Offset20Bus] 	offset20_i, */
@@ -261,9 +260,15 @@ module EX(
 /* pc_new_o */
 	wire [`AddrBus] pc_new_bne;
 	wire [`AddrBus] pc_new_jal;
-	assign pc_new_o = (imm_sel_i == 1'b1) ? pc_new_jal : pc_new_bne;
+	wire [`AddrBus] pc_new_jalr;
+	MuxKeyWithDefault #(3, 7, 64) mux_pc_new (pc_new_o, opcode_i, `Invalid_pc, {
+		`Opcode_B_type, pc_new_bne, 
+		`Opcode_J_type_jal, pc_new_jal, 
+		`Opcode_I_type_jalr, pc_new_jalr
+	});
 	assign pc_new_bne = pc_i + $signed({{51{imm_i[11]}}, imm_i[11:0], 1'b0});
 	assign pc_new_jal = pc_i + $signed({{43{imm_i[19]}}, imm_i, 1'b0});
+	assign pc_new_jalr = rs1_data + $signed({{51{imm_i[11]}}, imm_i[11:0], 1'b0});
 /* ============================================================ */
 
 

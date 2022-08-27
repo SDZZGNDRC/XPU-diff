@@ -29,6 +29,7 @@ module ID
 	output wire[`AddrBus] dcache_addr_o,
 	output wire[1:0]	  dcache_wlen_o,
 	output wire[`RegAddrBus] rs1_addr_o,  //源寄存器 rs1 的地址: 输入到 regfile 模块,用于读取rs1
+	output wire[`RegAddrBus] rs1_addr_ex_o,
 	output wire[`RegAddrBus] rs2_addr_o,  //源寄存器 rs2 的地址: 输入到 regfile 模块,用于读取rs2
 	output wire[`CSRAddrBus] csr_raddr_o,
 	//译码的输出结果
@@ -51,8 +52,7 @@ module ID
 	output wire exception_mie_req_o, 
 	output wire wreg_o,                             //标志位: 是否使用目标寄存器 rd
 	output wire csr_wreg_o,
-	output wire[`ImmBus] imm_o,                     //立即数 (注意: 由于risc-v指令集中的立即数有两种位宽<12/20>, 根据实际指令的不同进行选择,选择标志位为 imm_sel_o, 执行模块EX应根据 imm_sel 选择是否从低位到高位截取imm_o)
- 	output wire imm_sel_o,                          //立即数位宽选择标志位: 1'b0 => 位宽12  1'b1 => 位宽20 */
+	output wire[`ImmBus] imm_o,                     //立即数
 	output wire[`AddrBus] pc_o
 
 );
@@ -100,6 +100,7 @@ module ID
 	wire[`OpcodeBus] opcode_ot;
 	wire[`funct3Bus] funct3_ot;
 	assign rs1_addr_o = inst_i[19:15];
+	assign rs1_addr_ex_o = (id_change_flag==1'b1) ? `reg_zero : rs1_addr_o;
 	assign rs2_addr_o = inst_i[24:20];
 	assign opcode_ot = inst_i[6:0];
 	assign funct3_ot = inst_i[14:12];
@@ -265,14 +266,7 @@ module ID
 		`Opcode_U_type_lui, inst_i[31:12]
 	});
 
-
-/* imm_sel_o */
-	assign imm_sel_o = ({1{(opcode_o == `Opcode_J_type)}} & 1'b1)
-					|  ({1{(opcode_o == `Opcode_U_type_auipc) & 1'b1}})
-					|  ({1{(opcode_o == `Opcode_U_type_lui) & 1'b1}})
-					|  (1'b0);
-
 /* pc_o */
-	assign pc_o = pc_i;
+	assign pc_o = (id_change_flag==1'b1) ? `Invalid_pc : pc_i;
 
 endmodule

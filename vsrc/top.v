@@ -82,6 +82,7 @@ module top(
 	wire[`RegBus] id_to_id_ex_rs2_data;
 	wire[`RegBus] id_ex_to_ex_rs2_data;
 	wire[`RegAddrBus] id_to_regfile_rs1_addr;
+	wire[`RegAddrBus] id_to_ex_rs1_addr;
 	wire[`RegAddrBus] id_to_regfile_rs2_addr;
 	wire[`CSRAddrBus] id_to_csr_raddr;
 	wire[`CSRAddrBus] id_to_csr_waddr;
@@ -130,8 +131,6 @@ module top(
 
 	wire[`ImmBus] id_to_id_ex_imm;
 	wire[`ImmBus] id_ex_to_ex_imm;
-	wire id_to_id_ex_imm_sel;
-	wire id_ex_to_ex_imm_sel;
 
 	wire mem_wb_to_regfile_we;
 	wire[`RegAddrBus] mem_wb_to_regfile_waddr;
@@ -227,6 +226,7 @@ module top(
 		.dcache_addr_o(dcache_addr_o),
 		.dcache_wlen_o(dcache_wlen_o),
 		.rs1_addr_o(id_to_regfile_rs1_addr),
+		.rs1_addr_ex_o(id_to_ex_rs1_addr), 
 		.rs2_addr_o(id_to_regfile_rs2_addr), 
 		.csr_raddr_o(id_to_csr_raddr),
 		.opcode_o(id_to_id_ex_opcode),
@@ -247,7 +247,6 @@ module top(
 		.wreg_o(id_to_id_ex_wreg),
 		.csr_wreg_o(id_to_csr_wreg),
 		.imm_o(id_to_id_ex_imm),
-		.imm_sel_o(id_to_id_ex_imm_sel),
 /* 		.offset12_o(id_to_id_ex_offset12),
 		.offset20_o(id_to_id_ex_offset20), */
 		.pc_o(id_to_id_ex_pc)
@@ -289,7 +288,7 @@ module top(
 	ID_EX id_ex0(
 		.clk(clk),
 		.rst(rst),
-		.rs1_addr_i(id_to_regfile_rs1_addr),
+		.rs1_addr_i(id_to_ex_rs1_addr),
 		.rs2_addr_i(id_to_regfile_rs2_addr),
 		.opcode_i(id_to_id_ex_opcode),
 		.funct3_i(id_to_id_ex_funct3),
@@ -299,7 +298,6 @@ module top(
 		.rd_addr_i(id_to_id_ex_rd_addr),
 		.wreg_i(id_to_id_ex_wreg),
 		.imm_i(id_to_id_ex_imm),
-		.imm_sel_i(id_to_id_ex_imm_sel),
 /* 		.offset12_i(id_to_id_ex_offset12),
 		.offset20_i(id_to_id_ex_offset20), */
 		.pc_i(id_to_id_ex_pc),
@@ -315,7 +313,6 @@ module top(
 		.rd_addr_o(id_ex_to_ex_rd_addr),
 		.wreg_o(id_ex_to_ex_wreg),
 		.imm_o(id_ex_to_ex_imm),
-		.imm_sel_o(id_ex_to_ex_imm_sel),
 /* 		.offset12_o(id_ex_to_ex_offset12),
 		.offset20_o(id_ex_to_ex_offset20), */
 		.pc_o(id_ex_to_ex_pc)
@@ -335,7 +332,6 @@ module top(
 		.rd_addr_i(id_ex_to_ex_rd_addr),
 		.wreg_i(id_ex_to_ex_wreg),
 		.imm_i(id_ex_to_ex_imm),
-		.imm_sel_i(id_ex_to_ex_imm_sel),
 /* 		.offset12_i(id_ex_to_ex_offset12),
 		.offset20_i(id_ex_to_ex_offset20), */
 		.pc_i(id_ex_to_ex_pc),

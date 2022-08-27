@@ -57,8 +57,11 @@ bool DiffTest::check_regfiles()
 bool DiffTest::check_mems()
 {
     bool flag = true;
+    printf("flag1\n");
     if(state_p->mem_update_valid == true)
     {
+        printf("flag2\n");
+        printf("mem_store.size=%ld\n", mem_store.size());
         if(mem_store.rbegin()->first == state_p->mem_update_addr\
             && mem_store.rbegin()->second == state_p->mem_update_value)
         {
@@ -99,11 +102,12 @@ bool DiffTest::check_all()
 
 void DiffTest::update_mem_store()
 {
-/*     printf("diff_dcache_addr_o=0x%016lx, diff_dcache_wdata_o=0x%016lx\n", dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o);
-    printf("diff_dcache_req_valid_o=%d, diff_dcache_wen_o=%d\n", dut_p->diff_dcache_req_valid_o, dut_p->diff_dcache_wen_o); */
+
     if(dut_p->diff_dcache_req_valid_o == 1 && \
         dut_p->diff_dcache_wen_o == 1)
     {
+        printf("diff_dcache_addr_o=0x%016lx, diff_dcache_wdata_o=0x%016lx\n", dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o);
+        printf("diff_dcache_req_valid_o=%d, diff_dcache_wen_o=%d\n", dut_p->diff_dcache_req_valid_o, dut_p->diff_dcache_wen_o);
         mem_store.insert(mem_store.begin(), std::make_pair(dut_p->diff_dcache_addr_o, dut_p->diff_dcache_wdata_o));
     }
 }
