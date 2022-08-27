@@ -12,7 +12,8 @@
 #define CTRL_STATE_Default 0x0
 #define CTRL_STATE_Block 0x1
 
-#define NODIFF 1
+#define NODIFF
+#define NVBOARD 
 
 enum CacheState {
     Default,

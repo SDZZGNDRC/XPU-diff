@@ -98,14 +98,14 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dut_p->vga_wdata_i = dcache_p->vga_wdata_o;
 
 /* NVBOARD */
+#ifdef NVBOARD
     nvboard_update();
+#endif
 }
 
 void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
-    nvboard_update();
     dut_p->update_outputs();
-    nvboard_update();
     update_signals(dut_p, icache_p, dcache_p);
     dut_p->posedge();
     icache_p->posedge();
@@ -114,5 +114,4 @@ void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dut_p->update_inputs();
     dut_p->pass_time();
     dut_p->negedge();
-    nvboard_update();
 }

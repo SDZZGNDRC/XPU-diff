@@ -108,8 +108,10 @@ int main(int argc, char** argv, char** env)
 	int count = 1;
 	bool pass_flag = false;
 	reg_t pc_t = 0;
+#ifdef NVBOARD
 	nvboard_bind_all_pins(top);
 	nvboard_init();
+#endif
 	/* INIT */
 	init(top, &dut, &icache, &dcache);
 	/* Synchronize the dut and the spike */
@@ -170,7 +172,9 @@ int main(int argc, char** argv, char** env)
 		printf("\033[31mFAIL!!!\033[0m\n");
 	}
 	printf("\033[34mDIFF-TEST FINISHED!!!\033[0m\n");
+#ifdef NVBOARD
 	nvboard_quit();
+#endif
     delete _mif;
 	delete top;
 	delete contextp;
