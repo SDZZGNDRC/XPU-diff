@@ -1,7 +1,7 @@
 #pragma once
 #include "RISCV.h"
-#define ICache_Miss_Rate 1
-#define DCache_Miss_Rate 1
+#define ICache_Miss_Rate 0.4
+#define DCache_Miss_Rate 0.4
 #define ICache_Reload_Cycle 10
 #define DCache_Reload_Cycle 10
 #define ICache_Miss_Delay 10
@@ -12,8 +12,8 @@
 #define CTRL_STATE_Default 0x0
 #define CTRL_STATE_Block 0x1
 
-#define NODIFF
-#define NVBOARD 
+/* #define NODIFF */
+/* #define NVBOARD  */
 
 enum CacheState {
     Default,
