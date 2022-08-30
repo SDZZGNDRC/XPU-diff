@@ -12,6 +12,12 @@
 #define CTRL_STATE_Default 0x0
 #define CTRL_STATE_Block 0x1
 
+/* VGADisplay */
+#define VGADisplay_WINDOW_TITLE "VGA-Display"
+#define VGADisplay_WINDOW_WIDTH   640
+#define VGADisplay_WINDOW_HEIGHT  480
+#define VGADisplay_WINDOW_NUMPIX  VGADisplay_WINDOW_WIDTH*VGADisplay_WINDOW_HEIGHT
+
 /* #define NODIFF */
 /* #define NVBOARD  */
 
