@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "nvboard.h"
 #include "Vtop.h"
 #include "verilated.h"
 #include "mif.h"
@@ -24,7 +23,6 @@ uint64_t icache_addr = 0x7ffffffc; // The address received last cycle.
 uint8_t icache_req_valid_o = 0;
 uint8_t icache_wen_o = 0;
 
-void nvboard_bind_all_pins(Vtop* top);
 
 bool update_state(std::vector<std::pair<InstType, Inst>>::iterator iter, Logparser logparser_t, state *state_p)
 {
@@ -108,10 +106,6 @@ int main(int argc, char** argv, char** env)
 	int count = 1;
 	bool pass_flag = false;
 	reg_t pc_t = 0;
-#ifdef NVBOARD
-	nvboard_bind_all_pins(top);
-	nvboard_init();
-#endif
 	/* INIT */
 	init(top, &dut, &icache, &dcache);
 	/* Synchronize the dut and the spike */
@@ -172,9 +166,6 @@ int main(int argc, char** argv, char** env)
 		printf("\033[31mFAIL!!!\033[0m\n");
 	}
 	printf("\033[34mDIFF-TEST FINISHED!!!\033[0m\n");
-#ifdef NVBOARD
-	nvboard_quit();
-#endif
     delete _mif;
 	delete top;
 	delete contextp;

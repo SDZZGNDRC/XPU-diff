@@ -21,10 +21,6 @@ void Dut::update_inputs()
     top_t->dcache_data_valid_i = dcache_data_valid_i;
     top_t->icache_data_i = icache_data_i;
     top_t->dcache_data_i = dcache_data_i;
-    top_t->vga_waddr_h_i = vga_waddr_h_i;
-    top_t->vga_waddr_v_i = vga_waddr_v_i;
-    top_t->vga_we_i = vga_we_i;
-    top_t->vga_wdata_i = vga_wdata_i;
 }
 
 void Dut::update_outputs()
@@ -39,12 +35,6 @@ void Dut::update_outputs()
     dcache_wlen_o = top_t->dcache_wlen_o;
     icache_ctrl_signal_o = top_t->icache_ctrl_signal_o;
     dcache_ctrl_signal_o = top_t->dcache_ctrl_signal_o;
-    vga_hsync_o = top_t->vga_hsync_o;
-    vga_vsync_o = top_t->vga_vsync_o;
-    vga_blank_n_o = top_t->vga_blank_n_o;
-    vga_r_o = top_t->vga_r_o;
-    vga_g_o = top_t->vga_g_o;
-    vga_b_o = top_t->vga_b_o;
     diff_if_id_to_id_pc_o = top_t->diff_if_id_to_id_pc_o;
     diff_id_to_id_ex_pc_o = top_t->diff_id_to_id_ex_pc_o;
     diff_dcache_addr_o = top_t->diff_dcache_addr_o;

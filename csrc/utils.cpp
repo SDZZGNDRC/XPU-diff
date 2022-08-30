@@ -81,10 +81,7 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dcache_p->dcache_wdata_i = dut_p->dcache_wdata_o;
     dcache_p->dcache_wlen_i = dut_p->dcache_wlen_o;
     dcache_p->ctrl_signal_i = dut_p->dcache_ctrl_signal_o;
-/* NOTICE: Due to the existence of the VGA module, 
-            the update of the DCache input signals must before the update of the
-            Dut input signals.
-*/
+    
     /* DUT */
     dut_p->icache_ready_i = icache_p->icache_ready_o;
     dut_p->icache_data_valid_i = icache_p->icache_data_valid_o;
@@ -92,15 +89,7 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
     dut_p->dcache_ready_i = dcache_p->dcache_ready_o;
     dut_p->dcache_data_valid_i = dcache_p->dcache_data_valid_o;
     dut_p->dcache_data_i = dcache_p->dcache_data_o;
-    dut_p->vga_waddr_h_i = dcache_p->vga_waddr_h_o;
-    dut_p->vga_waddr_v_i = dcache_p->vga_waddr_v_o;
-    dut_p->vga_we_i = dcache_p->vga_we_o;
-    dut_p->vga_wdata_i = dcache_p->vga_wdata_o;
 
-/* NVBOARD */
-#ifdef NVBOARD
-    nvboard_update();
-#endif
 }
 
 void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
