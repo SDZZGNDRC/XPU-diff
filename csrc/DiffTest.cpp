@@ -1,9 +1,11 @@
 #include "DiffTest.h"
 
-DiffTest::DiffTest(state* _state_p, Dut* _dut_p)
+DiffTest::DiffTest(state* _state_p, Dut* _dut_p, DCache *_dcache_p, ICache *_icache_p)
 {
     state_p = _state_p;
     dut_p = _dut_p;
+    dcache_p = _dcache_p;
+    icache_p = _icache_p;
 }
 
 DiffTest::~DiffTest()
@@ -99,7 +101,10 @@ bool DiffTest::check_all()
 
 void DiffTest::update_mem_store()
 {
-
+    if(dcache_p->is_blocking() || icache_p->is_blocking())
+    {
+        return;
+    }
     if(dut_p->diff_dcache_req_valid_o == 1 && \
         dut_p->diff_dcache_wen_o == 1)
     {

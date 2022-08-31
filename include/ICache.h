@@ -31,6 +31,7 @@ public:
     ICache(mif *_mif_p);
     ~ICache();
     void posedge();
+    bool is_blocking() { return state==Block; };
 };
 
 

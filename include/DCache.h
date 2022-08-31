@@ -43,6 +43,7 @@ public:
     DCache(mif *_mif_p);
     ~DCache();
     void posedge();
+    bool is_blocking() { return state==Block; };
 };
 
 

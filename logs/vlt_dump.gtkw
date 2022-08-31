@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Aug 31 02:10:45 2022
+[*] Wed Aug 31 11:29:12 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Wed Aug 31 01:48:46 2022"
-[dumpfile_size] 3631149
+[dumpfile_mtime] "Wed Aug 31 11:27:42 2022"
+[dumpfile_size] 3632199
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 1375
+[timestart] 1427
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 1359 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 1429 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
 [sst_width] 317
-[signals_width] 561
+[signals_width] 569
 [sst_expanded] 1
 [sst_vpaned_height] 289
 @28
@@ -81,6 +81,7 @@ TOP.top.id0.inst_i[31:0]
 TOP.top.id0.opcode_o[6:0]
 @22
 TOP.top.id0.pc_o[63:0]
+@23
 TOP.top.id0.dcache_addr_o[63:0]
 @28
 TOP.top.id0.dcache_req_valid_o
@@ -103,9 +104,7 @@ TOP.top.id0.id_exception_DCA_MISALIGN_t_2
 TOP.top.id0.id_exception_DCA_MISALIGN_t_4
 TOP.top.id0.id_exception_DCA_MISALIGN_t_8
 TOP.top.id0.id_exception_ICA_MISALIGN_flag
-@29
 TOP.top.id0.id_conflict_flag
-@28
 TOP.top.id0.id_change_flag
 @200
 -=================ID_EX

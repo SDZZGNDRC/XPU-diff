@@ -102,7 +102,7 @@ int main(int argc, char** argv, char** env)
 	Dut dut(contextp, top, _mif);
 	ICache icache(_mif);
 	DCache dcache(_mif);
-	DiffTest difftest(&state_t, &dut);
+	DiffTest difftest(&state_t, &dut, &dcache, &icache);
 	int count = 1;
 	bool pass_flag = false;
 	reg_t pc_t = 0;
