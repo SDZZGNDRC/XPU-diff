@@ -2,11 +2,13 @@
 #include "mif.h"
 #include "encode.h"
 #include <stdlib.h>
+#include "VKSim.h"
 
 class DCache
 {
 private:
     mif *mif_p;
+    VKSim *vksim_p;
     bool flag;
 
     reg_t dcache_addr_i_t1;

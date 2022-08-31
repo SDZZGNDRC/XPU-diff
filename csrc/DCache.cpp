@@ -4,6 +4,7 @@ DCache::DCache(mif *_mif_p)
 {
     /* srand((unsigned int)(time(NULL))); */
     mif_p = _mif_p;
+    vksim_p = new VKSim;
     state = Default;
     flag = true;
     count = 0;
@@ -107,6 +108,12 @@ void DCache::posedge()
 #ifndef NODIFF
         printf("\033[36mDCache:Store 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
 #endif
+        if(dcache_addr_i_t2>=VMEM_ADDR_BASE&&dcache_addr_i_t2<VMEM_ADDR_BASE+VMEM_ADDR_LENGTH)
+        {
+            printf("%ld, %ld\n", ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)%640, ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)/480);
+            vksim_p->update(((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)%640, ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)/480, (uint32_t)dcache_wdata_i_t2);
+            vksim_p->display();
+        }
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;
         mif_p->store(dcache_addr_i_t2, 1<<(size_t)dcache_wlen_i_t2, (uint8_t*)&dcache_wdata_i_t2);

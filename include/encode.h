@@ -19,7 +19,6 @@
 #define VKSim_WINDOW_NUMPIX  VKSim_WINDOW_WIDTH*VKSim_WINDOW_HEIGHT
 
 /* #define NODIFF */
-/* #define NVBOARD  */
 
 enum CacheState {
     Default,

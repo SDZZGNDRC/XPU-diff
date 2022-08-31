@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sat Aug 27 14:49:58 2022
+[*] Wed Aug 31 02:10:45 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Sat Aug 27 14:46:00 2022"
-[dumpfile_size] 364021989
+[dumpfile_mtime] "Wed Aug 31 01:48:46 2022"
+[dumpfile_size] 3631149
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 134315
+[timestart] 1375
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 134318 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 1359 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
 [sst_width] 317
-[signals_width] 548
+[signals_width] 561
 [sst_expanded] 1
 [sst_vpaned_height] 289
 @28
@@ -103,6 +103,10 @@ TOP.top.id0.id_exception_DCA_MISALIGN_t_2
 TOP.top.id0.id_exception_DCA_MISALIGN_t_4
 TOP.top.id0.id_exception_DCA_MISALIGN_t_8
 TOP.top.id0.id_exception_ICA_MISALIGN_flag
+@29
+TOP.top.id0.id_conflict_flag
+@28
+TOP.top.id0.id_change_flag
 @200
 -=================ID_EX
 @24
@@ -354,49 +358,6 @@ TOP.top.csr0.out_mstatus[63:0]
 TOP.top.csr0.out_mtval[63:0]
 @200
 -=================VMEM
-@28
-TOP.top.vmem0.clk
-@24
-TOP.top.vmem0.raddr_h_i[9:0]
-TOP.top.vmem0.raddr_v_i[8:0]
-TOP.top.vmem0.waddr_h_i[9:0]
-TOP.top.vmem0.waddr_v_i[8:0]
-@28
-TOP.top.vmem0.we_i
-@22
-TOP.top.vmem0.vga_wdata_i[23:0]
-TOP.top.vmem0.vga_rdata_o[23:0]
-@200
 -=================VGA_CTRL
-@28
-TOP.top.vga_ctrl0.pclk
-TOP.top.vga_ctrl0.reset
-@25
-TOP.top.vga_ctrl0.x_cnt[9:0]
-@c00025
-TOP.top.vga_ctrl0.y_cnt[9:0]
-@29
-(0)TOP.top.vga_ctrl0.y_cnt[9:0]
-(1)TOP.top.vga_ctrl0.y_cnt[9:0]
-(2)TOP.top.vga_ctrl0.y_cnt[9:0]
-(3)TOP.top.vga_ctrl0.y_cnt[9:0]
-(4)TOP.top.vga_ctrl0.y_cnt[9:0]
-(5)TOP.top.vga_ctrl0.y_cnt[9:0]
-(6)TOP.top.vga_ctrl0.y_cnt[9:0]
-(7)TOP.top.vga_ctrl0.y_cnt[9:0]
-(8)TOP.top.vga_ctrl0.y_cnt[9:0]
-(9)TOP.top.vga_ctrl0.y_cnt[9:0]
-@1401201
--group_end
-@28
-TOP.top.vga_ctrl0.h_valid
-TOP.top.vga_ctrl0.v_valid
-TOP.top.vga_ctrl0.valid_o
-TOP.top.vga_ctrl0.hsync_o
-TOP.top.vga_ctrl0.vsync_o
-@22
-TOP.top.vga_ctrl0.vga_r_o[7:0]
-TOP.top.vga_ctrl0.vga_g_o[7:0]
-TOP.top.vga_ctrl0.vga_b_o[7:0]
 [pattern_trace] 1
 [pattern_trace] 0
