@@ -107,7 +107,7 @@ int main(int argc, char** argv, char** env)
 	ICache icache(_mif);
 	DCache dcache(_mif);
 	DiffTest difftest(&state_t, &dut, &dcache, &icache);
-	/* int count = 1; */
+	int count = 1;
 	bool pass_flag = false;
 	reg_t pc_t = 0;
 	/* INIT */
@@ -177,16 +177,15 @@ int main(int argc, char** argv, char** env)
 		t5 = clock();
 #endif
 #ifndef NODIFF
-		if( count > OMITINST &&  !difftest.check_all())
+		if(count > OMITINST && !difftest.check_all())
 		{
 			pass_flag = false;
-			count = MOSTINST;
 			break;
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */
 		}
 #endif
-		/* count += 1; */
+		count += 1;
 #ifdef TIME_COUNT
 		t2 = clock();
 		printf("main: total=%f\n", (double)(t2-t1)/CLOCKS_PER_SEC);

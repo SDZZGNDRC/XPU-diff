@@ -1,7 +1,7 @@
 #include "RISCV.h"
 int main()
 {
-    uint32 a = 0x561b12;
+    uint32 a = 0x38f047;
     volatile uint32* pixel_p = (uint32*)VMEM_ADDR_BASE;
     for(int i = 0; i < 480; i++)
     {

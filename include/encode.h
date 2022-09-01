@@ -21,7 +21,7 @@
 
 #define REFRESH_CYCLE 0.2
 
-#define NODIFF
+/* #define NODIFF */
 /* #define TIME_COUNT */
 
 enum CacheState {

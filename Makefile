@@ -32,7 +32,6 @@ CFLAGS +=  -DTOP_NAME="\"V$(TOPNAME)\"" $(INCFLAGS)
 LDFLAGS += -lSDL2
 
 $(BIN): $(VSRCS) $(CSRCS)
-	# @rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(addprefix -CFLAGS , $(CFLAGS)) \

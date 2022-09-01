@@ -1,5 +1,5 @@
 `ifndef defines
-/* `define TRACE 1 */
+`define TRACE 
 `define RstEnable 1'b0
 `define RstDisable 1'b1
 `define Byte_Zero 8'd0
