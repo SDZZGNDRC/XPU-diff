@@ -63,6 +63,7 @@
 `define funct3_addi 3'b000
 `define funct3_addiw 3'b000
 `define funct3_and 3'b111
+`define funct3_and_remu 3'b111
 `define funct3_andi 3'b111 
 `define funct3_beq 3'b000
 `define funct3_bge 3'b101
@@ -144,6 +145,8 @@
 `define funct7_mulw 7'b000_0001
 `define funct7_or 7'b000_0000
 `define funct7_rem 7'b000_0001
+`define funct7_remu 7'b000_0001
+`define funct7_remw 7'b000_0001
 `define funct7_sll 7'b000_0000
 `define funct7_sllw 7'b000_0000
 `define funct7_slt 7'b000_0000
