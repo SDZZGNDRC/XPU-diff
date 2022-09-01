@@ -165,7 +165,7 @@ private:
         "sb", "sd", "sh", "sw"
     };
     std::vector<std::string> special_insts={
-        "ecall", "fence"
+        "ecall", "fence", "fence.i"
     };
 public:
     std::vector<std::pair<InstType, Inst>> traces;

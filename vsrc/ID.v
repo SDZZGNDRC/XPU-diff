@@ -79,7 +79,7 @@ module ID
 	assign id_exception_DCA_MISALIGN_t_8 = (dcache_addr_o[2:0]==3'b0) ? 1'b0 : 1'b1;
 	assign id_exception_DCA_MISALIGN_flag = id_exception_DCA_MISALIGN_flag_t&dcache_req_valid_ot;
 	MuxKeyWithDefault #(3, 2, 1) mux_id_exception_DCA_MISALIGN_flag 
-	(id_exception_DCA_MISALIGN_flag_t, dcache_wlen_o, 1'b1, {
+	(id_exception_DCA_MISALIGN_flag_t, dcache_wlen_o, 1'b0, {
 		2'd1, id_exception_DCA_MISALIGN_t_2, 
 		2'd2, id_exception_DCA_MISALIGN_t_4, 
 		2'd3, id_exception_DCA_MISALIGN_t_8

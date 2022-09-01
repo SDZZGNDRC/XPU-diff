@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Thu Sep  1 06:13:53 2022
+[*] Thu Sep  1 13:34:20 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Thu Sep  1 06:07:31 2022"
-[dumpfile_size] 2798697
+[dumpfile_mtime] "Thu Sep  1 13:30:39 2022"
+[dumpfile_size] 2076664
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 397
+[timestart] 1703
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 399 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 1706 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
 [sst_width] 317
-[signals_width] 569
+[signals_width] 770
 [sst_expanded] 1
 [sst_vpaned_height] 289
 @28
@@ -57,6 +57,7 @@ TOP.top.pc0.icache_req_valid_wen
 TOP.top.pc0.ctrl_signal_i[1:0]
 @22
 TOP.top.pc0.pc_new_i[63:0]
+@23
 TOP.top.pc0.pc_ram_t[63:0]
 @28
 TOP.top.pc0.pc_ram_wen
@@ -93,9 +94,7 @@ TOP.top.id0.dcache_wlen_o[1:0]
 @22
 TOP.top.id0.rs1_addr_o[4:0]
 TOP.top.id0.rs1_data_o[63:0]
-@23
 TOP.top.id0.rs2_addr_o[4:0]
-@22
 TOP.top.id0.rs2_data_o[63:0]
 TOP.top.id0.rd_addr_o[4:0]
 @28
@@ -139,6 +138,7 @@ TOP.top.ex0.funct3_i[2:0]
 TOP.top.ex0.funct7_i[6:0]
 @22
 TOP.top.ex0.imm_i[19:0]
+TOP.top.ex0.shamt[5:0]
 TOP.top.ex0.rs1_addr_i[4:0]
 @c00022
 TOP.top.ex0.rs1_data[63:0]
@@ -220,6 +220,7 @@ TOP.top.ex0.rd_addr_o[4:0]
 TOP.top.ex0.wdata_t_addi[63:0]
 TOP.top.ex0.wdata_t_addiw[63:0]
 TOP.top.ex0.wdata_t_lui[63:0]
+TOP.top.ex0.wdata_t_srai[63:0]
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
@@ -249,8 +250,25 @@ TOP.top.muldiv0.data_2_o[63:0]
 TOP.top.muldiv0.valid_o
 TOP.top.muldiv0.ready_o
 @200
--=================Multiplier
 -=================Divider
+@28
+TOP.top.muldiv0.divider0.clk
+TOP.top.muldiv0.divider0.ctrl_signal_i[1:0]
+@22
+TOP.top.muldiv0.divider0.op_1_i[63:0]
+TOP.top.muldiv0.divider0.op_2_i[63:0]
+TOP.top.muldiv0.divider0.op_1_abs[64:0]
+TOP.top.muldiv0.divider0.op_2_abs[64:0]
+TOP.top.muldiv0.divider0.op_1[64:0]
+TOP.top.muldiv0.divider0.op_2[64:0]
+TOP.top.muldiv0.divider0.pre_state[6:0]
+TOP.top.muldiv0.divider0.mask[64:0]
+TOP.top.muldiv0.divider0.divider[129:0]
+TOP.top.muldiv0.divider0.quotient[64:0]
+TOP.top.muldiv0.divider0.quotient_t[64:0]
+TOP.top.muldiv0.divider0.quotient_t_bit[64:0]
+TOP.top.muldiv0.divider0.remainder[129:0]
+@200
 -=================EX_MEM
 @28
 TOP.top.ex_mem0.clk

@@ -120,8 +120,8 @@
 `define funct3_sltu 3'b011
 `define funct3_srl 3'b101
 `define funct3_sra 3'b101
-`define funct3_sra_srl 3'b101
-`define funct3_sraw_srlw 3'b101
+`define funct3_divu_sra_srl 3'b101
+`define funct3_divuw_sraw_srlw 3'b101
 `define funct3_xor_div 3'b100
 `define funct3_xor 3'b100
 `define funct3_xori 3'b100
@@ -134,10 +134,14 @@
 `define funct7_addw 7'b000_0000
 `define funct7_and 7'b000_0000
 `define funct7_div 7'b000_0001
+`define funct7_divu 7'b000_0001
+`define funct7_divuw 7'b000_0001
 `define funct7_MULDIV 7'b000_0001
 `define funct7_mul 7'b000_0001
 `define funct7_mulh 7'b000_0001
 `define funct7_mulhsu 7'b000_0001
+`define funct7_mulhu 7'b000_0001
+`define funct7_mulw 7'b000_0001
 `define funct7_or 7'b000_0000
 `define funct7_rem 7'b000_0001
 `define funct7_sll 7'b000_0000
