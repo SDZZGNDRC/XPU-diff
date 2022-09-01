@@ -1,8 +1,8 @@
 #pragma once
 #include "RISCV.h"
 #include <time.h>
-#define ICache_Miss_Rate 0.1
-#define DCache_Miss_Rate 0.1
+#define ICache_Miss_Rate 0.9
+#define DCache_Miss_Rate 0.9
 #define ICache_Reload_Cycle 10
 #define DCache_Reload_Cycle 10
 #define ICache_Miss_Delay 10

@@ -137,6 +137,8 @@ module EX(
 	wire [`RegBus] wdata_t_addi;
 	wire [`RegBus] wdata_t_addiw;
 	wire [`RegBus] wdata_t_addw;
+	wire [`RegBus] wdata_t_and;
+	wire [`RegBus] wdata_t_andi;
 	wire [`RegBus] wdata_t_auipc;
 	wire [`RegBus] wdata_t_div;
 	wire [`RegBus] wdata_t_lui;
@@ -153,6 +155,8 @@ module EX(
 	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
 	assign wdata_t_addw = {{32{wdata_t_add[31]}}, wdata_t_add[31:0]};
+	assign wdata_t_and = rs1_data & rs2_data;
+	assign wdata_t_andi = rs1_data & {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_div = muldiv_data_1_i;
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
@@ -193,8 +197,9 @@ module EX(
 		`Opcode_U_type_lui, 		wdata_opcode_U_lui
 	});
 
-	MuxKeyWithDefault #(2, 3, 64) mux_I_imm (wdata_opcode_I_imm, funct3_i, 64'b0, {
+	MuxKeyWithDefault #(3, 3, 64) mux_I_imm (wdata_opcode_I_imm, funct3_i, 64'b0, {
 		`funct3_addi,				wdata_t_addi,
+		`funct3_andi,				wdata_t_andi, 
 		`funct3_slli,				wdata_t_slli
 	});
 
@@ -203,8 +208,9 @@ module EX(
 		`funct3_slliw,				wdata_t_slliw
 	});
 
-	MuxKeyWithDefault #(5, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
+	MuxKeyWithDefault #(6, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
 		`funct3_add_sub_mul,		wdata_funct3_add_sub_mul,
+		`funct3_and, 				wdata_t_and, 
 		`funct3_or_rem,				wdata_funct3_or_rem, 
 		`funct3_sll_mulh,			wdata_funct3_sll_mulh,
 		`funct3_slt_mulhsu,			wdata_funct3_slt_mulhsu,
@@ -259,13 +265,22 @@ module EX(
 	assign branch_flag_o = branch_flag_t;
 	wire branch_flag_t_beq;
 	wire branch_flag_t_bge;
+	wire branch_flag_t_bgeu;
+	wire branch_flag_t_blt;
+	wire branch_flag_t_bltu;
 	wire branch_flag_t_bne;
 	assign branch_flag_t_beq = {1{(rs1_data == rs2_data)}};
 	assign branch_flag_t_bge = {1{($signed(rs1_data) >= $signed(rs2_data))}};
+	assign branch_flag_t_bgeu = {1{($unsigned(rs1_data) >= $unsigned(rs2_data))}};
+	assign branch_flag_t_blt = {1{($signed(rs1_data) < $signed(rs2_data))}};
+	assign branch_flag_t_bltu = {1{($unsigned(rs1_data) < $unsigned(rs2_data))}};
 	assign branch_flag_t_bne = ~branch_flag_t_beq;
 
 	assign branch_flag_t = ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_beq)}} & branch_flag_t_beq)
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bge)}} & branch_flag_t_bge)
+					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bgeu)}} & branch_flag_t_bgeu)
+					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_blt)}} & branch_flag_t_blt)
+					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bltu)}} & branch_flag_t_bltu)
 					|	   ({1{(opcode_i == `Opcode_B_type && funct3_i == `funct3_bne)}} & branch_flag_t_bne)
 					|	   ({1{(opcode_i == `Opcode_I_type_jalr)}} & 1'b1) 
 					|	   ({1{(opcode_i == `Opcode_J_type_jal)}} & 1'b1);

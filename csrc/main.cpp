@@ -135,7 +135,7 @@ int main(int argc, char** argv, char** env)
 		assert(0);
 	}
 #endif
-	while (/* count <= MOSTINST &&  */!contextp->gotFinish())
+	while (!contextp->gotFinish())
 	{
 #ifdef TIME_COUNT
 		clock_t t1, t2, t3, t4, t5;
