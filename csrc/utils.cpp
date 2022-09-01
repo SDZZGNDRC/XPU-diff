@@ -93,13 +93,49 @@ void update_signals(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 
 void step_one_cycle(Dut *dut_p, ICache *icache_p, DCache *dcache_p)
 {
+#ifdef TIME_COUNT
+    clock_t t1, t2, t3, t4, t5, t6, t7, t8;
+    t1 = clock();
+#endif
     dut_p->update_outputs();
     update_signals(dut_p, icache_p, dcache_p);
+#ifdef TIME_COUNT
+    t3 = clock();
+#endif
     dut_p->posedge();
+#ifdef TIME_COUNT
+    t4 = clock();
+#endif
     icache_p->posedge();
+#ifdef TIME_COUNT
+    t7 = clock();
+#endif
     dcache_p->posedge();
+#ifdef TIME_COUNT
+    t6 = clock();
+#endif
     update_signals(dut_p, icache_p, dcache_p);
     dut_p->update_inputs();
+#ifdef TIME_COUNT
+    t8 = clock();
+#endif
     dut_p->pass_time();
+#ifdef TIME_COUNT
+    t5 = clock();
+#endif
     dut_p->negedge();
+#ifdef TIME_COUNT
+    t2 = clock();
+    printf("step_one_cycle: total=%f\n", (double)(t2-t1)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t3-t1=%f\n", (double)(t3-t1)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t4-t3=%f\n", (double)(t4-t3)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t5-t4=%f\n", (double)(t5-t4)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t2-t5=%f\n", (double)(t2-t5)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t5-t6=%f\n", (double)(t5-t6)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t5-t8=%f\n", (double)(t5-t8)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t8-t6=%f\n", (double)(t8-t6)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t6-t4=%f\n", (double)(t6-t4)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t6-t7=%f\n", (double)(t6-t7)/CLOCKS_PER_SEC);
+    printf("step_one_cycle: t7-t4=%f\n", (double)(t7-t4)/CLOCKS_PER_SEC);
+#endif
 }

@@ -14,7 +14,7 @@
 #include "DCache.h"
 #include "DiffTest.h"
 
-#define MOSTINST 10000
+#define MOSTINST 100000000
 #define OMITINST 13
 
 uint64_t icache_addr_t = 0x7ffffffc; // The address received last cycle.
@@ -103,7 +103,7 @@ int main(int argc, char** argv, char** env)
 	ICache icache(_mif);
 	DCache dcache(_mif);
 	DiffTest difftest(&state_t, &dut, &dcache, &icache);
-	int count = 1;
+	/* int count = 1; */
 	bool pass_flag = false;
 	reg_t pc_t = 0;
 	/* INIT */
@@ -129,13 +129,16 @@ int main(int argc, char** argv, char** env)
 	{
 		assert(0);
 	}
-	while (count <= MOSTINST && !contextp->gotFinish())
+	while (/* count <= MOSTINST &&  */!contextp->gotFinish())
 	{
 #ifdef TIME_COUNT
-		clock_t t1, t2;
+		clock_t t1, t2, t3, t4, t5;
 		t1 = clock();
 #endif
 		step_one_cycle(&dut, &icache, &dcache);
+#ifdef TIME_COUNT
+		t3 = clock();
+#endif
 		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t) // omit this step when dut is blocking or bubbling.
 		{
 			difftest.update_mem_store(); // if do not update the mem_store, it will miss the mem_store when I/DCache coming.
@@ -145,24 +148,45 @@ int main(int argc, char** argv, char** env)
 			// recode the pc_t of this step, it will be uesed next step.
 			pc_t = dut.diff_mem_wb_pc_o;
 		}
+#ifdef TIME_COUNT
+		t4 = clock();
+#endif
+#ifndef NODIFF
 		if(!update_state(iter++, logparser_t, &state_t)) // ecall
 		{
 			pass_flag = true;
-			count = MOSTINST;
+			/* count = MOSTINST; */
+			break;
 		}
+#endif
+#ifdef NODIFF
+		if(dut.icache_data_i == ECALL)
+		{
+			pass_flag = true;
+			/* count = MOSTINST; */
+			break;
+		}
+#endif
+#ifdef TIME_COUNT
+		t5 = clock();
+#endif
 #ifndef NODIFF
 		if( count > OMITINST &&  !difftest.check_all())
 		{
 			pass_flag = false;
 			count = MOSTINST;
+			break;
 			/* printf("There something wrong!\n"); */
 			/* assert(0); */
 		}
 #endif
-		count += 1;
+		/* count += 1; */
 #ifdef TIME_COUNT
 		t2 = clock();
-		printf("main: t2-t1=%f\n", (double)((t2-t1)/CLOCKS_PER_SEC));
+		printf("main: total=%f\n", (double)(t2-t1)/CLOCKS_PER_SEC);
+		printf("main: t3-t1=%f\n", (double)(t3-t1)/CLOCKS_PER_SEC);
+		printf("main: t4-t3=%f\n", (double)(t4-t3)/CLOCKS_PER_SEC);
+		printf("main: t5-t4=%f\n", (double)(t5-t4)/CLOCKS_PER_SEC);
 #endif
 	}
 	if(pass_flag)

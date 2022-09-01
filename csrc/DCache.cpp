@@ -9,6 +9,7 @@ DCache::DCache(mif *_mif_p)
     frame = new uint32_t[VKSim_WINDOW_NUMPIX];
     flag = true;
     count = 0;
+    last_refresh = clock();
 }
 
 DCache::~DCache()
@@ -18,6 +19,7 @@ DCache::~DCache()
 
 void DCache::posedge()
 {
+    clock_t t_now;
 #ifdef TIME_COUNT
     clock_t t1, t2;
     t1 = clock();
@@ -52,12 +54,6 @@ void DCache::posedge()
             return;
         }
     }
-/*     if (state==Block)
-    {
-        return;
-    } */
-    
-    /* Get the input for the sequential circuit */
     if(flag)
     {
         dcache_addr_i_t2 = dcache_addr_i_t1;
@@ -117,13 +113,20 @@ void DCache::posedge()
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;
         mif_p->store(dcache_addr_i_t2, 1<<(size_t)dcache_wlen_i_t2, (uint8_t*)&dcache_wdata_i_t2);
+    }
+
+    t_now = clock();
+    if((double)(t_now-last_refresh)/CLOCKS_PER_SEC > REFRESH_CYCLE)
+    {
         mif_p->load(VMEM_ADDR_BASE, VMEM_ADDR_LENGTH, (uint8_t*)frame);
         vksim_p->update(0, 0, VKSim_WINDOW_NUMPIX, frame);
         vksim_p->display();
+    last_refresh = t_now;
     }
+
 #ifdef TIME_COUNT
     t2 = clock();
-    printf("DCache.posedge(): t2-t1=%f\n", (double)((t2-t1)/CLOCKS_PER_SEC));
+    printf("DCache.posedge(): t2-t1=%f\n", (double)(t2-t1)/CLOCKS_PER_SEC);
 #endif
 }
 

@@ -25,7 +25,7 @@ private:
     CacheState state;
     reg_t count;
 
-
+    clock_t last_refresh;
     size_t reload_delay_cycle = 0;
     bool reload_flag = false;
     uint32_t *frame;

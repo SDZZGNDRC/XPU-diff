@@ -19,8 +19,10 @@
 #define VKSim_WINDOW_HEIGHT  480
 #define VKSim_WINDOW_NUMPIX  VKSim_WINDOW_WIDTH*VKSim_WINDOW_HEIGHT
 
+#define REFRESH_CYCLE 0.5
+
 #define NODIFF
-#define TIME_COUNT
+/* #define TIME_COUNT */
 
 enum CacheState {
     Default,
