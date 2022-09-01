@@ -16,6 +16,7 @@ OBJ_DIR = $(BUILD_DIR)/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
 
 ELF ?=
+DIFF ?= yes
 
 default: $(BIN)
 
@@ -41,10 +42,14 @@ $(BIN): $(VSRCS) $(CSRCS)
 all: default
 
 run: $(BIN)
+ifeq ($(DIFF),yes)
 	$(SPIKE) $(SPIKE_FLAGS) $(ELF)
 	$(PYTHON) genbin.py $(ELF) $(BUILD_DIR)/$(notdir $(ELF)).temp
 	@$^ $(BUILD_DIR)/$(notdir $(ELF)).temp
-#	@rm log.txt
+else
+	$(PYTHON) genbin.py $(ELF) $(BUILD_DIR)/$(notdir $(ELF)).temp
+	@$^ $(BUILD_DIR)/$(notdir $(ELF)).temp
+endif
 
 clean:
 	rm -rf $(BUILD_DIR)

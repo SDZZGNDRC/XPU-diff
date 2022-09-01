@@ -91,12 +91,16 @@ int main(int argc, char** argv, char** env)
 {
 	Verilated::mkdir("logs");
 	VerilatedContext* contextp = new VerilatedContext;
+#ifndef NODIFF
 	contextp->traceEverOn(true);
+#endif
 	contextp->commandArgs(argc, argv);
 	Vtop* top = new Vtop{contextp};
 	mif *_mif = new mif; // The interface of the memory
+#ifndef NODIFF
 	Logparser logparser_t("./log.txt");
 	auto iter = logparser_t.traces.begin();
+#endif
 	elfloader(argv[1], _mif);
 	state state_t;
 	Dut dut(contextp, top, _mif);
@@ -109,6 +113,7 @@ int main(int argc, char** argv, char** env)
 	/* INIT */
 	init(top, &dut, &icache, &dcache);
 	/* Synchronize the dut and the spike */
+#ifndef NODIFF
 	while (true)
 	{
 		if(dut.diff_mem_wb_pc_o == RESET_VALUE_PC)
@@ -129,6 +134,7 @@ int main(int argc, char** argv, char** env)
 	{
 		assert(0);
 	}
+#endif
 	while (/* count <= MOSTINST &&  */!contextp->gotFinish())
 	{
 #ifdef TIME_COUNT

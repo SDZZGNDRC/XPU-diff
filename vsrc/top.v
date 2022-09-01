@@ -455,9 +455,10 @@ module top(
 	);
 
 /* The following code only for simulating */
-
+`ifdef TRACE
 	initial begin
 		$dumpfile("logs/vlt_dump.vcd");
 		$dumpvars();
 	end
+`endif
 endmodule
