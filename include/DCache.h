@@ -28,6 +28,7 @@ private:
 
     size_t reload_delay_cycle = 0;
     bool reload_flag = false;
+    uint32_t *frame;
 public:
     reg_t dcache_addr_i;
     uint8_t dcache_req_valid_i;

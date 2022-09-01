@@ -131,6 +131,10 @@ int main(int argc, char** argv, char** env)
 	}
 	while (count <= MOSTINST && !contextp->gotFinish())
 	{
+#ifdef TIME_COUNT
+		clock_t t1, t2;
+		t1 = clock();
+#endif
 		step_one_cycle(&dut, &icache, &dcache);
 		if(dut.diff_mem_wb_pc_o == 0 | dut.diff_mem_wb_pc_o == pc_t) // omit this step when dut is blocking or bubbling.
 		{
@@ -156,6 +160,10 @@ int main(int argc, char** argv, char** env)
 		}
 #endif
 		count += 1;
+#ifdef TIME_COUNT
+		t2 = clock();
+		printf("main: t2-t1=%f\n", (double)((t2-t1)/CLOCKS_PER_SEC));
+#endif
 	}
 	if(pass_flag)
 	{

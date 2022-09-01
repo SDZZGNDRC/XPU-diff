@@ -1,5 +1,6 @@
 #pragma once
 #include "RISCV.h"
+#include <time.h>
 #define ICache_Miss_Rate 0.1
 #define DCache_Miss_Rate 0.1
 #define ICache_Reload_Cycle 10
@@ -18,7 +19,8 @@
 #define VKSim_WINDOW_HEIGHT  480
 #define VKSim_WINDOW_NUMPIX  VKSim_WINDOW_WIDTH*VKSim_WINDOW_HEIGHT
 
-/* #define NODIFF */
+#define NODIFF
+#define TIME_COUNT
 
 enum CacheState {
     Default,

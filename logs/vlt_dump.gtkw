@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Aug 31 11:29:12 2022
+[*] Thu Sep  1 06:13:53 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Wed Aug 31 11:27:42 2022"
-[dumpfile_size] 3632199
+[dumpfile_mtime] "Thu Sep  1 06:07:31 2022"
+[dumpfile_size] 2798697
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 1427
+[timestart] 397
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 1429 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 399 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
@@ -81,7 +81,6 @@ TOP.top.id0.inst_i[31:0]
 TOP.top.id0.opcode_o[6:0]
 @22
 TOP.top.id0.pc_o[63:0]
-@23
 TOP.top.id0.dcache_addr_o[63:0]
 @28
 TOP.top.id0.dcache_req_valid_o
@@ -94,7 +93,9 @@ TOP.top.id0.dcache_wlen_o[1:0]
 @22
 TOP.top.id0.rs1_addr_o[4:0]
 TOP.top.id0.rs1_data_o[63:0]
+@23
 TOP.top.id0.rs2_addr_o[4:0]
+@22
 TOP.top.id0.rs2_data_o[63:0]
 TOP.top.id0.rd_addr_o[4:0]
 @28

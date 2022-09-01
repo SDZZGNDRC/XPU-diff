@@ -136,6 +136,7 @@ module EX(
 	wire [`RegBus] wdata_t_add;
 	wire [`RegBus] wdata_t_addi;
 	wire [`RegBus] wdata_t_addiw;
+	wire [`RegBus] wdata_t_addw;
 	wire [`RegBus] wdata_t_auipc;
 	wire [`RegBus] wdata_t_div;
 	wire [`RegBus] wdata_t_lui;
@@ -144,12 +145,14 @@ module EX(
 	wire [`RegBus] wdata_t_or;
 	wire [`RegBus] wdata_t_rem;
 	wire [`RegBus] wdata_t_slli;
+	wire [`RegBus] wdata_t_slliw;
 	wire [`RegBus] wdata_t_sub;
 	wire [`RegBus] wdata_t_xor;
 
 	assign wdata_t_add = rs1_data + rs2_data;
 	assign wdata_t_addi = rs1_data + {{52{imm_i[11]}}, imm_i[11:0]};
 	assign wdata_t_addiw = {{32{wdata_addiw[31]}}, wdata_addiw[31:0]};
+	assign wdata_t_addw = {{32{wdata_t_add[31]}}, wdata_t_add[31:0]};
 	assign wdata_t_auipc = pc_i + $signed({{32{imm_i[19]}}, imm_i, {12{1'b0}}});
 	assign wdata_t_div = muldiv_data_1_i;
 	assign wdata_t_lui = {{32{imm_i[19]}}, imm_i, 12'h0};
@@ -158,17 +161,20 @@ module EX(
 	assign wdata_t_or = rs1_data | rs2_data;
 	assign wdata_t_rem = muldiv_data_2_i;
 	assign wdata_t_slli = rs1_data << shamt;
+	assign wdata_t_slliw = {{32{wdata_t_slli[31]}}, wdata_t_slli[31:0]};
 	assign wdata_t_sub = rs1_data - rs2_data;
 	assign wdata_t_xor = rs1_data ^ rs2_data;
 
 	wire [`RegBus] wdata_opcode_I_imm;
 	wire [`RegBus] wdata_opcode_J;
 	wire [`RegBus] wdata_opcode_R;
+	wire [`RegBus] wdata_opcode_R_word;
 /* 	wire [`RegBus] wdata_opcode_R_imm; */
 	wire [`RegBus] wdata_opcode_I_word;
 	wire [`RegBus] wdata_opcode_U_auipc;
 	wire [`RegBus] wdata_opcode_U_lui;
 	wire [`RegBus] wdata_funct3_add_sub_mul;
+	wire [`RegBus] wdata_funct3_addw_subw;
 	wire [`RegBus] wdata_funct3_or_rem;
 	wire [`RegBus] wdata_funct3_sll_mulh;
 	wire [`RegBus] wdata_funct3_slt_mulhsu;
@@ -177,11 +183,12 @@ module EX(
 	assign wdata_opcode_J = pc_i + 64'h4;
 	assign wdata_opcode_U_auipc = wdata_t_auipc;
 	assign wdata_opcode_U_lui = wdata_t_lui;
-	MuxKeyWithDefault #(6, 7, 64) mux_t (wdata_t, opcode_i, 64'b0, {
+	MuxKeyWithDefault #(7, 7, 64) mux_t (wdata_t, opcode_i, 64'b0, {
 		`Opcode_I_type_imm,			wdata_opcode_I_imm,
 		`Opcode_I_type_word,		wdata_opcode_I_word,
 		`Opcode_J_type,				wdata_opcode_J,
 		`Opcode_R_type, 			wdata_opcode_R,
+		`Opcode_R_type_word, 		wdata_opcode_R_word,
 		`Opcode_U_type_auipc, 		wdata_opcode_U_auipc,
 		`Opcode_U_type_lui, 		wdata_opcode_U_lui
 	});
@@ -191,8 +198,9 @@ module EX(
 		`funct3_slli,				wdata_t_slli
 	});
 
-	MuxKeyWithDefault #(1, 3, 64) mux_I_word (wdata_opcode_I_word, funct3_i, 64'b0, {
-		`funct3_addi,				wdata_t_addiw
+	MuxKeyWithDefault #(2, 3, 64) mux_I_word (wdata_opcode_I_word, funct3_i, 64'b0, {
+		`funct3_addi,				wdata_t_addiw, 
+		`funct3_slliw,				wdata_t_slliw
 	});
 
 	MuxKeyWithDefault #(5, 3, 64) mux_R (wdata_opcode_R, funct3_i, 64'b0, {
@@ -203,10 +211,18 @@ module EX(
 		`funct3_xor_div,			wdata_funct3_xor_div
 	});
 
+	MuxKeyWithDefault #(1, 3, 64) mux_R_word (wdata_opcode_R_word, funct3_i, 64'd0, {
+		`funct3_addw_subw,			wdata_funct3_addw_subw
+	});
+
 	MuxKeyWithDefault #(3, 7, 64) mux_funct3_add_sub_mul (wdata_funct3_add_sub_mul, funct7_i, 64'b0, {
 		`funct7_add, 				wdata_t_add,
 		`funct7_mul,				wdata_t_mul,
 		`funct7_sub, 				wdata_t_sub
+	});
+
+	MuxKeyWithDefault #(1, 7, 64) mux_funct3_addw_subw (wdata_funct3_addw_subw, funct7_i, 64'd0, {
+		`funct7_addw, 				wdata_t_addw
 	});
 
 	MuxKeyWithDefault #(2, 7, 64) mux_funct3_or_rem (wdata_funct3_or_rem, funct7_i, 64'b0, {

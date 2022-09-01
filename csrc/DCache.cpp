@@ -6,16 +6,22 @@ DCache::DCache(mif *_mif_p)
     mif_p = _mif_p;
     vksim_p = new VKSim;
     state = Default;
+    frame = new uint32_t[VKSim_WINDOW_NUMPIX];
     flag = true;
     count = 0;
 }
 
 DCache::~DCache()
 {
+    delete frame;
 }
 
 void DCache::posedge()
 {
+#ifdef TIME_COUNT
+    clock_t t1, t2;
+    t1 = clock();
+#endif
     /* Change the state according to the input */
     if(ctrl_signal_i == CTRL_STATE_Block)
     {
@@ -108,16 +114,17 @@ void DCache::posedge()
 #ifndef NODIFF
         printf("\033[36mDCache:Store 0x%016lx: 0x%016lx wlen:%d\033[0m\n", dcache_addr_i_t2, dcache_wdata_i_t2, 1<<(size_t)dcache_wlen_i_t2);
 #endif
-        if(dcache_addr_i_t2>=VMEM_ADDR_BASE&&dcache_addr_i_t2<VMEM_ADDR_BASE+VMEM_ADDR_LENGTH)
-        {
-            printf("%ld, %ld\n", ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)%640, ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)/480);
-            vksim_p->update(((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)%640, ((dcache_addr_i_t2-VMEM_ADDR_BASE)>>2)/480, (uint32_t)dcache_wdata_i_t2);
-            vksim_p->display();
-        }
         dcache_ready_o = 1;
         dcache_data_valid_o = 1;
         mif_p->store(dcache_addr_i_t2, 1<<(size_t)dcache_wlen_i_t2, (uint8_t*)&dcache_wdata_i_t2);
+        mif_p->load(VMEM_ADDR_BASE, VMEM_ADDR_LENGTH, (uint8_t*)frame);
+        vksim_p->update(0, 0, VKSim_WINDOW_NUMPIX, frame);
+        vksim_p->display();
     }
+#ifdef TIME_COUNT
+    t2 = clock();
+    printf("DCache.posedge(): t2-t1=%f\n", (double)((t2-t1)/CLOCKS_PER_SEC));
+#endif
 }
 
 
