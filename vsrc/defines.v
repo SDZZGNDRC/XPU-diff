@@ -129,6 +129,8 @@
 
 `define funct6_srai 6'b01_0000
 `define funct6_srli 6'b00_0000
+`define funct6_sraiw 6'b01_0000
+`define funct6_srliw 6'b00_0000
 
 `define funct7_InValid 7'b000_0000
 `define funct7_add 7'b000_0000

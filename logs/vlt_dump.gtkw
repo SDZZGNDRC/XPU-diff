@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Thu Sep  1 13:34:20 2022
+[*] Fri Sep  2 02:17:01 2022
 [*]
 [dumpfile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.vcd"
-[dumpfile_mtime] "Thu Sep  1 13:30:39 2022"
-[dumpfile_size] 2076664
+[dumpfile_mtime] "Fri Sep  2 02:13:10 2022"
+[dumpfile_size] 2082757
 [savefile] "/home/sdzz/project/XPU-diff/logs/vlt_dump.gtkw"
-[timestart] 1703
+[timestart] 1518
 [size] 1920 1016
 [pos] -1 -1
-*-0.659639 1706 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-0.659639 1520 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.top.
 [treeopen] TOP.top.muldiv0.
 [sst_width] 317
-[signals_width] 770
+[signals_width] 571
 [sst_expanded] 1
 [sst_vpaned_height] 289
 @28
@@ -57,7 +57,6 @@ TOP.top.pc0.icache_req_valid_wen
 TOP.top.pc0.ctrl_signal_i[1:0]
 @22
 TOP.top.pc0.pc_new_i[63:0]
-@23
 TOP.top.pc0.pc_ram_t[63:0]
 @28
 TOP.top.pc0.pc_ram_wen
@@ -221,6 +220,10 @@ TOP.top.ex0.wdata_t_addi[63:0]
 TOP.top.ex0.wdata_t_addiw[63:0]
 TOP.top.ex0.wdata_t_lui[63:0]
 TOP.top.ex0.wdata_t_srai[63:0]
+TOP.top.ex0.wdata_funct3_sraiw_srliw[63:0]
+@23
+TOP.top.ex0.wdata_opcode_I_imm[63:0]
+@22
 TOP.top.ex0.wdata_o[63:0]
 @28
 TOP.top.ex0.wreg_o
